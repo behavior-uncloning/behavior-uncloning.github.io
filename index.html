@@ -1607,13 +1607,15 @@
         };
 
         const drawT = (center, angleDeg, fill, stroke, alpha = 1, lineWidth = 1.4) => {
-          // Proportions match the real Push-T block in the 512px sim, normalised by /512
-          // (bar ~120px -> 0.234, stem ~90px -> 0.176).
-          const stemCenter = rotatePoint([center[0], center[1] - 0.029], angleDeg, center);
-          const barCenter = rotatePoint([center[0], center[1] + 0.081], angleDeg, center);
+          // Real Push-T block geometry: the state position is the bar-bottom-centre
+          // (pymunk body origin). bar = 120x30px -> [0.234, 0.0586] centred 15px from the
+          // origin; stem = 30x90px -> [0.0586, 0.176] centred 75px from the origin. The
+          // image->canvas y-flip makes both offsets negative. (/512 normalisation.)
+          const barCenter = rotatePoint([center[0], center[1] - 0.0293], angleDeg, center);
+          const stemCenter = rotatePoint([center[0], center[1] - 0.1465], angleDeg, center);
           const parts = [
-            [stemCenter, [0.060, 0.224]],
-            [barCenter, [0.237, 0.060]]
+            [stemCenter, [0.0586, 0.176]],
+            [barCenter, [0.234, 0.0586]]
           ];
           ctx.save();
           ctx.globalAlpha = alpha;
@@ -1662,7 +1664,7 @@
             screenPolygon(rectPoints(wall.center, wall.size));
             ctx.fillStyle = colors.wall;
             ctx.fill();
-            drawCircle(scene.goal.center, scene.goal.radius, colors.goal, "goal", 0.58);
+            drawCircle(scene.goal.center, scene.goal.radius, colors.goal, "goal", 0.32);
             return;
           }
           if (scene.kind === "pushpillars") {
@@ -1940,7 +1942,15 @@
             state.lastTs = ts;
             if (state.playing) {
               state.progress += dt * task.sample_rate_hz * state.speed;
-              if (state.progress >= rollout.points.length - 1) state.progress = 0;
+              if (state.progress >= rollout.points.length - 1) {
+                // auto-advance to the next seed/rollout in this mode, looping back to the first
+                const activeMode = currentMode();
+                if (activeMode && activeMode.rollouts.length > 1) {
+                  state.rolloutIndex = (state.rolloutIndex + 1) % activeMode.rollouts.length;
+                  rolloutSelect.value = String(state.rolloutIndex);
+                }
+                state.progress = 0;
+              }
             }
             draw();
           }

@@ -80,11 +80,13 @@ def build_pushwall():
             for x, y, _ in r["pts"]:
                 allx.append(x); ally.append(y)
         modes.append({"id": mid, "label": mlabel, "color": color, "rollouts": ro})
-    xr = [r4(min(allx + [-0.005]) - 0.02), r4(max(allx + [0.15]) + 0.03)]
-    yr = [r4(min(ally + [-0.08]) - 0.03), r4(max(ally + [0.08]) + 0.03)]
+    # real PushCube goal_radius = 0.1 at (cube_x + 0.1 + r, cube_y); goal_region fixed at (0.15, 0)
+    GOAL_R = 0.1
+    xr = [r4(min(allx + [-0.005]) - 0.02), r4(max(allx + [0.15 + GOAL_R]) + 0.03)]
+    yr = [r4(min(ally + [-GOAL_R]) - 0.03), r4(max(ally + [GOAL_R]) + 0.03)]
     scene = {"kind": "pushwall", "x_range": xr, "y_range": yr, "tick_step": 0.1,
              "wall": {"center": [0.0, 0.0], "size": [0.01, 0.16]},
-             "goal": {"center": [0.15, 0.0], "radius": 0.02},
+             "goal": {"center": [0.15, 0.0], "radius": GOAL_R},
              "cube_size": 0.04}
     return {"label": "Push-Wall",
             "source": "Real ManiSkill3 PushCubeObstacle demonstration trajectories (mode-pure, successful); top-down cube pose (x, y, yaw).",
