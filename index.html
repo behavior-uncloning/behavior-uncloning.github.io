@@ -1644,9 +1644,6 @@
           ctx.strokeStyle = "#9fb4ad";
           ctx.lineWidth = 1.2;
           ctx.strokeRect(view.left, view.top, view.right - view.left, view.bottom - view.top);
-          ctx.textAlign = "center";
-          ctx.textBaseline = "bottom";
-          ctx.fillText("x", (view.left + view.right) / 2, state.cssHeight - 10);
         };
 
         const drawPath = (points, color, lineWidth, alpha, maxIndex = points.length - 1) => {
@@ -1767,14 +1764,14 @@
             for (const pillar of scene.pillars) {
               drawCircle(pillar, scene.pillar_radius, colors.pillar, null, 0.92);
             }
-            const [fx] = view.toScreen([scene.finish_x, 0]);
+            const [, fy] = view.toScreen([0, scene.finish_y]);
             ctx.save();
             ctx.strokeStyle = colors.goal;
             ctx.lineWidth = 3;
             ctx.globalAlpha = 0.65;
             ctx.beginPath();
-            ctx.moveTo(fx, view.top);
-            ctx.lineTo(fx, view.bottom);
+            ctx.moveTo(view.left, fy);
+            ctx.lineTo(view.right, fy);
             ctx.stroke();
             ctx.restore();
             return;
@@ -1911,7 +1908,7 @@
             entries = [["Step", stepStr], ["Cube x,y", `${x.toFixed(3)}, ${y.toFixed(3)} m`],
                        ["Route", mode.label], ["Cube→goal", `${gd.toFixed(3)} m`]];
           } else if (kind === "pushpillars") {
-            const toFinish = Math.max(0, task.scene.finish_x - x);
+            const toFinish = Math.max(0, y - task.scene.finish_y);
             entries = [["Step", stepStr], ["Cube x,y", `${x.toFixed(3)}, ${y.toFixed(3)} m`],
                        ["Route", mode.label], ["To finish", `${toFinish.toFixed(3)} m`]];
           } else { // pusht

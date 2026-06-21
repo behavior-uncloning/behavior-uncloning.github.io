@@ -66,6 +66,14 @@ def maniskill_mode(h5_path, max_traj, max_pts):
     f.close()
     return out
 
+# View reorientation for the top-down push canvases so the mode labels read literally:
+# screen X = world y (so world -y = env "left" -> screen left, +y = "right" -> right),
+# screen Y = -world x (so the goal/finish at +x sits toward the BOTTOM and the robot/start
+# at -x sits toward the TOP, matching the rendered sim video). It is a pure 90 deg rotation.
+def reorient(pt):
+    x, y, th = pt
+    return [r4(y), r4(-x), th]
+
 def build_pushwall():
     modes_def = [("left", "Left route", "#236c9c", "data/maniskill3/obstacle-aux-data/dp_data/left_train.h5"),
                  ("right", "Right route", "#c9712f", "data/maniskill3/obstacle-aux-data/dp_data/right_train.h5")]
@@ -75,21 +83,23 @@ def build_pushwall():
         rolls = maniskill_mode(os.path.join(ROOT, rel), max_traj=8, max_pts=180)
         ro = []
         for j, r in enumerate(rolls):
+            pts = [reorient(p) for p in r["pts"]]
             ro.append({"id": f"{mid}_{j:02d}", "mode": mid, "seed": 100 + j,
-                       "success": r["success"], "points": r["pts"]})
-            for x, y, _ in r["pts"]:
-                allx.append(x); ally.append(y)
+                       "success": r["success"], "points": pts})
+            for X, Y, _ in pts:
+                allx.append(X); ally.append(Y)
         modes.append({"id": mid, "label": mlabel, "color": color, "rollouts": ro})
-    # real PushCube goal_radius = 0.1 at (cube_x + 0.1 + r, cube_y); goal_region fixed at (0.15, 0)
+    # real PushCube goal_radius = 0.1; goal_region fixed at world (0.15, 0) -> screen (0, -0.15)
     GOAL_R = 0.1
-    xr = [r4(min(allx + [-0.005]) - 0.02), r4(max(allx + [0.15 + GOAL_R]) + 0.03)]
-    yr = [r4(min(ally + [-GOAL_R]) - 0.03), r4(max(ally + [GOAL_R]) + 0.03)]
+    goal = [0.0, -0.15]
+    xr = [r4(min(allx + [-0.085]) - 0.03), r4(max(allx + [0.085]) + 0.03)]
+    yr = [r4(min(ally + [goal[1] - GOAL_R]) - 0.03), r4(max(ally) + 0.03)]
     scene = {"kind": "pushwall", "x_range": xr, "y_range": yr, "tick_step": 0.1,
-             "wall": {"center": [0.0, 0.0], "size": [0.01, 0.16]},
-             "goal": {"center": [0.15, 0.0], "radius": GOAL_R},
+             "wall": {"center": [0.0, 0.0], "size": [0.16, 0.01]},
+             "goal": {"center": goal, "radius": GOAL_R},
              "cube_size": 0.04}
     return {"label": "Push-Wall",
-            "source": "Real ManiSkill3 PushCubeObstacle demonstration trajectories (mode-pure, successful); top-down cube pose (x, y, yaw).",
+            "source": "Real ManiSkill3 PushCubeObstacle demonstration trajectories (mode-pure, successful); top-down cube path, reoriented so left/right match the labels.",
             "sample_rate_hz": 30, "scene": scene, "modes": modes}
 
 def build_pushpillars():
@@ -103,18 +113,21 @@ def build_pushpillars():
         rolls = maniskill_mode(os.path.join(ROOT, rel), max_traj=6, max_pts=180)
         ro = []
         for j, r in enumerate(rolls):
+            pts = [reorient(p) for p in r["pts"]]
             ro.append({"id": f"{mid}_{j:02d}", "mode": mid, "seed": 500 + j,
-                       "success": r["success"], "points": r["pts"]})
-            for x, y, _ in r["pts"]:
-                allx.append(x); ally.append(y)
+                       "success": r["success"], "points": pts})
+            for X, Y, _ in pts:
+                allx.append(X); ally.append(Y)
         modes.append({"id": mid, "label": mlabel, "color": color, "rollouts": ro})
-    xr = [r4(min(allx + [-0.18]) - 0.02), r4(max(allx + [0.06]) + 0.03)]
-    yr = [r4(min(ally) - 0.03), r4(max(ally) + 0.03)]
+    # pillars world (-0.06, y) -> screen (y, 0.06); finish world x=0.06 -> screen Y=-0.06
+    pillars = [[-0.102, 0.06], [0.0, 0.06], [0.102, 0.06]]
+    finish_y = -0.06
+    xr = [r4(min(allx + [-0.108]) - 0.03), r4(max(allx + [0.108]) + 0.03)]
+    yr = [r4(min(ally + [finish_y]) - 0.03), r4(max(ally) + 0.03)]
     scene = {"kind": "pushpillars", "x_range": xr, "y_range": yr, "tick_step": 0.1,
-             "pillars": [[-0.06, -0.102], [-0.06, 0.0], [-0.06, 0.102]],
-             "pillar_radius": 0.006, "finish_x": 0.06, "cube_size": 0.04}
+             "pillars": pillars, "pillar_radius": 0.006, "finish_y": finish_y, "cube_size": 0.04}
     return {"label": "Push-Pillars",
-            "source": "Real ManiSkill3 PushCube3Wall demonstration trajectories (four routes, successful); top-down cube pose (x, y, yaw).",
+            "source": "Real ManiSkill3 PushCube3Wall demonstration trajectories (four routes, successful); top-down cube path, reoriented so left/right match the labels.",
             "sample_rate_hz": 30, "scene": scene, "modes": modes}
 
 # ----------------------------------------------------------------------------- Push-T (edited policy rollouts)
