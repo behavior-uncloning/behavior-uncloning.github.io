@@ -1065,7 +1065,7 @@
                 <img id="demo-traj" src="assets/images/push_wall_traj.png" alt="Push-Wall trajectory summary">
                 <div class="quad-inline hidden" id="quadruped-replay">
                   <div class="quad-canvas-frame">
-                    <canvas id="quad-canvas" aria-label="Animated quadruped rollout trajectory replay"></canvas>
+                    <canvas id="quad-canvas" aria-label="Animated rollout trajectory replay"></canvas>
                     <div class="quad-loading" id="quad-loading">Loading trajectory replay...</div>
                   </div>
                   <div class="quad-inline-status" id="quad-status">Loading recorded rollout trajectories.</div>
@@ -1085,19 +1085,19 @@
                   </div>
                   <div class="quad-inline-readout">
                     <div class="quad-stat">
-                      <span>Step</span>
+                      <span id="quad-m1-label">Step</span>
                       <strong id="quad-step">0 / 0</strong>
                     </div>
                     <div class="quad-stat">
-                      <span>Pose</span>
+                      <span id="quad-m2-label">Pose</span>
                       <strong id="quad-pose">0.00, 0.00</strong>
                     </div>
                     <div class="quad-stat">
-                      <span>Yaw</span>
+                      <span id="quad-m3-label">Yaw</span>
                       <strong id="quad-yaw">0.00 rad</strong>
                     </div>
                     <div class="quad-stat">
-                      <span>Goal</span>
+                      <span id="quad-m4-label">Goal</span>
                       <strong id="quad-goal">4.50, 0.00</strong>
                     </div>
                   </div>
@@ -1111,9 +1111,10 @@
             </div>
             <div class="demo-bars" id="demo-bars" aria-label="Reported rollout outcome breakdown"></div>
             <p class="demo-note">
-              This is not a browser physics simulator. It replays task-specific trajectory traces:
-              recorded Go1 poses for Quadruped and local waypoint traces for the tabletop simulations.
-              SR is target-aligned task success, while TCR counts task completion regardless of mode.
+              This is not a browser physics simulator. It replays recorded trajectory traces:
+              Go1 base poses (Quadruped), MoRE-edited DP policy rollouts (Push-T), and successful
+              task demonstrations (Push-Wall, Push-Pillars). SR is target-aligned task success,
+              while TCR counts task completion regardless of mode.
             </p>
           </div>
         </div>
@@ -1366,7 +1367,13 @@
         quadReplay.classList.remove("hidden");
         document.getElementById("demo-video-caption").textContent = `Representative MoRE rollout for ${task.label}.`;
         document.getElementById("demo-traj-title").textContent = "Interactive trajectory replay";
-        document.getElementById("demo-traj-caption").textContent = `${task.label} trajectory replay; modes: ${task.modesText}.`;
+        const replayProvenance = {
+          pusht: "MoRE-edited DP policy rollouts",
+          pushwall: "successful task demonstrations",
+          pushpillars: "successful task demonstrations",
+          quadruped: "recorded Go1 evaluation poses"
+        }[demoState.taskId] || "recorded trajectories";
+        document.getElementById("demo-traj-caption").textContent = `${task.label} · real ${replayProvenance}; modes: ${task.modesText}.`;
         window.requestAnimationFrame(() => window.simTaskReplay?.showTask(demoState.taskId));
 
         document.getElementById("demo-bars").innerHTML =
@@ -1414,6 +1421,13 @@
         const poseEl = document.getElementById("quad-pose");
         const yawEl = document.getElementById("quad-yaw");
         const goalEl = document.getElementById("quad-goal");
+        const mLabel = [
+          document.getElementById("quad-m1-label"),
+          document.getElementById("quad-m2-label"),
+          document.getElementById("quad-m3-label"),
+          document.getElementById("quad-m4-label")
+        ];
+        const mValue = [stepEl, poseEl, yawEl, goalEl];
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
         const state = {
@@ -1593,11 +1607,13 @@
         };
 
         const drawT = (center, angleDeg, fill, stroke, alpha = 1, lineWidth = 1.4) => {
-          const stemCenter = rotatePoint([center[0], center[1] - 0.055], angleDeg, center);
-          const barCenter = rotatePoint([center[0], center[1] + 0.155], angleDeg, center);
+          // Proportions match the real Push-T block in the 512px sim, normalised by /512
+          // (bar ~120px -> 0.234, stem ~90px -> 0.176).
+          const stemCenter = rotatePoint([center[0], center[1] - 0.029], angleDeg, center);
+          const barCenter = rotatePoint([center[0], center[1] + 0.081], angleDeg, center);
           const parts = [
-            [stemCenter, [0.115, 0.430]],
-            [barCenter, [0.455, 0.115]]
+            [stemCenter, [0.060, 0.224]],
+            [barCenter, [0.237, 0.060]]
           ];
           ctx.save();
           ctx.globalAlpha = alpha;
@@ -1637,8 +1653,8 @@
           const scene = task.scene;
           const view = layout();
           if (scene.kind === "pusht") {
-            drawT(scene.goal_t.center, scene.goal_t.angle_deg, "rgba(255,255,255,0)", colors.goal, 1, 2.2);
-            drawT(scene.block_t.center, scene.block_t.angle_deg, colors.tBlock, colors.ink, 0.86, 1.5);
+            // goal pose (static outline); the manipulated T-block is animated from rollout.block
+            drawT(scene.goal_t.center, scene.goal_t.angle_deg, "rgba(74,168,107,0.12)", colors.goal, 1, 2.2);
             return;
           }
           if (scene.kind === "pushwall") {
@@ -1686,6 +1702,19 @@
             a[2] + dyaw * t,
             i
           ];
+        };
+
+        const interpolateBlock = (rollout) => {
+          const pts = rollout.block;
+          if (!pts || pts.length < 2) return null;
+          const i = Math.min(pts.length - 2, Math.max(0, Math.floor(state.progress)));
+          const t = Math.min(1, Math.max(0, state.progress - i));
+          const a = pts[i];
+          const b = pts[i + 1];
+          let dDeg = b[2] - a[2];
+          if (dDeg > 180) dDeg -= 360;
+          if (dDeg < -180) dDeg += 360;
+          return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + dDeg * t];
         };
 
         const drawDog = (pose) => {
@@ -1758,14 +1787,46 @@
           else drawCube(pose);
         };
 
-        const updateReadout = (task, mode, rollout, pose) => {
+        const wrapDeg = (d) => ((d + 180) % 360 + 360) % 360 - 180;
+        const setReadout = (entries) => {
+          for (let i = 0; i < 4; i += 1) {
+            if (mLabel[i]) mLabel[i].textContent = entries[i][0];
+            if (mValue[i]) mValue[i].textContent = entries[i][1];
+          }
+        };
+
+        // Task-appropriate per-step metrics. Yaw is only meaningful for the quadruped;
+        // the manipulation tasks report route + progress toward the goal/finish instead.
+        const updateReadout = (task, mode, rollout, pose, blockPose) => {
           const [x, y, yaw, step] = pose;
-          const goal = rollout.goal_xy || task.scene.goal?.center || task.scene.goal_t?.center || [task.scene.finish_x || 0, 0];
-          stepEl.textContent = `${step + 1} / ${rollout.points.length}`;
-          poseEl.textContent = `${x.toFixed(2)}, ${y.toFixed(2)}`;
-          yawEl.textContent = `${yaw.toFixed(2)} rad`;
-          goalEl.textContent = `${goal[0].toFixed(2)}, ${goal[1].toFixed(2)}`;
-          status.textContent = `${task.label} · ${mode.label} · seed ${rollout.seed} · ${rollout.points.length} poses`;
+          const kind = task.scene.kind;
+          const stepStr = `${step + 1} / ${rollout.points.length}`;
+          let entries;
+          if (kind === "quadruped") {
+            const goal = rollout.goal_xy || task.scene.goal?.center || [0, 0];
+            const gd = Math.hypot(goal[0] - x, goal[1] - y);
+            entries = [["Step", stepStr], ["Pose", `${x.toFixed(2)}, ${y.toFixed(2)} m`],
+                       ["Yaw", `${yaw.toFixed(2)} rad`], ["Goal dist", `${gd.toFixed(2)} m`]];
+          } else if (kind === "pushwall") {
+            const goal = task.scene.goal.center;
+            const gd = Math.hypot(goal[0] - x, goal[1] - y);
+            entries = [["Step", stepStr], ["Cube x,y", `${x.toFixed(3)}, ${y.toFixed(3)} m`],
+                       ["Route", mode.label], ["Cube→goal", `${gd.toFixed(3)} m`]];
+          } else if (kind === "pushpillars") {
+            const toFinish = Math.max(0, task.scene.finish_x - x);
+            entries = [["Step", stepStr], ["Cube x,y", `${x.toFixed(3)}, ${y.toFixed(3)} m`],
+                       ["Route", mode.label], ["To finish", `${toFinish.toFixed(3)} m`]];
+          } else { // pusht
+            const goal = task.scene.goal_t.center;
+            const bx = blockPose ? blockPose[0] : x;
+            const by = blockPose ? blockPose[1] : y;
+            const bd = Math.hypot(goal[0] - bx, goal[1] - by);
+            const angErr = blockPose ? Math.abs(wrapDeg(blockPose[2] - task.scene.goal_t.angle_deg)) : 0;
+            entries = [["Step", stepStr], ["Pusher x,y", `${x.toFixed(3)}, ${y.toFixed(3)}`],
+                       ["T angle err", `${angErr.toFixed(1)}°`], ["T → goal", `${bd.toFixed(3)}`]];
+          }
+          setReadout(entries);
+          status.textContent = `${task.label} · ${mode.label} · seed ${rollout.seed} · ${rollout.points.length} steps`;
         };
 
         const draw = () => {
@@ -1783,9 +1844,15 @@
           drawSceneObjects(rollout);
           drawPath(rollout.points, colors.current, 2.6, 0.42);
           drawPath(rollout.points, colors.current, 4.4, 0.95, Math.floor(state.progress));
+          let blockPose = null;
+          if (task.scene.kind === "pusht" && rollout.block) {
+            drawPath(rollout.block, colors.tBlock, 1.6, 0.30);
+            blockPose = interpolateBlock(rollout);
+            if (blockPose) drawT([blockPose[0], blockPose[1]], blockPose[2], colors.tBlock, colors.ink, 0.9, 1.5);
+          }
           const pose = interpolatePose(rollout);
           drawActor(pose);
-          updateReadout(task, mode, rollout, pose);
+          updateReadout(task, mode, rollout, pose, blockPose);
         };
 
         const syncControls = () => {
@@ -1817,7 +1884,7 @@
           const task = currentTask();
           if (!task) return;
           const sceneItems = {
-            pusht: [["#ffd51d", "pusher"], [colors.goal, "target pose"]],
+            pusht: [["#ffd51d", "pusher"], [colors.tBlock, "T block"], [colors.goal, "target pose"]],
             pushwall: [[colors.wall, "wall"], [colors.goal, "goal"]],
             pushpillars: [[colors.pillar, "pillars"], [colors.goal, "finish line"]],
             quadruped: [[colors.pillar, "pillar"], [colors.goal, "goal"]]
