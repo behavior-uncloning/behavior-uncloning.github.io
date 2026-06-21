@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#17211d;--soft:#3d4b47;--muted:#5d6b66;--accent:#0c7278;}
+  *{box-sizing:border-box;margin:0;}
+  html,body{width:1200px;height:630px;}
+  .card{
+    width:1200px;height:630px;position:relative;overflow:hidden;
+    padding:84px 90px;display:flex;flex-direction:column;justify-content:center;
+    font-family:"Inter",sans-serif;color:var(--ink);
+    background:
+      radial-gradient(900px 520px at 86% -10%, rgba(12,114,120,0.14), transparent 60%),
+      linear-gradient(135deg,#f7faf9 0%,#e9f4f1 100%);
+  }
+  .accent-bar{position:absolute;left:0;top:0;width:14px;height:100%;background:var(--accent);}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:24px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:24px;}
+  h1{font-family:"Source Serif 4",serif;font-weight:700;font-size:108px;line-height:.96;
+    letter-spacing:-1px;margin-bottom:26px;}
+  .sub{font-family:"Source Serif 4",serif;font-weight:400;font-size:38px;line-height:1.3;
+    color:var(--soft);max-width:1000px;}
+  .foot{position:absolute;left:90px;right:90px;bottom:64px;display:flex;
+    align-items:flex-end;justify-content:space-between;}
+  .affil{font-size:23px;color:var(--muted);line-height:1.5;}
+  .affil b{color:var(--soft);font-weight:600;}
+  .url{display:flex;align-items:center;gap:16px;}
+  .url .tile{width:64px;height:64px;border-radius:16px;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Source Serif 4",serif;font-weight:700;font-size:46px;color:#fff;}
+  .url .txt{font-family:"JetBrains Mono",monospace;font-size:24px;color:var(--soft);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="accent-bar"></div>
+    <div class="eyebrow">Preprint · 2026</div>
+    <h1>Behavior Uncloning</h1>
+    <div class="sub">Distilling Mode Redirection into Policy Weights<br>without Inference-Time Steering</div>
+    <div class="foot">
+      <div class="affil"><b>Texas A&amp;M</b> · <b>Stanford</b> · <b>UW–Madison</b> · <b>Northwestern</b></div>
+      <div class="url"><div class="tile">B</div><div class="txt">behavior-uncloning.github.io</div></div>
+    </div>
+  </div>
+</body>
+</html>
