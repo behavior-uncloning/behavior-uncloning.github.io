@@ -3,14 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Behavior Uncloning</title>
-    <meta name="description" content="Behavior Uncloning: distilling mode redirection into policy weights without inference-time steering.">
+    <title>Behavior Uncloning — Distilling Mode Redirection into Policy Weights</title>
+    <meta name="description" content="Behavior Uncloning (MoRE): distilling mode redirection into policy weights without inference-time steering.">
+    <link rel="canonical" href="https://behavior-uncloning.github.io/">
+    <meta name="theme-color" content="#0c7278">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%230c7278'/%3E%3Ctext%20x='32'%20y='45'%20font-size='38'%20font-family='Georgia,serif'%20fill='white'%20text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
     <meta property="og:title" content="Behavior Uncloning">
     <meta property="og:description" content="Distilling mode redirection into policy weights without inference-time steering.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://behavior-uncloning.github.io/">
+    <meta property="og:site_name" content="Behavior Uncloning">
     <meta property="og:image" content="https://behavior-uncloning.github.io/assets/images/sim_push_wall_poster.png">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:image:alt" content="Behavior Uncloning interactive simulated-task replay">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Behavior Uncloning">
+    <meta name="twitter:description" content="Distilling mode redirection into policy weights without inference-time steering.">
+    <meta name="twitter:image" content="https://behavior-uncloning.github.io/assets/images/sim_push_wall_poster.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -884,6 +894,67 @@
         .demo-visual-head { flex-direction: column; gap: 8px; }
         .demo-metrics { grid-template-columns: 1fr; }
       }
+
+      /* ---------- polish: motion, depth, focus, citation ---------- */
+      ::selection { background: rgba(12, 114, 120, 0.18); }
+
+      a, .button, .nav-links a, .brand,
+      .demo-choice, .quad-route, .quad-action, .quad-select,
+      .carousel-nav, .carousel-dot, .fs,
+      .stat-card, .method-card, .carousel-shell, .demo-media-card,
+      .outcome-card, .citation-copy {
+        transition: color .18s ease, background-color .18s ease,
+                    border-color .18s ease, box-shadow .22s ease, transform .22s ease;
+      }
+
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .button:focus-visible, .demo-choice:focus-visible, .quad-route:focus-visible,
+      .quad-action:focus-visible, .carousel-nav:focus-visible,
+      .carousel-dot:focus-visible, .citation-copy:focus-visible { outline-offset: 3px; }
+
+      /* subtle elevation */
+      .stat-card, .method-card, .carousel-shell, .demo-shell, .demo-media-card,
+      .outcome-card, .table-wrap, .wide-video, .equation {
+        box-shadow: 0 1px 2px rgba(23, 33, 29, 0.04), 0 2px 6px rgba(23, 33, 29, 0.05);
+      }
+      .stat-card:hover, .method-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 26px rgba(23, 33, 29, 0.09);
+        border-color: var(--accent-soft);
+      }
+      .carousel-shell:hover, .demo-media-card:hover {
+        box-shadow: 0 12px 30px rgba(23, 33, 29, 0.10);
+      }
+      .button { box-shadow: 0 1px 2px rgba(23, 33, 29, 0.12); }
+      .button:hover { transform: translateY(-1px); }
+      .button.disabled { box-shadow: none; }
+
+      /* hero depth + accent eyebrow */
+      .hero { background: radial-gradient(820px 360px at 50% -10%, rgba(12, 114, 120, 0.07), transparent 70%); }
+      .eyebrow { color: var(--accent); }
+      .equation { text-align: center; }
+
+      /* active nav link */
+      .nav-links a.active { color: var(--accent); }
+
+      /* citation block */
+      .citation-block { position: relative; margin-top: 18px; border: 1px solid var(--rule);
+        border-radius: 8px; background: var(--ink); overflow: hidden; }
+      .citation-block pre { margin: 0; padding: 18px 20px; overflow-x: auto; color: #d7e6e1;
+        font-family: var(--mono); font-size: 0.85rem; line-height: 1.65; }
+      .citation-copy { position: absolute; top: 10px; right: 10px; border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 999px; padding: 6px 13px; background: rgba(255,255,255,0.08); color: #eaf3f0;
+        font-family: var(--mono); font-size: 0.76rem; cursor: pointer; }
+      .citation-copy:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+      /* richer footer */
+      .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-bottom: 12px; }
+      .footer-links a { color: var(--ink-soft); font-size: 0.9rem; }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { transition: none !important; scroll-behavior: auto !important; }
+        .stat-card:hover, .method-card:hover, .button:hover { transform: none; }
+      }
     </style>
   </head>
   <body>
@@ -895,6 +966,8 @@
           <a href="#method">Method</a>
           <a href="#demo">Demo</a>
           <a href="#robots">Real Robots</a>
+          <a href="#supplementary">Supplementary</a>
+          <a href="#citation">Citation</a>
         </div>
       </div>
     </nav>
@@ -966,8 +1039,8 @@
             <p>editing gradient steps per target setting in our evaluations.</p>
           </article>
           <article class="stat-card">
-            <div class="stat">No extra</div>
-            <p>inference-time steering modules after the edit.</p>
+            <div class="stat">0</div>
+            <p>extra inference-time steering modules after the edit.</p>
           </article>
         </div>
       </section>
@@ -1255,9 +1328,32 @@
         </div>
       </section>
 
+      <section id="citation" class="section narrow">
+        <div class="section-kicker">Citation</div>
+        <h2>Cite this work.</h2>
+        <p class="lead">If you find Behavior Uncloning useful, please consider citing:</p>
+        <div class="citation-block">
+          <button class="citation-copy" type="button" id="cite-copy" aria-label="Copy BibTeX to clipboard">Copy</button>
+          <pre id="bibtex">@article{wang2026behavioruncloning,
+  title   = {Behavior Uncloning: Distilling Mode Redirection into Policy
+             Weights without Inference-Time Steering},
+  author  = {Wang, Hao and Lei, Jiuzhou and Li, Danyou and Liu, Bangya and
+             Zheng, Minghui and Li, Manling and Zhang, Ruohan and Fan, Zhiwen},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+        </div>
+      </section>
+
     </main>
 
     <footer>
+      <div class="footer-links">
+        <a href="#top">Top</a>
+        <a href="https://github.com/haohww/behavior-uncloning">Code</a>
+        <a href="#demo">Interactive demo</a>
+        <a href="#citation">Citation</a>
+      </div>
       Behavior Uncloning · Mode redirection distilled into policy weights.
     </footer>
 
@@ -2100,6 +2196,38 @@
           const video = button.parentElement.querySelector("video");
           if (video && video.requestFullscreen) video.requestFullscreen();
         });
+      }
+
+      // Copy BibTeX to clipboard
+      const citeCopy = document.getElementById("cite-copy");
+      if (citeCopy) {
+        citeCopy.addEventListener("click", async () => {
+          const text = document.getElementById("bibtex").textContent;
+          try {
+            await navigator.clipboard.writeText(text);
+            citeCopy.textContent = "Copied ✓";
+          } catch (err) {
+            citeCopy.textContent = "Copy failed";
+          }
+          setTimeout(() => { citeCopy.textContent = "Copy"; }, 1800);
+        });
+      }
+
+      // Nav scroll-spy: highlight the section currently in view
+      const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+      const spyTargets = navLinks
+        .map((a) => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
+      if (spyTargets.length && "IntersectionObserver" in window) {
+        const spy = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = "#" + entry.target.id;
+              navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === id));
+            }
+          });
+        }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+        spyTargets.forEach((t) => spy.observe(t));
       }
     </script>
   </body>
