@@ -955,16 +955,51 @@
       .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-bottom: 12px; }
       .footer-links a { color: var(--ink-soft); font-size: 0.9rem; }
 
-      /* hero teaser video */
-      .hero-teaser { max-width: 880px; margin: 6px auto 4px; }
-      .hero-teaser video {
-        width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px;
-        border: 1px solid var(--rule); background: #e6efec;
-        box-shadow: 0 16px 38px rgba(23, 33, 29, 0.12), 0 2px 8px rgba(23, 33, 29, 0.06);
+      /* hero teaser — Option A: before -> after flow */
+      .hero-teaser { max-width: 1000px; margin: 12px auto 4px; }
+      .teaser-flow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; }
+      .teaser-card {
+        border: 1px solid var(--rule); border-radius: 16px; background: var(--card); padding: 12px;
+        box-shadow: 0 14px 34px rgba(23,33,29,0.10), 0 2px 8px rgba(23,33,29,0.05);
       }
-      .hero-teaser figcaption {
-        margin-top: 14px; text-align: center; color: var(--muted);
-        font-size: 0.92rem; text-wrap: balance;
+      .teaser-card.is-orig { border-top: 3px solid #c2566b; }
+      .teaser-card.is-edit { border-top: 3px solid var(--accent); }
+      .teaser-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+      .teaser-name { font-family: var(--serif); font-size: 1.04rem; font-weight: 600; color: var(--ink); }
+      .teaser-pill {
+        font-family: var(--mono); font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+        letter-spacing: 0.06em; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+      }
+      .pill-bad { background: #fbe9ec; color: #b03a52; }
+      .pill-good { background: var(--accent-soft); color: var(--accent); }
+      .teaser-stack { display: grid; gap: 10px; }
+      .teaser-screen { position: relative; border-radius: 10px; overflow: hidden; background: #e6efec; }
+      .teaser-screen video { display: block; width: 100%; aspect-ratio: 460 / 294; object-fit: cover; }
+      .teaser-screen.sm .teaser-chip { font-size: 0.66rem; padding: 4px 8px; }
+      .teaser-chip {
+        position: absolute; left: 9px; bottom: 9px; font-family: var(--mono); font-size: 0.72rem;
+        font-weight: 600; padding: 5px 10px; border-radius: 999px; color: #fff; backdrop-filter: blur(6px);
+      }
+      .chip-bad { background: rgba(176,58,82,0.88); }
+      .chip-good { background: rgba(12,114,120,0.90); }
+      .teaser-arrow { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+      .teaser-badge {
+        font-family: var(--mono); font-weight: 700; font-size: 0.86rem; letter-spacing: 0.04em;
+        color: #fff; background: var(--accent); padding: 8px 15px; border-radius: 999px;
+        box-shadow: 0 6px 16px rgba(12,114,120,0.30);
+      }
+      .teaser-arrowline { width: 50px; height: 2px; background: var(--accent); position: relative; }
+      .teaser-arrowline::after {
+        content: ""; position: absolute; right: -1px; top: -4px;
+        border-left: 9px solid var(--accent); border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+      }
+      .teaser-arrowsub { font-family: var(--mono); font-size: 0.64rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+      .hero-teaser figcaption { margin-top: 16px; text-align: center; color: var(--muted); font-size: 0.92rem; text-wrap: balance; }
+      @media (max-width: 720px) {
+        .teaser-flow { grid-template-columns: 1fr; gap: 12px; }
+        .teaser-arrow { flex-direction: row; gap: 12px; }
+        .teaser-arrowline { width: 2px; height: 26px; }
+        .teaser-arrowline::after { right: -4px; top: auto; bottom: -1px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 9px solid var(--accent); border-bottom: 0; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -1022,8 +1057,40 @@
           <a class="button secondary" href="#supplementary">Supplementary video</a>
         </div>
         <figure class="hero-teaser">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero_teaser_poster.jpg" src="assets/videos/hero_teaser.mp4"></video>
-          <figcaption>Both modes solve the task, but only one is acceptable at deployment &mdash; MoRE distills the desired mode into the policy weights, with no inference-time steering.</figcaption>
+          <div class="teaser-flow">
+            <div class="teaser-card is-orig">
+              <div class="teaser-bar">
+                <span class="teaser-name">Original policy</span>
+                <span class="teaser-pill pill-bad">mixed modes</span>
+              </div>
+              <div class="teaser-stack">
+                <div class="teaser-screen sm">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/teaser_orig_poster.jpg" src="assets/videos/teaser_orig.mp4" aria-label="Original policy placing the knife blade-first, the unsafe mode"></video>
+                  <span class="teaser-chip chip-bad">&#10007; blade-first &middot; unsafe</span>
+                </div>
+                <div class="teaser-screen sm">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/teaser_safe_poster.jpg" src="assets/videos/teaser_safe.mp4" aria-label="Original policy placing the knife handle-first, the safe mode"></video>
+                  <span class="teaser-chip chip-good">&#10003; handle-first &middot; safe</span>
+                </div>
+              </div>
+            </div>
+            <div class="teaser-arrow" aria-hidden="true">
+              <span class="teaser-badge">MoRE</span>
+              <span class="teaser-arrowline"></span>
+              <span class="teaser-arrowsub">offline edit</span>
+            </div>
+            <div class="teaser-card is-edit">
+              <div class="teaser-bar">
+                <span class="teaser-name">MoRE-edited policy</span>
+                <span class="teaser-pill pill-good">single mode</span>
+              </div>
+              <div class="teaser-screen">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/teaser_edit_poster.jpg" src="assets/videos/teaser_edit.mp4" aria-label="MoRE-edited policy placing the knife handle-first, the desired mode"></video>
+                <span class="teaser-chip chip-good">&#10003; handle-first &middot; desired</span>
+              </div>
+            </div>
+          </div>
+          <figcaption>The original policy is multimodal &mdash; it may place the knife either way. MoRE removes the undesired mode <em>offline</em>, leaving a single desired-mode policy with the same inference path.</figcaption>
         </figure>
       </section>
 
