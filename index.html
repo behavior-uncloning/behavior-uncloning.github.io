@@ -966,18 +966,17 @@
       .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-bottom: 12px; }
       .footer-links a { color: var(--ink-soft); font-size: 0.9rem; }
 
-      /* team / authors */
-      .team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 18px; margin-top: 30px; }
-      .team-member { text-align: center; }
+      /* team / authors (UMI-style row of circular portraits) */
+      .team-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px 22px; margin-top: 30px; }
+      .team-member { width: 132px; text-align: center; }
       .team-member > a { display: block; color: var(--ink); text-decoration: none; }
       .team-member > a:hover { color: var(--accent); text-decoration: none; }
-      .team-avatar { width: 108px; height: 108px; border-radius: 999px; display: block; margin: 0 auto 12px;
+      .team-avatar { width: 104px; height: 104px; border-radius: 50%; display: block; margin: 0 auto 11px;
         border: 1px solid var(--rule); background: var(--tint); object-fit: cover;
         transition: border-color .18s ease, box-shadow .22s ease; }
       .team-member > a:hover .team-avatar { border-color: var(--accent); box-shadow: 0 8px 22px rgba(43,88,138,0.18); }
-      .team-name { font-weight: 600; font-size: 0.98rem; }
-      .team-affil { color: var(--muted); font-size: 0.84rem; margin-top: 3px; text-wrap: balance; }
-      @media (max-width: 660px) { .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      .team-name { font-weight: 600; font-size: 0.9rem; line-height: 1.3; }
+      .team-name sup { color: var(--muted); font-weight: 400; font-size: 0.72em; }
 
       /* hero teaser — Option A: before -> after flow */
       .hero-teaser { max-width: 1000px; margin: 12px auto 4px; }
@@ -985,13 +984,10 @@
       .teaser-card {
         border: 1px solid var(--rule); border-radius: 16px; background: var(--card); padding: 12px;
         box-shadow: 0 14px 34px rgba(22,32,46,0.10), 0 2px 8px rgba(22,32,46,0.05);
-        align-self: stretch;
       }
       .teaser-card.is-orig { border-top: 3px solid #c2566b; }
-      .teaser-card.is-edit { border-top: 3px solid var(--accent); display: flex; flex-direction: column; }
-      /* the single edited clip fills the taller card so there is no empty space */
-      .teaser-card.is-edit .teaser-screen { flex: 1 1 auto; min-height: 0; }
-      .teaser-card.is-edit .teaser-screen video { height: 100%; aspect-ratio: auto; object-fit: cover; }
+      /* only one clip, so the card shrinks to its natural height (no filler space) */
+      .teaser-card.is-edit { border-top: 3px solid var(--accent); align-self: center; }
       .teaser-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
       .teaser-name { font-family: var(--serif); font-size: 1.04rem; font-weight: 600; color: var(--ink); }
       .teaser-pill {
@@ -1444,69 +1440,63 @@
         </div>
       </section>
 
-      <section id="team" class="section narrow">
+      <section id="team" class="section">
         <div class="section-kicker">Team</div>
         <h2>Authors.</h2>
         <div class="team-grid">
           <div class="team-member">
             <a href="https://haohww.github.io/">
-              <img class="team-avatar" src="assets/images/authors/hao-wang.svg" width="108" height="108" alt="">
-              <div class="team-name">Hao Wang</div>
+              <img class="team-avatar" src="assets/images/authors/hao-wang.jpg" width="104" height="104" loading="lazy" alt="Hao Wang">
+              <div class="team-name">Hao Wang<sup>1,&dagger;</sup></div>
             </a>
-            <div class="team-affil">Texas A&amp;M · Project Lead</div>
           </div>
           <div class="team-member">
             <a href="https://scholar.google.com/citations?hl=en&amp;user=X52xke0AAAAJ">
-              <img class="team-avatar" src="assets/images/authors/jiuzhou-lei.svg" width="108" height="108" alt="">
-              <div class="team-name">Jiuzhou Lei</div>
+              <img class="team-avatar" src="assets/images/authors/jiuzhou-lei.jpg" width="104" height="104" loading="lazy" alt="Jiuzhou Lei">
+              <div class="team-name">Jiuzhou Lei<sup>1</sup></div>
             </a>
-            <div class="team-affil">Texas A&amp;M</div>
           </div>
           <div class="team-member">
             <a href="https://edisiondyli.github.io/">
-              <img class="team-avatar" src="assets/images/authors/dayou-li.svg" width="108" height="108" alt="">
-              <div class="team-name">Dayou Li</div>
+              <img class="team-avatar" src="assets/images/authors/dayou-li.jpg" width="104" height="104" loading="lazy" alt="Dayou Li">
+              <div class="team-name">Dayou Li<sup>1</sup></div>
             </a>
-            <div class="team-affil">Texas A&amp;M</div>
           </div>
           <div class="team-member">
             <a href="https://neutrinoliu.github.io/">
-              <img class="team-avatar" src="assets/images/authors/bangya-liu.svg" width="108" height="108" alt="">
-              <div class="team-name">Bangya Liu</div>
+              <img class="team-avatar" src="assets/images/authors/bangya-liu.jpg" width="104" height="104" loading="lazy" alt="Bangya Liu">
+              <div class="team-name">Bangya Liu<sup>2</sup></div>
             </a>
-            <div class="team-affil">University of Wisconsin</div>
           </div>
           <div class="team-member">
             <a href="https://engineering.tamu.edu/mechanical/profiles/zheng-minghui.html">
-              <img class="team-avatar" src="assets/images/authors/minghui-zheng.svg" width="108" height="108" alt="">
-              <div class="team-name">Minghui Zheng</div>
+              <img class="team-avatar" src="assets/images/authors/minghui-zheng.jpg" width="104" height="104" loading="lazy" alt="Minghui Zheng">
+              <div class="team-name">Minghui Zheng<sup>1</sup></div>
             </a>
-            <div class="team-affil">Texas A&amp;M</div>
           </div>
           <div class="team-member">
             <a href="https://limanling.github.io/">
-              <img class="team-avatar" src="assets/images/authors/manling-li.svg" width="108" height="108" alt="">
-              <div class="team-name">Manling Li</div>
+              <img class="team-avatar" src="assets/images/authors/manling-li.jpg" width="104" height="104" loading="lazy" alt="Manling Li">
+              <div class="team-name">Manling Li<sup>3</sup></div>
             </a>
-            <div class="team-affil">Northwestern</div>
           </div>
           <div class="team-member">
             <a href="https://ruohanzhang.com/">
-              <img class="team-avatar" src="assets/images/authors/ruohan-zhang.svg" width="108" height="108" alt="">
-              <div class="team-name">Ruohan Zhang</div>
+              <img class="team-avatar" src="assets/images/authors/ruohan-zhang.jpg" width="104" height="104" loading="lazy" alt="Ruohan Zhang">
+              <div class="team-name">Ruohan Zhang<sup>3,4</sup></div>
             </a>
-            <div class="team-affil">Northwestern · Stanford</div>
           </div>
           <div class="team-member">
             <a href="https://zhiwenfan.github.io/">
-              <img class="team-avatar" src="assets/images/authors/zhiwen-fan.svg" width="108" height="108" alt="">
-              <div class="team-name">Zhiwen Fan</div>
+              <img class="team-avatar" src="assets/images/authors/zhiwen-fan.jpg" width="104" height="104" loading="lazy" alt="Zhiwen Fan">
+              <div class="team-name">Zhiwen Fan<sup>1</sup></div>
             </a>
-            <div class="team-affil">Texas A&amp;M</div>
           </div>
         </div>
-        <!-- Author photos are monogram placeholders (assets/images/authors/*.svg).
-             Replace each src with a real square headshot (e.g. authors/hao-wang.jpg) to show faces. -->
+        <p class="table-note" style="text-align:center;">
+          <sup>1</sup>Texas A&amp;M University &nbsp; <sup>2</sup>University of Wisconsin &nbsp;
+          <sup>3</sup>Northwestern University &nbsp; <sup>4</sup>Stanford University &nbsp; <sup>&dagger;</sup>Project Lead
+        </p>
       </section>
 
       <section id="citation" class="section narrow">
