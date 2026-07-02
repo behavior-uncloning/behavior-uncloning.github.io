@@ -33,10 +33,10 @@
         --ink: #16202e;
         --ink-soft: #38465b;
         --muted: #586172;
-        --rule: #d8e0ec;
-        --bg: #f1f6fc;
+        --rule: #e2e4e8;
+        --bg: #f7f8f9;
         --card: #ffffff;
-        --tint: #e6eef8;
+        --tint: #eceef1;
         --accent: #2b588a;         /* PHAI blue */
         --accent-strong: #22496e;  /* deep PHAI blue — hovers / emphasis */
         --accent-soft: #dfe9f7;    /* light blue — pills, badges, soft fills */
@@ -77,7 +77,7 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        background: rgba(241, 246, 252, 0.88);
+        background: rgba(247, 248, 249, 0.88);
         border-bottom: 1px solid var(--rule);
         backdrop-filter: blur(14px) saturate(140%);
       }
@@ -272,13 +272,13 @@
       }
       .video-wrap {
         position: relative;
-        background: #e6edf7;
+        background: #ebedf0;
       }
       video {
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: contain;
-        background: #e6edf7;
+        background: #ebedf0;
       }
       .carousel-caption h3,
       .stat-card h3,
@@ -449,7 +449,7 @@
       .demo-controls {
         padding: 22px;
         border-right: 1px solid var(--rule);
-        background: #fbfcff;
+        background: #fcfcfd;
       }
       .demo-control-group + .demo-control-group { margin-top: 22px; }
       .demo-control-group h3 {
@@ -549,7 +549,7 @@
         margin: 0;
         border: 1px solid var(--rule);
         border-radius: 8px;
-        background: #f7fafe;
+        background: #f8f9fa;
         overflow: hidden;
       }
       .demo-media-card video,
@@ -557,10 +557,10 @@
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: contain;
-        background: #e6edf7;
+        background: #ebedf0;
       }
       .demo-media-card img {
-        background: #f1f6fc;
+        background: #f7f8f9;
       }
       .demo-media-caption {
         padding: 11px 12px 12px;
@@ -592,7 +592,7 @@
         border: 1px solid var(--rule);
         border-radius: 8px;
         padding: 14px;
-        background: #fbfcff;
+        background: #fcfcfd;
       }
       .outcome-head {
         display: flex;
@@ -613,7 +613,7 @@
         display: flex;
         height: 15px;
         border-radius: 999px;
-        background: #e4eaf3;
+        background: #e9ebef;
         overflow: hidden;
       }
       .outcome-segment {
@@ -627,7 +627,7 @@
         background: #9a8d76;
       }
       .outcome-segment.fail {
-        background: #dbe3ee;
+        background: #e4e6ea;
       }
       .outcome-list {
         display: grid;
@@ -652,7 +652,7 @@
       }
       .outcome-item.target span:first-child::before { background: var(--accent); }
       .outcome-item.other span:first-child::before { background: #9a8d76; }
-      .outcome-item.fail span:first-child::before { background: #dbe3ee; border: 1px solid #bccadb; }
+      .outcome-item.fail span:first-child::before { background: #e4e6ea; border: 1px solid #bccadb; }
       .demo-note {
         margin: 12px 0 0;
         color: var(--muted);
@@ -663,7 +663,7 @@
         display: grid;
         gap: 12px;
         padding: 12px;
-        background: #f7fafe;
+        background: #f8f9fa;
       }
       .quad-inline.hidden,
       #demo-traj.hidden {
@@ -748,7 +748,7 @@
         position: relative;
         overflow: hidden;
         border-radius: 6px;
-        background: #e9f1fa;
+        background: #eceef1;
       }
       .quad-canvas-frame canvas {
         display: block;
@@ -760,7 +760,7 @@
         inset: 0;
         display: grid;
         place-items: center;
-        background: rgba(233, 241, 250, 0.86);
+        background: rgba(236, 238, 241, 0.86);
         color: var(--muted);
         font-family: var(--mono);
         font-size: 0.82rem;
@@ -826,7 +826,7 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--muted);
-        background: #e9f1fa;
+        background: #eceef1;
       }
       th:first-child,
       td:first-child {
@@ -838,7 +838,7 @@
       }
       th:first-child {
         z-index: 2;
-        background: #e9f1fa;
+        background: #eceef1;
       }
       tr:last-child td { border-bottom: 0; }
       .ours td {
@@ -954,7 +954,7 @@
 
       /* citation block */
       .citation-block { position: relative; margin-top: 18px; border: 1px solid var(--rule);
-        border-radius: 8px; background: #254669; overflow: hidden; }
+        border-radius: 8px; background: #15171b; overflow: hidden; }
       .citation-block pre { margin: 0; padding: 18px 20px; overflow-x: auto; color: #dbe6f4;
         font-family: var(--mono); font-size: 0.85rem; line-height: 1.65; }
       .citation-copy { position: absolute; top: 10px; right: 10px; border: 1px solid rgba(255,255,255,0.22);
@@ -966,6 +966,19 @@
       .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-bottom: 12px; }
       .footer-links a { color: var(--ink-soft); font-size: 0.9rem; }
 
+      /* team / authors */
+      .team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 18px; margin-top: 30px; }
+      .team-member { text-align: center; }
+      .team-member > a { display: block; color: var(--ink); text-decoration: none; }
+      .team-member > a:hover { color: var(--accent); text-decoration: none; }
+      .team-avatar { width: 108px; height: 108px; border-radius: 999px; display: block; margin: 0 auto 12px;
+        border: 1px solid var(--rule); background: var(--tint); object-fit: cover;
+        transition: border-color .18s ease, box-shadow .22s ease; }
+      .team-member > a:hover .team-avatar { border-color: var(--accent); box-shadow: 0 8px 22px rgba(43,88,138,0.18); }
+      .team-name { font-weight: 600; font-size: 0.98rem; }
+      .team-affil { color: var(--muted); font-size: 0.84rem; margin-top: 3px; text-wrap: balance; }
+      @media (max-width: 660px) { .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
       /* hero teaser — Option A: before -> after flow */
       .hero-teaser { max-width: 1000px; margin: 12px auto 4px; }
       .teaser-flow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; }
@@ -976,8 +989,9 @@
       }
       .teaser-card.is-orig { border-top: 3px solid #c2566b; }
       .teaser-card.is-edit { border-top: 3px solid var(--accent); display: flex; flex-direction: column; }
-      /* keep the single edited clip vertically centered so both cards align top & bottom */
-      .teaser-card.is-edit .teaser-screen { margin-block: auto; }
+      /* the single edited clip fills the taller card so there is no empty space */
+      .teaser-card.is-edit .teaser-screen { flex: 1 1 auto; min-height: 0; }
+      .teaser-card.is-edit .teaser-screen video { height: 100%; aspect-ratio: auto; object-fit: cover; }
       .teaser-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
       .teaser-name { font-family: var(--serif); font-size: 1.04rem; font-weight: 600; color: var(--ink); }
       .teaser-pill {
@@ -987,7 +1001,7 @@
       .pill-bad { background: #fbe9ec; color: #b03a52; }
       .pill-good { background: var(--accent-soft); color: var(--accent); }
       .teaser-stack { display: grid; gap: 10px; }
-      .teaser-screen { position: relative; border-radius: 10px; overflow: hidden; background: #e6edf7; }
+      .teaser-screen { position: relative; border-radius: 10px; overflow: hidden; background: #ebedf0; }
       .teaser-screen video { display: block; width: 100%; aspect-ratio: 460 / 294; object-fit: cover; }
       .teaser-screen.sm .teaser-chip { font-size: 0.66rem; padding: 4px 8px; }
       .teaser-chip {
@@ -1032,6 +1046,7 @@
           <a href="#demo">Demo</a>
           <a href="#robots">Real Robots</a>
           <a href="#supplementary">Supplementary</a>
+          <a href="#team">Team</a>
           <a href="#citation">Citation</a>
         </div>
       </div>
@@ -1066,9 +1081,9 @@
         </p>
         <div class="cta">
           <a class="button accent" href="https://arxiv.org/abs/2606.29201">Paper</a>
-          <a class="button" href="https://github.com/phai-lab/behavior-uncloning">Code</a>
-          <a class="button secondary" href="#demo">Interactive demo</a>
-          <a class="button secondary" href="#supplementary">Supplementary video</a>
+          <a class="button accent" href="https://github.com/phai-lab/behavior-uncloning">Code</a>
+          <a class="button accent" href="#demo">Interactive demo</a>
+          <a class="button accent" href="#supplementary">Supplementary video</a>
         </div>
         <figure class="hero-teaser">
           <div class="teaser-flow">
@@ -1429,6 +1444,71 @@
         </div>
       </section>
 
+      <section id="team" class="section narrow">
+        <div class="section-kicker">Team</div>
+        <h2>Authors.</h2>
+        <div class="team-grid">
+          <div class="team-member">
+            <a href="https://haohww.github.io/">
+              <img class="team-avatar" src="assets/images/authors/hao-wang.svg" width="108" height="108" alt="">
+              <div class="team-name">Hao Wang</div>
+            </a>
+            <div class="team-affil">Texas A&amp;M · Project Lead</div>
+          </div>
+          <div class="team-member">
+            <a href="https://scholar.google.com/citations?hl=en&amp;user=X52xke0AAAAJ">
+              <img class="team-avatar" src="assets/images/authors/jiuzhou-lei.svg" width="108" height="108" alt="">
+              <div class="team-name">Jiuzhou Lei</div>
+            </a>
+            <div class="team-affil">Texas A&amp;M</div>
+          </div>
+          <div class="team-member">
+            <a href="https://edisiondyli.github.io/">
+              <img class="team-avatar" src="assets/images/authors/dayou-li.svg" width="108" height="108" alt="">
+              <div class="team-name">Dayou Li</div>
+            </a>
+            <div class="team-affil">Texas A&amp;M</div>
+          </div>
+          <div class="team-member">
+            <a href="https://neutrinoliu.github.io/">
+              <img class="team-avatar" src="assets/images/authors/bangya-liu.svg" width="108" height="108" alt="">
+              <div class="team-name">Bangya Liu</div>
+            </a>
+            <div class="team-affil">University of Wisconsin</div>
+          </div>
+          <div class="team-member">
+            <a href="https://engineering.tamu.edu/mechanical/profiles/zheng-minghui.html">
+              <img class="team-avatar" src="assets/images/authors/minghui-zheng.svg" width="108" height="108" alt="">
+              <div class="team-name">Minghui Zheng</div>
+            </a>
+            <div class="team-affil">Texas A&amp;M</div>
+          </div>
+          <div class="team-member">
+            <a href="https://limanling.github.io/">
+              <img class="team-avatar" src="assets/images/authors/manling-li.svg" width="108" height="108" alt="">
+              <div class="team-name">Manling Li</div>
+            </a>
+            <div class="team-affil">Northwestern</div>
+          </div>
+          <div class="team-member">
+            <a href="https://ruohanzhang.com/">
+              <img class="team-avatar" src="assets/images/authors/ruohan-zhang.svg" width="108" height="108" alt="">
+              <div class="team-name">Ruohan Zhang</div>
+            </a>
+            <div class="team-affil">Northwestern · Stanford</div>
+          </div>
+          <div class="team-member">
+            <a href="https://zhiwenfan.github.io/">
+              <img class="team-avatar" src="assets/images/authors/zhiwen-fan.svg" width="108" height="108" alt="">
+              <div class="team-name">Zhiwen Fan</div>
+            </a>
+            <div class="team-affil">Texas A&amp;M</div>
+          </div>
+        </div>
+        <!-- Author photos are monogram placeholders (assets/images/authors/*.svg).
+             Replace each src with a real square headshot (e.g. authors/hao-wang.jpg) to show faces. -->
+      </section>
+
       <section id="citation" class="section narrow">
         <div class="section-kicker">Citation</div>
         <h2>Cite this work.</h2>
@@ -1645,7 +1725,7 @@
           current: "#2b588a",
           ink: "#16202e",
           muted: "#647085",
-          rule: "#ccd7e6",
+          rule: "#d3d7dd",
           goal: "#4aa86b",
           pillar: "#6c5846",
           wall: "#756757",
@@ -1712,7 +1792,7 @@
           const task = currentTask();
           const view = layout();
           const tick = task.scene.tick_step || 0.5;
-          ctx.fillStyle = "#e9f1fa";
+          ctx.fillStyle = "#eceef1";
           ctx.fillRect(0, 0, state.cssWidth, state.cssHeight);
           ctx.strokeStyle = colors.rule;
           ctx.lineWidth = 1;
@@ -1743,7 +1823,7 @@
             ctx.fillText(formatTick(y), view.left - 8, sy);
           }
 
-          ctx.strokeStyle = "#a2b2c6";
+          ctx.strokeStyle = "#aab1b9";
           ctx.lineWidth = 1.2;
           ctx.strokeRect(view.left, view.top, view.right - view.left, view.bottom - view.top);
         };

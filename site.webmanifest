@@ -4,7 +4,7 @@
   "description": "Distilling mode redirection into policy weights without inference-time steering.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f1f6fc",
+  "background_color": "#f7f8f9",
   "theme_color": "#2b588a",
   "icons": [
     { "src": "assets/icons/icon-192.png", "type": "image/png", "sizes": "192x192", "purpose": "any maskable" },
