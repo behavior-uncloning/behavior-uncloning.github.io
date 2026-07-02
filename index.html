@@ -6,7 +6,7 @@
     <title>Behavior Uncloning — Distilling Mode Redirection into Policy Weights</title>
     <meta name="description" content="Behavior Uncloning (MoRE): distilling mode redirection into policy weights without inference-time steering.">
     <link rel="canonical" href="https://behavior-uncloning.github.io/">
-    <meta name="theme-color" content="#0c7278">
+    <meta name="theme-color" content="#2b588a">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
@@ -30,15 +30,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
       :root {
-        --ink: #17211d;
-        --ink-soft: #3d4b47;
-        --muted: #687772;
-        --rule: #d7e2dd;
-        --bg: #f6faf8;
+        --ink: #16202e;
+        --ink-soft: #38465b;
+        --muted: #586172;
+        --rule: #d8e0ec;
+        --bg: #f1f6fc;
         --card: #ffffff;
-        --tint: #e8f4f0;
-        --accent: #0c7278;
-        --accent-soft: #d9eeea;
+        --tint: #e6eef8;
+        --accent: #2b588a;         /* PHAI blue */
+        --accent-strong: #22496e;  /* deep PHAI blue — hovers / emphasis */
+        --accent-soft: #dfe9f7;    /* light blue — pills, badges, soft fills */
         --warning: #9a5a36;
         --serif: "Source Serif 4", "Noto Serif", Iowan Old Style, Georgia, serif;
         --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -76,7 +77,7 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        background: rgba(246, 250, 248, 0.88);
+        background: rgba(241, 246, 252, 0.88);
         border-bottom: 1px solid var(--rule);
         backdrop-filter: blur(14px) saturate(140%);
       }
@@ -149,7 +150,7 @@
       }
       .authors a {
         color: var(--ink-soft);
-        border-bottom: 1px solid rgba(12, 114, 120, 0.28);
+        border-bottom: 1px solid rgba(43, 88, 138, 0.28);
       }
       .authors a:hover {
         color: var(--accent);
@@ -198,6 +199,16 @@
         border-color: var(--accent);
         color: white;
         text-decoration: none;
+      }
+      .button.accent {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .button.accent:hover {
+        background: var(--accent-strong);
+        border-color: var(--accent-strong);
+        color: #fff;
       }
       .button.secondary {
         background: transparent;
@@ -261,13 +272,13 @@
       }
       .video-wrap {
         position: relative;
-        background: #e6efec;
+        background: #e6edf7;
       }
       video {
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: contain;
-        background: #e6efec;
+        background: #e6edf7;
       }
       .carousel-caption h3,
       .stat-card h3,
@@ -289,7 +300,7 @@
         border: 0;
         border-radius: 999px;
         padding: 6px 8px;
-        background: rgba(26, 24, 21, 0.72);
+        background: rgba(20, 29, 44, 0.72);
         color: white;
         font-family: var(--mono);
         font-size: 0.75rem;
@@ -438,7 +449,7 @@
       .demo-controls {
         padding: 22px;
         border-right: 1px solid var(--rule);
-        background: #fbfdfc;
+        background: #fbfcff;
       }
       .demo-control-group + .demo-control-group { margin-top: 22px; }
       .demo-control-group h3 {
@@ -538,7 +549,7 @@
         margin: 0;
         border: 1px solid var(--rule);
         border-radius: 8px;
-        background: #f8fbfa;
+        background: #f7fafe;
         overflow: hidden;
       }
       .demo-media-card video,
@@ -546,10 +557,10 @@
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: contain;
-        background: #e6efec;
+        background: #e6edf7;
       }
       .demo-media-card img {
-        background: #f6faf8;
+        background: #f1f6fc;
       }
       .demo-media-caption {
         padding: 11px 12px 12px;
@@ -581,7 +592,7 @@
         border: 1px solid var(--rule);
         border-radius: 8px;
         padding: 14px;
-        background: #fbfdfc;
+        background: #fbfcff;
       }
       .outcome-head {
         display: flex;
@@ -602,7 +613,7 @@
         display: flex;
         height: 15px;
         border-radius: 999px;
-        background: #e3ece8;
+        background: #e4eaf3;
         overflow: hidden;
       }
       .outcome-segment {
@@ -616,7 +627,7 @@
         background: #9a8d76;
       }
       .outcome-segment.fail {
-        background: #d8e1dd;
+        background: #dbe3ee;
       }
       .outcome-list {
         display: grid;
@@ -641,7 +652,7 @@
       }
       .outcome-item.target span:first-child::before { background: var(--accent); }
       .outcome-item.other span:first-child::before { background: #9a8d76; }
-      .outcome-item.fail span:first-child::before { background: #d8e1dd; border: 1px solid #b8c9c2; }
+      .outcome-item.fail span:first-child::before { background: #dbe3ee; border: 1px solid #bccadb; }
       .demo-note {
         margin: 12px 0 0;
         color: var(--muted);
@@ -652,7 +663,7 @@
         display: grid;
         gap: 12px;
         padding: 12px;
-        background: #f8fbfa;
+        background: #f7fafe;
       }
       .quad-inline.hidden,
       #demo-traj.hidden {
@@ -737,7 +748,7 @@
         position: relative;
         overflow: hidden;
         border-radius: 6px;
-        background: #edf5f2;
+        background: #e9f1fa;
       }
       .quad-canvas-frame canvas {
         display: block;
@@ -749,7 +760,7 @@
         inset: 0;
         display: grid;
         place-items: center;
-        background: rgba(237, 245, 242, 0.86);
+        background: rgba(233, 241, 250, 0.86);
         color: var(--muted);
         font-family: var(--mono);
         font-size: 0.82rem;
@@ -815,7 +826,7 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--muted);
-        background: #edf5f2;
+        background: #e9f1fa;
       }
       th:first-child,
       td:first-child {
@@ -827,11 +838,11 @@
       }
       th:first-child {
         z-index: 2;
-        background: #edf5f2;
+        background: #e9f1fa;
       }
       tr:last-child td { border-bottom: 0; }
       .ours td {
-        background: #edf5e9;
+        background: #e6f0fa;
         font-weight: 600;
       }
       .metric {
@@ -900,7 +911,7 @@
       }
 
       /* ---------- polish: motion, depth, focus, citation ---------- */
-      ::selection { background: rgba(12, 114, 120, 0.18); }
+      ::selection { background: rgba(43, 88, 138, 0.18); }
 
       a, .button, .nav-links a, .brand,
       .demo-choice, .quad-route, .quad-action, .quad-select,
@@ -919,22 +930,22 @@
       /* subtle elevation */
       .stat-card, .method-card, .carousel-shell, .demo-shell, .demo-media-card,
       .outcome-card, .table-wrap, .wide-video, .equation {
-        box-shadow: 0 1px 2px rgba(23, 33, 29, 0.04), 0 2px 6px rgba(23, 33, 29, 0.05);
+        box-shadow: 0 1px 2px rgba(22, 32, 46, 0.04), 0 2px 6px rgba(22, 32, 46, 0.05);
       }
       .stat-card:hover, .method-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 26px rgba(23, 33, 29, 0.09);
+        box-shadow: 0 10px 26px rgba(22, 32, 46, 0.09);
         border-color: var(--accent-soft);
       }
       .carousel-shell:hover, .demo-media-card:hover {
-        box-shadow: 0 12px 30px rgba(23, 33, 29, 0.10);
+        box-shadow: 0 12px 30px rgba(22, 32, 46, 0.10);
       }
-      .button { box-shadow: 0 1px 2px rgba(23, 33, 29, 0.12); }
+      .button { box-shadow: 0 1px 2px rgba(22, 32, 46, 0.12); }
       .button:hover { transform: translateY(-1px); }
       .button.disabled { box-shadow: none; }
 
       /* hero depth + accent eyebrow */
-      .hero { background: radial-gradient(820px 360px at 50% -10%, rgba(12, 114, 120, 0.07), transparent 70%); }
+      .hero { background: radial-gradient(820px 360px at 50% -10%, rgba(43, 88, 138, 0.07), transparent 70%); }
       .eyebrow { color: var(--accent); }
       .equation { text-align: center; }
 
@@ -943,11 +954,11 @@
 
       /* citation block */
       .citation-block { position: relative; margin-top: 18px; border: 1px solid var(--rule);
-        border-radius: 8px; background: var(--ink); overflow: hidden; }
-      .citation-block pre { margin: 0; padding: 18px 20px; overflow-x: auto; color: #d7e6e1;
+        border-radius: 8px; background: #254669; overflow: hidden; }
+      .citation-block pre { margin: 0; padding: 18px 20px; overflow-x: auto; color: #dbe6f4;
         font-family: var(--mono); font-size: 0.85rem; line-height: 1.65; }
       .citation-copy { position: absolute; top: 10px; right: 10px; border: 1px solid rgba(255,255,255,0.22);
-        border-radius: 999px; padding: 6px 13px; background: rgba(255,255,255,0.08); color: #eaf3f0;
+        border-radius: 999px; padding: 6px 13px; background: rgba(255,255,255,0.08); color: #eaf1f9;
         font-family: var(--mono); font-size: 0.76rem; cursor: pointer; }
       .citation-copy:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
@@ -960,10 +971,13 @@
       .teaser-flow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; }
       .teaser-card {
         border: 1px solid var(--rule); border-radius: 16px; background: var(--card); padding: 12px;
-        box-shadow: 0 14px 34px rgba(23,33,29,0.10), 0 2px 8px rgba(23,33,29,0.05);
+        box-shadow: 0 14px 34px rgba(22,32,46,0.10), 0 2px 8px rgba(22,32,46,0.05);
+        align-self: stretch;
       }
       .teaser-card.is-orig { border-top: 3px solid #c2566b; }
-      .teaser-card.is-edit { border-top: 3px solid var(--accent); }
+      .teaser-card.is-edit { border-top: 3px solid var(--accent); display: flex; flex-direction: column; }
+      /* keep the single edited clip vertically centered so both cards align top & bottom */
+      .teaser-card.is-edit .teaser-screen { margin-block: auto; }
       .teaser-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
       .teaser-name { font-family: var(--serif); font-size: 1.04rem; font-weight: 600; color: var(--ink); }
       .teaser-pill {
@@ -973,7 +987,7 @@
       .pill-bad { background: #fbe9ec; color: #b03a52; }
       .pill-good { background: var(--accent-soft); color: var(--accent); }
       .teaser-stack { display: grid; gap: 10px; }
-      .teaser-screen { position: relative; border-radius: 10px; overflow: hidden; background: #e6efec; }
+      .teaser-screen { position: relative; border-radius: 10px; overflow: hidden; background: #e6edf7; }
       .teaser-screen video { display: block; width: 100%; aspect-ratio: 460 / 294; object-fit: cover; }
       .teaser-screen.sm .teaser-chip { font-size: 0.66rem; padding: 4px 8px; }
       .teaser-chip {
@@ -981,12 +995,12 @@
         font-weight: 600; padding: 5px 10px; border-radius: 999px; color: #fff; backdrop-filter: blur(6px);
       }
       .chip-bad { background: rgba(176,58,82,0.88); }
-      .chip-good { background: rgba(12,114,120,0.90); }
+      .chip-good { background: rgba(43,88,138,0.90); }
       .teaser-arrow { display: flex; flex-direction: column; align-items: center; gap: 8px; }
       .teaser-badge {
         font-family: var(--mono); font-weight: 700; font-size: 0.86rem; letter-spacing: 0.04em;
         color: #fff; background: var(--accent); padding: 8px 15px; border-radius: 999px;
-        box-shadow: 0 6px 16px rgba(12,114,120,0.30);
+        box-shadow: 0 6px 16px rgba(43,88,138,0.30);
       }
       .teaser-arrowline { width: 50px; height: 2px; background: var(--accent); position: relative; }
       .teaser-arrowline::after {
@@ -995,7 +1009,7 @@
       }
       .teaser-arrowsub { font-family: var(--mono); font-size: 0.64rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
       .hero-teaser figcaption { margin-top: 16px; text-align: center; color: var(--muted); font-size: 0.92rem; text-wrap: balance; }
-      @media (max-width: 720px) {
+      @media (max-width: 860px) {
         .teaser-flow { grid-template-columns: 1fr; gap: 12px; }
         .teaser-arrow { flex-direction: row; gap: 12px; }
         .teaser-arrowline { width: 2px; height: 26px; }
@@ -1031,9 +1045,9 @@
         <p class="authors">
           <a href="https://haohww.github.io/">Hao Wang</a><sup>1,†</sup>,
           <a href="https://scholar.google.com/citations?hl=en&amp;user=X52xke0AAAAJ">Jiuzhou Lei</a><sup>1</sup>,
-          <a href="https://edisiondyli.github.io/">Danyou Li</a><sup>1</sup>,
+          <a href="https://edisiondyli.github.io/">Dayou Li</a><sup>1</sup>,
           <a href="https://neutrinoliu.github.io/">Bangya Liu</a><sup>2</sup>,
-          <a href="https://zh.engr.tamu.edu/people-2/">Minghui Zheng</a><sup>1</sup>,
+          <a href="https://engineering.tamu.edu/mechanical/profiles/zheng-minghui.html">Minghui Zheng</a><sup>1</sup>,
           <a href="https://limanling.github.io/">Manling Li</a><sup>3</sup>,
           <a href="https://ruohanzhang.com/">Ruohan Zhang</a><sup>3,4</sup>,
           <a href="https://zhiwenfan.github.io/">Zhiwen Fan</a><sup>1</sup>
@@ -1051,7 +1065,7 @@
           original inference path.
         </p>
         <div class="cta">
-          <span class="button disabled" aria-disabled="true">Paper coming soon</span>
+          <a class="button accent" href="https://arxiv.org/abs/2606.29201">Paper</a>
           <a class="button" href="https://github.com/phai-lab/behavior-uncloning">Code</a>
           <a class="button secondary" href="#demo">Interactive demo</a>
           <a class="button secondary" href="#supplementary">Supplementary video</a>
@@ -1421,13 +1435,14 @@
         <p class="lead">If you find Behavior Uncloning useful, please consider citing:</p>
         <div class="citation-block">
           <button class="citation-copy" type="button" id="cite-copy" aria-label="Copy BibTeX to clipboard">Copy</button>
-          <pre id="bibtex">@article{wang2026behavioruncloning,
-  title   = {Behavior Uncloning: Distilling Mode Redirection into Policy
-             Weights without Inference-Time Steering},
-  author  = {Wang, Hao and Lei, Jiuzhou and Li, Danyou and Liu, Bangya and
-             Zheng, Minghui and Li, Manling and Zhang, Ruohan and Fan, Zhiwen},
-  journal = {arXiv preprint},
-  year    = {2026}
+          <pre id="bibtex">@misc{wang2026behavioruncloning,
+      title={Behavior Uncloning: Distilling Mode Redirection into Policy Weights without Inference-Time Steering},
+      author={Hao Wang and Jiuzhou Lei and Dayou Li and Bangya Liu and Minghui Zheng and Manling Li and Ruohan Zhang and Zhiwen Fan},
+      year={2026},
+      eprint={2606.29201},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2606.29201},
 }</pre>
         </div>
       </section>
@@ -1627,10 +1642,10 @@
         };
 
         const colors = {
-          current: "#0c7278",
-          ink: "#17211d",
-          muted: "#687772",
-          rule: "#c9d8d2",
+          current: "#2b588a",
+          ink: "#16202e",
+          muted: "#647085",
+          rule: "#ccd7e6",
           goal: "#4aa86b",
           pillar: "#6c5846",
           wall: "#756757",
@@ -1697,7 +1712,7 @@
           const task = currentTask();
           const view = layout();
           const tick = task.scene.tick_step || 0.5;
-          ctx.fillStyle = "#edf5f2";
+          ctx.fillStyle = "#e9f1fa";
           ctx.fillRect(0, 0, state.cssWidth, state.cssHeight);
           ctx.strokeStyle = colors.rule;
           ctx.lineWidth = 1;
@@ -1728,7 +1743,7 @@
             ctx.fillText(formatTick(y), view.left - 8, sy);
           }
 
-          ctx.strokeStyle = "#9fb4ad";
+          ctx.strokeStyle = "#a2b2c6";
           ctx.lineWidth = 1.2;
           ctx.strokeRect(view.left, view.top, view.right - view.left, view.bottom - view.top);
         };
