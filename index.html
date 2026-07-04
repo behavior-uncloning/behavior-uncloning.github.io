@@ -884,6 +884,21 @@
         text-align: center;
         font-size: 0.9rem;
       }
+      .visitor-map {
+        width: min(180px, 100%);
+        height: 115px;
+        margin: 18px auto 0;
+        overflow: hidden;
+        opacity: 0.82;
+      }
+      .visitor-map iframe,
+      .visitor-map canvas,
+      .visitor-map img {
+        width: 180px !important;
+        max-width: 100% !important;
+        height: 115px !important;
+        border: 0 !important;
+      }
 
       @media (max-width: 980px) {
         h1 { white-space: normal; }
@@ -1536,6 +1551,9 @@
         <a href="#citation">Citation</a>
       </div>
       Behavior Uncloning · Mode redirection distilled into policy weights.
+      <div class="visitor-map" aria-label="Visitor map">
+        <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=ryNoi9GqH0O1zdZeIqY3LojeVrFPmq-kFJ3UTELLLeY&cl=ffffff&w=a"></script>
+      </div>
     </footer>
 
     <script>
@@ -2408,6 +2426,5 @@
         spyTargets.forEach((t) => spy.observe(t));
       }
     </script>
-    <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=ryNoi9GqH0O1zdZeIqY3LojeVrFPmq-kFJ3UTELLLeY&cl=ffffff&w=a"></script>
   </body>
 </html>
