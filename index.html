@@ -70,8 +70,6 @@
       .stat-card p,
       .method-card p,
       .card-body p,
-      .demo-note,
-      .outcome-item,
       footer {
         text-wrap: pretty;
       }
@@ -445,370 +443,6 @@
         white-space: nowrap;
       }
 
-      .demo-shell {
-        max-width: 1320px;
-        margin: 28px auto 0;
-        display: grid;
-        grid-template-columns: 360px minmax(0, 1fr);
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        background: var(--card);
-        overflow: hidden;
-      }
-      .demo-controls {
-        padding: 22px;
-        border-right: 1px solid var(--rule);
-        background: var(--surface);
-      }
-      .demo-control-group + .demo-control-group { margin-top: 22px; }
-      .demo-control-group h3 {
-        margin: 0 0 10px;
-        font-size: 0.86rem;
-        color: var(--muted);
-        font-family: var(--mono);
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-      .demo-button-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-      }
-      .demo-choice {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 40px;
-        border: 1px solid var(--rule);
-        border-radius: 999px;
-        background: transparent;
-        color: var(--ink-soft);
-        cursor: pointer;
-        font: inherit;
-        font-size: 0.9rem;
-        line-height: 1.2;
-        padding: 7px 11px;
-        text-align: center;
-        white-space: nowrap;
-      }
-      .demo-choice[aria-pressed="true"] {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: white;
-      }
-      .demo-metrics {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-      .demo-metric {
-        padding: 12px;
-        border-radius: 8px;
-        background: var(--tint);
-      }
-      .demo-metric span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.78rem;
-      }
-      .demo-metric strong {
-        display: block;
-        margin-top: 2px;
-        color: var(--ink);
-        font-family: var(--mono);
-        font-size: 1.02rem;
-      }
-      .demo-visual {
-        padding: 22px;
-      }
-      .demo-visual-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 14px;
-      }
-      .demo-visual-head h3 {
-        margin: 0;
-        font-size: 1.1rem;
-      }
-      .demo-status {
-        color: var(--muted);
-        font-size: 0.92rem;
-        margin: 4px 0 0;
-        text-wrap: balance;
-      }
-      .demo-badge {
-        flex: none;
-        border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent);
-        font-family: var(--mono);
-        font-size: 0.74rem;
-        font-weight: 600;
-        padding: 7px 10px;
-      }
-      .demo-media-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 14px;
-      }
-      .demo-media-card {
-        margin: 0;
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        background: var(--surface);
-        overflow: hidden;
-      }
-      .demo-media-card video,
-      .demo-media-card img {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        object-fit: contain;
-        background: var(--tint);
-      }
-      .demo-media-card img {
-        background: var(--surface);
-      }
-      .demo-media-caption {
-        padding: 11px 12px 12px;
-        border-top: 1px solid var(--rule);
-      }
-      .demo-media-caption strong {
-        display: block;
-        color: var(--ink);
-        font-size: 0.92rem;
-      }
-      .demo-media-caption span {
-        display: block;
-        margin-top: 3px;
-        color: var(--muted);
-        font-size: 0.84rem;
-        text-wrap: balance;
-      }
-      .demo-bars {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-        margin-top: 18px;
-      }
-      .demo-bars h4 {
-        margin: 0 0 8px;
-        font-size: 0.92rem;
-      }
-      .outcome-card {
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        padding: 14px;
-        background: var(--surface);
-      }
-      .outcome-head {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        align-items: baseline;
-        margin-bottom: 8px;
-      }
-      .outcome-head strong {
-        color: var(--ink);
-      }
-      .outcome-head span {
-        color: var(--accent);
-        font-family: var(--mono);
-        font-weight: 600;
-      }
-      .outcome-stack {
-        display: flex;
-        height: 15px;
-        border-radius: 999px;
-        background: #e9ebef;
-        overflow: hidden;
-      }
-      .outcome-segment {
-        height: 100%;
-        min-width: 0;
-      }
-      .outcome-segment.target {
-        background: var(--accent);
-      }
-      .outcome-segment.other {
-        background: #9a8d76;
-      }
-      .outcome-segment.fail {
-        background: #e4e6ea;
-      }
-      .outcome-list {
-        display: grid;
-        gap: 7px;
-        margin-top: 11px;
-      }
-      .outcome-item {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        color: var(--muted);
-        font-size: 0.87rem;
-      }
-      .outcome-item span:first-child::before {
-        content: "";
-        display: inline-block;
-        width: 9px;
-        height: 9px;
-        margin-right: 7px;
-        border-radius: 999px;
-        background: var(--muted);
-      }
-      .outcome-item.target span:first-child::before { background: var(--accent); }
-      .outcome-item.other span:first-child::before { background: #9a8d76; }
-      .outcome-item.fail span:first-child::before { background: #e4e6ea; border: 1px solid #bccadb; }
-      .demo-note {
-        margin: 12px 0 0;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-
-      .quad-inline {
-        display: grid;
-        gap: 12px;
-        padding: 12px;
-        background: var(--surface);
-      }
-      .quad-inline.hidden,
-      #demo-traj.hidden {
-        display: none;
-      }
-      .quad-inline-status {
-        color: var(--muted);
-        font-size: 0.88rem;
-        text-wrap: balance;
-      }
-      .quad-inline-controls {
-        display: grid;
-        grid-template-columns: 1.35fr 1fr 0.85fr 1fr;
-        align-items: center;
-        gap: 8px;
-      }
-      .quad-route-grid,
-      .quad-action-row {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-      }
-      .quad-route,
-      .quad-action,
-      .quad-select {
-        min-height: 40px;
-        border: 1px solid var(--rule);
-        border-radius: 999px;
-        background: transparent;
-        color: var(--ink-soft);
-        font: inherit;
-        font-size: 0.9rem;
-      }
-      .quad-route,
-      .quad-action {
-        cursor: pointer;
-      }
-      .quad-route[aria-pressed="true"],
-      .quad-action.primary {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: white;
-      }
-      .quad-action:hover,
-      .quad-route:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-      .quad-action.primary:hover {
-        color: white;
-      }
-      .quad-select {
-        width: 100%;
-        padding: 0 14px;
-        border-radius: 8px;
-        background: var(--card);
-      }
-      .quad-inline-readout {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px;
-      }
-      .quad-stat {
-        padding: 10px;
-        border-radius: 8px;
-        background: var(--tint);
-      }
-      .quad-stat span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.76rem;
-      }
-      .quad-stat strong {
-        display: block;
-        margin-top: 2px;
-        color: var(--ink);
-        font-family: var(--mono);
-        font-size: 0.9rem;
-        white-space: nowrap;
-      }
-      .quad-canvas-frame {
-        position: relative;
-        overflow: hidden;
-        border-radius: 6px;
-        background: var(--tint);
-      }
-      .quad-canvas-frame canvas {
-        display: block;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-      }
-      .quad-loading {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        background: rgba(236, 238, 241, 0.86);
-        color: var(--muted);
-        font-family: var(--mono);
-        font-size: 0.82rem;
-      }
-      .quad-loading.hidden {
-        display: none;
-      }
-      .quad-legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px 16px;
-        color: var(--muted);
-        font-size: 0.86rem;
-      }
-      .quad-legend span {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-      }
-      .quad-swatch {
-        width: 22px;
-        height: 3px;
-        border-radius: 999px;
-        background: var(--accent);
-      }
-      .quad-swatch.left { background: #236c9c; }
-      .quad-swatch.right { background: #b84d5a; }
-      .quad-swatch.current { height: 7px; background: var(--accent); }
-      .quad-swatch.pillar {
-        width: 10px;
-        height: 10px;
-        background: #6c5846;
-      }
-      .quad-swatch.goal {
-        width: 10px;
-        height: 10px;
-        background: #4aa86b;
-      }
-
       .table-wrap {
         margin-top: 26px;
         overflow-x: auto;
@@ -907,12 +541,6 @@
         h1 { white-space: normal; }
         .highlights { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .method-flow { grid-template-columns: 1fr; }
-        .demo-shell { grid-template-columns: 1fr; }
-        .demo-controls { border-right: 0; border-bottom: 1px solid var(--rule); }
-        .demo-button-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-        .quad-inline-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .demo-media-grid,
-        .demo-bars { grid-template-columns: 1fr; }
         .arrow { display: none; }
       }
       @media (max-width: 660px) {
@@ -923,15 +551,6 @@
         .carousel-controls { grid-template-columns: auto 1fr auto; gap: 10px; }
         .carousel-nav { width: 38px; height: 38px; }
         .section { padding: 42px 18px; }
-        .demo-controls,
-        .demo-visual { padding: 16px; }
-        .demo-button-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .quad-action-row,
-        .quad-route-grid,
-        .quad-inline-controls,
-        .quad-inline-readout { grid-template-columns: 1fr; }
-        .demo-visual-head { flex-direction: column; gap: 8px; }
-        .demo-metrics { grid-template-columns: 1fr; }
       }
 
       /* ---------- polish: motion, depth, focus, citation ---------- */
@@ -1197,6 +816,181 @@
         .film { padding: 6px; }
       }
 
+
+      /* ---------- simulation: mode explorer ---------- */
+      .explorer {
+        margin-top: 8px;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+      }
+      .explorer-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: var(--tint); }
+      .seg button {
+        border: 0;
+        background: transparent;
+        color: var(--ink-soft);
+        font: 500 0.9rem var(--sans);
+        padding: 7px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .seg button:hover { color: var(--ink); }
+      .seg button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(22, 27, 36, 0.08), 0 2px 8px rgba(22, 27, 36, 0.06); }
+      .seg-policy button[data-policy="more"][aria-pressed="true"] { background: var(--accent); color: #fff; }
+      .explorer-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; }
+      .explorer-stage { position: relative; background: var(--surface); }
+      #ex-svg { display: block; width: 100%; height: auto; }
+      .explorer-side { padding: 18px 18px 16px; border-left: 1px solid var(--rule); }
+      .explorer-side h4 {
+        margin: 0 0 10px;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .explorer-side h4 span { text-transform: none; letter-spacing: 0; font-family: var(--sans); font-weight: 400; }
+      .ex-modes { display: grid; gap: 6px; margin-bottom: 22px; }
+      .ex-modes button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        background: var(--card);
+        color: var(--ink);
+        font: 500 0.9rem var(--sans);
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
+      }
+      .ex-modes button .sw { width: 18px; height: 3px; border-radius: 2px; background: var(--c); flex: none; }
+      .ex-modes button:hover { border-color: var(--c); }
+      .ex-modes:not(.is-original) button:not(.is-on) { opacity: 0.55; }
+      .ex-modes:not(.is-original) button.is-on { border-color: var(--c); box-shadow: 0 0 0 1px var(--c); }
+      .ex-modes:not(.is-original) button.is-on::after { content: "target"; margin-left: auto; font: 600 0.66rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+      .ex-sr { display: grid; gap: 10px; margin-bottom: 18px; }
+      .ex-sr-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 0.86rem; color: var(--muted); transition: color 0.3s ease; }
+      .ex-sr-row b { font-family: var(--mono); font-weight: 600; font-size: 0.86rem; color: var(--muted); }
+      .ex-bar { grid-column: 1 / -1; height: 6px; border-radius: 4px; background: var(--tint); overflow: hidden; order: 3; }
+      .ex-bar i { display: block; height: 100%; border-radius: 4px; background: #b9c0cb; transition: width 0.6s cubic-bezier(.2,.8,.2,1), background 0.3s ease; }
+      .ex-sr-row.is-on { color: var(--ink); }
+      .ex-sr-row.is-on b { color: var(--ink); }
+      .ex-sr-row.is-on .ex-bar i { background: var(--accent); }
+      .ex-note { margin: 0; font-size: 0.8rem; line-height: 1.5; color: var(--muted); text-wrap: pretty; }
+      .explorer-foot { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-top: 1px solid var(--rule); }
+      .ex-play {
+        position: relative;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid var(--rule);
+        background: var(--card);
+        cursor: pointer;
+        flex: none;
+      }
+      .ex-play::before, .ex-play::after { content: ""; position: absolute; top: 11px; width: 3px; height: 12px; border-radius: 1px; background: var(--ink); }
+      .ex-play::before { left: 12px; }
+      .ex-play::after { left: 18px; }
+      .ex-play.is-paused::before { left: 13px; top: 10px; width: 0; height: 0; border-radius: 0; background: none; border-left: 11px solid var(--ink); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+      .ex-play.is-paused::after { display: none; }
+      #ex-scrub { flex: 1; accent-color: var(--accent); }
+      .ex-hint { font: 500 0.72rem var(--mono); letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
+
+      /* SVG scene */
+      .ex-grid line { stroke: #e7eaef; stroke-width: 1; vector-effect: non-scaling-stroke; }
+      .ex-wall { fill: #3a4252; }
+      .ex-goal { fill: rgba(63, 143, 90, 0.10); stroke: var(--mode-good); stroke-width: 1.5; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+      .ex-goal-t rect { fill: rgba(63, 143, 90, 0.08); stroke: var(--mode-good); stroke-width: 1.5; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+      .ex-finish { stroke: #9aa3b0; stroke-width: 1.2; stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
+      .ex-mode { transition: opacity 0.6s ease; }
+      .ex-mode.is-faded { opacity: 0.08; }
+      .ex-ghost { fill: none; stroke: var(--c); stroke-width: 1; opacity: 0.18; }
+      .ex-trail { fill: none; stroke: var(--c); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: 0.8; transition: stroke-width 0.4s ease; }
+      .ex-mode.is-target .ex-trail { stroke-width: 2.4; opacity: 0.95; }
+      .ex-cube, .ex-tblock rect, .ex-dog { fill: var(--c); fill-opacity: 0.55; stroke: #fff; stroke-width: 1; vector-effect: non-scaling-stroke; }
+      .ex-mode.is-target .ex-cube, .ex-mode.is-target .ex-tblock rect, .ex-mode.is-target .ex-dog { fill-opacity: 0.85; }
+      .ex-pusher { fill: #161b24; fill-opacity: 0.55; }
+      .ex-scalebar line { stroke: var(--muted); stroke-width: 1.2; }
+      .ex-scalebar text { font: 500 12px var(--mono); fill: var(--muted); }
+
+      /* ---------- baseline small multiples ---------- */
+      .baseline { margin: 34px 0 0; }
+      .baseline figcaption h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 1.7rem; }
+      .baseline figcaption p { margin: 0 0 18px; max-width: 860px; color: var(--muted); font-size: 0.93rem; text-wrap: pretty; }
+      .baseline-chart {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .bc-panel { border: 1px solid var(--rule); border-radius: 12px; background: var(--card); padding: 14px 14px 10px; box-shadow: var(--shadow-sm); }
+      .bc-panel h4 { margin: 0 0 12px; font: 600 0.92rem var(--sans); color: var(--ink); }
+      .bc-plot { --nw: 96px; --vw: 38px; position: relative; display: grid; gap: 8px; padding-top: 16px; }
+      .bc-row { display: grid; grid-template-columns: var(--nw) 1fr var(--vw); align-items: center; gap: 0 8px; border-radius: 6px; outline-offset: 2px; cursor: default; }
+      .bc-name { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+      .bc-track { position: relative; height: 12px; }
+      .bc-track i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 0 4px 4px 0; background: #c3c9d2; }
+      .bc-val { font: 600 0.8rem var(--mono); color: var(--ink); text-align: right; }
+      .bc-row.is-more .bc-name { color: var(--ink); font-weight: 600; }
+      .bc-row.is-more .bc-track i { background: var(--accent); }
+      .bc-row:hover .bc-track i, .bc-row:focus .bc-track i { filter: brightness(0.92); }
+      .bc-ref {
+        position: absolute;
+        top: 0;
+        bottom: -2px;
+        left: calc(var(--nw) + 8px + (100% - var(--nw) - var(--vw) - 16px) * var(--p) / 100);
+        width: 0;
+        border-left: 1.5px dashed #6b7380;
+        outline-offset: 2px;
+      }
+      .bc-ref span { position: absolute; top: -2px; right: 4px; font: 500 0.62rem var(--mono); color: var(--muted); white-space: nowrap; }
+      .bc-tip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 3;
+        max-width: 240px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: var(--card);
+        border: 1px solid var(--rule);
+        box-shadow: var(--shadow-md);
+        font-size: 0.8rem;
+        color: var(--ink-soft);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+      .bc-tip b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+
+      @media (max-width: 980px) {
+        .explorer-body { grid-template-columns: 1fr; }
+        .explorer-side { border-left: 0; border-top: 1px solid var(--rule); }
+        .baseline-chart { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 660px) {
+        .baseline-chart { grid-template-columns: 1fr; }
+        .ex-hint { display: none; }
+        .explorer-bar { padding: 10px; }
+        .seg button { padding: 6px 10px; font-size: 0.82rem; }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         * { transition: none !important; scroll-behavior: auto !important; }
         .stat-card:hover, .method-card:hover, .button:hover { transform: none; }
@@ -1211,8 +1005,8 @@
           <a href="#video">Video</a>
           <a href="#abstract">Abstract</a>
           <a href="#method">Method</a>
-          <a href="#demo">Demo</a>
           <a href="#robots">Real Robots</a>
+          <a href="#simulation">Simulation</a>
           <a href="#supplementary">Supplementary</a>
           <a href="#team">Team</a>
           <a href="#citation">Citation</a>
@@ -1252,7 +1046,7 @@
           <a class="button accent" href="https://arxiv.org/abs/2606.29201">Paper</a>
           <a class="button accent" href="https://github.com/phai-lab/behavior-uncloning">Code</a>
           <a class="button ghost" href="#video"><span aria-hidden="true">&#9654;</span>&nbsp; Watch the video</a>
-          <a class="button ghost" href="#demo">Interactive demo</a>
+          <a class="button ghost" href="#simulation">Interactive demo</a>
         </div>
         <figure class="teaser">
           <div class="teaser-head">
@@ -1372,171 +1166,6 @@
         </div>
       </section>
 
-      <section id="demo" class="section left">
-        <div class="section-kicker">Interactive Demo</div>
-        <h2>Edit once, deploy the same policy interface.</h2>
-        <p class="lead">
-          Select a simulated task to inspect its representative MoRE rollout, trajectory summary,
-          and reported outcome breakdown. MoRE changes the checkpoint offline, while runtime
-          inference keeps the original policy path.
-        </p>
-        <div class="demo-shell">
-          <aside class="demo-controls" aria-label="Interactive mode edit controls">
-            <div class="demo-control-group">
-              <h3>Task</h3>
-              <div class="demo-button-grid" id="demo-task-tabs" role="tablist" aria-label="Simulation task selector"></div>
-            </div>
-            <div class="demo-control-group">
-              <h3>Reported outcome</h3>
-              <div class="demo-metrics">
-                <div class="demo-metric">
-                  <span>Original Avg SR</span>
-                  <strong id="demo-original-sr">37.0%</strong>
-                </div>
-                <div class="demo-metric">
-                  <span>MoRE Avg SR</span>
-                  <strong id="demo-more-sr">80.7%</strong>
-                </div>
-                <div class="demo-metric">
-                  <span>SR Gain</span>
-                  <strong id="demo-gain">+43.7 pp</strong>
-                </div>
-                <div class="demo-metric">
-                  <span>MoRE TCR</span>
-                  <strong id="demo-tcr">80.7%</strong>
-                </div>
-              </div>
-            </div>
-            <p class="demo-note">
-              Values report average SR/TCR over target modes from the simulated benchmark.
-            </p>
-          </aside>
-          <div class="demo-visual">
-            <div class="demo-visual-head">
-              <div>
-                <h3 id="demo-viz-title">Push-Wall: MoRE edited rollout</h3>
-                <p class="demo-status" id="demo-viz-caption">
-                  Representative edited rollout and reported outcome breakdown.
-                </p>
-              </div>
-              <span class="demo-badge">actual media + paper metrics</span>
-            </div>
-            <div class="demo-media-grid">
-              <figure class="demo-media-card">
-                <img id="demo-traj" src="assets/images/push_wall_traj.png" alt="Push-Wall trajectory summary">
-                <div class="quad-inline hidden" id="quadruped-replay">
-                  <div class="quad-canvas-frame">
-                    <canvas id="quad-canvas" aria-label="Animated rollout trajectory replay"></canvas>
-                    <div class="quad-loading" id="quad-loading">Loading trajectory replay...</div>
-                  </div>
-                  <div class="quad-inline-status" id="quad-status">Loading recorded rollout trajectories.</div>
-                  <div class="quad-inline-controls" aria-label="Trajectory replay controls">
-                    <div class="quad-route-grid" id="replay-mode-tabs" role="tablist" aria-label="Trajectory mode selector"></div>
-                    <select class="quad-select" id="quad-rollout-select" aria-label="Quadruped rollout seed"></select>
-                    <select class="quad-select" id="quad-speed-select" aria-label="Quadruped replay speed">
-                      <option value="0.5">0.5x</option>
-                      <option value="1" selected>1x</option>
-                      <option value="1.5">1.5x</option>
-                      <option value="2">2x</option>
-                    </select>
-                    <div class="quad-action-row">
-                      <button class="quad-action primary" type="button" id="quad-play-toggle">Pause</button>
-                      <button class="quad-action" type="button" id="quad-reset">Reset</button>
-                    </div>
-                  </div>
-                  <div class="quad-inline-readout">
-                    <div class="quad-stat">
-                      <span id="quad-m1-label">Step</span>
-                      <strong id="quad-step">0 / 0</strong>
-                    </div>
-                    <div class="quad-stat">
-                      <span id="quad-m2-label">Pose</span>
-                      <strong id="quad-pose">0.00, 0.00</strong>
-                    </div>
-                    <div class="quad-stat">
-                      <span id="quad-m3-label">Yaw</span>
-                      <strong id="quad-yaw">0.00 rad</strong>
-                    </div>
-                    <div class="quad-stat">
-                      <span id="quad-m4-label">Goal</span>
-                      <strong id="quad-goal">4.50, 0.00</strong>
-                    </div>
-                  </div>
-                  <div class="quad-legend" id="replay-legend" aria-label="Trajectory replay legend"></div>
-                </div>
-                <figcaption class="demo-media-caption">
-                  <strong id="demo-traj-title">Trajectory summary</strong>
-                  <span id="demo-traj-caption">Reported rollout trajectories for this simulated task.</span>
-                </figcaption>
-              </figure>
-              <figure class="demo-media-card">
-                <video id="demo-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/sim_push_wall_poster.png" src="assets/videos/sim_push_wall.mp4"></video>
-                <figcaption class="demo-media-caption">
-                  <strong>Representative MoRE rollout</strong>
-                  <span id="demo-video-caption">Actual rollout video used on this project page.</span>
-                </figcaption>
-              </figure>
-            </div>
-            <div class="demo-bars" id="demo-bars" aria-label="Reported rollout outcome breakdown"></div>
-            <p class="demo-note">
-              This is not a browser physics simulator. It replays recorded trajectory traces:
-              Go1 base poses (Quadruped), MoRE-edited DP policy rollouts (Push-T), and successful
-              task demonstrations (Push-Wall, Push-Pillars). SR is target-aligned task success,
-              while TCR counts task completion regardless of mode.
-            </p>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table aria-label="Simulated task deployment success improvements">
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Modes</th>
-                <th>Original Avg SR</th>
-                <th>MoRE Avg SR</th>
-                <th>SR Gain (pp)</th>
-                <th>MoRE TCR</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Push-T</td>
-                <td>left or right</td>
-                <td class="metric">50.0%</td>
-                <td class="metric">98.3%</td>
-                <td class="metric delta">+48.3</td>
-                <td class="metric">98.7%</td>
-              </tr>
-              <tr>
-                <td>Push-Wall</td>
-                <td>left or right</td>
-                <td class="metric">37.0%</td>
-                <td class="metric">80.7%</td>
-                <td class="metric delta">+43.7</td>
-                <td class="metric">80.7%</td>
-              </tr>
-              <tr>
-                <td>Push-Pillars</td>
-                <td>four routes</td>
-                <td class="metric">21.5%</td>
-                <td class="metric">72.3%</td>
-                <td class="metric delta">+50.8</td>
-                <td class="metric">80.7%</td>
-              </tr>
-              <tr>
-                <td>Quadruped</td>
-                <td>left or right</td>
-                <td class="metric">50.0%</td>
-                <td class="metric">84.3%</td>
-                <td class="metric delta">+34.3</td>
-                <td class="metric">84.7%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="table-note">Values report average deployment success rate (SR) and task completion rate (TCR) over target modes.</p>
-      </section>
-
       <section id="robots" class="section left">
         <div class="section-kicker">Real-Robot Deployment Results</div>
         <h2>Mode edits transfer to physical robot tasks.</h2>
@@ -1608,6 +1237,105 @@
           </table>
         </div>
         <p class="table-note">Values report average real-robot SR over target modes. Place-Bottle also supports a 3 → 2 edit, improving SR from 50.0% to 100.0%.</p>
+      </section>
+
+      <section id="simulation" class="section left">
+        <div class="section-kicker">Simulation</div>
+        <h2>Choose a mode. The policy follows.</h2>
+        <p class="lead">
+          Each simulated task admits several behavior modes. The original policy spreads its rollouts across all of
+          them; a MoRE edit keeps the target mode you pick and removes the rest, with the same inference path.
+        </p>
+        <div class="explorer" id="explorer">
+          <div class="explorer-bar">
+            <div class="seg" id="ex-tasks" role="group" aria-label="Simulated task"></div>
+            <div class="seg seg-policy" id="ex-policy" role="group" aria-label="Policy">
+              <button type="button" data-policy="original" aria-pressed="true">Original policy</button>
+              <button type="button" data-policy="more" aria-pressed="false">MoRE-edited</button>
+            </div>
+          </div>
+          <div class="explorer-body">
+            <div class="explorer-stage">
+              <svg id="ex-svg" viewBox="0 0 960 600" role="img" aria-label="Top-down trajectory replay"></svg>
+            </div>
+            <aside class="explorer-side">
+              <h4 id="ex-mode-heading">Behavior modes in the data</h4>
+              <div class="ex-modes" id="ex-modes"></div>
+              <h4>Deployment success <span>(avg over target modes)</span></h4>
+              <div class="ex-sr" id="ex-sr">
+                <div class="ex-sr-row" data-k="orig"><span>Original policy</span><span class="ex-bar"><i></i></span><b></b></div>
+                <div class="ex-sr-row" data-k="more"><span>MoRE-edited</span><span class="ex-bar"><i></i></span><b></b></div>
+              </div>
+              <p class="ex-note" id="ex-note"></p>
+            </aside>
+          </div>
+          <div class="explorer-foot">
+            <button type="button" class="ex-play" id="ex-play" aria-label="Pause replay"></button>
+            <input type="range" id="ex-scrub" min="0" max="1000" value="0" aria-label="Replay position">
+            <span class="ex-hint">Click a mode to edit toward it</span>
+          </div>
+        </div>
+
+        <figure class="baseline">
+          <figcaption>
+            <h3>MoRE vs. adaptation and steering baselines</h3>
+            <p>Deployment success rate (SR, %) averaged over target modes, Diffusion Policy benchmark. DynaGuide steers at
+              inference time and runs at 8.47&times; the original latency; CPL and MoRE edit the weights and keep the
+              original latency. The dashed marker is the filtered-retrain reference, a policy retrained from scratch on
+              mode-filtered demonstrations.</p>
+          </figcaption>
+          <div class="baseline-chart" id="baseline-chart"></div>
+        </figure>
+
+        <div class="table-wrap">
+          <table aria-label="Simulated task deployment success improvements">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Modes</th>
+                <th>Original Avg SR</th>
+                <th>MoRE Avg SR</th>
+                <th>SR Gain (pp)</th>
+                <th>MoRE TCR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Push-T</td>
+                <td>left or right</td>
+                <td class="metric">50.0%</td>
+                <td class="metric">98.3%</td>
+                <td class="metric delta">+48.3</td>
+                <td class="metric">98.7%</td>
+              </tr>
+              <tr>
+                <td>Push-Wall</td>
+                <td>left or right</td>
+                <td class="metric">37.0%</td>
+                <td class="metric">80.7%</td>
+                <td class="metric delta">+43.7</td>
+                <td class="metric">80.7%</td>
+              </tr>
+              <tr>
+                <td>Push-Pillars</td>
+                <td>four routes</td>
+                <td class="metric">21.5%</td>
+                <td class="metric">72.3%</td>
+                <td class="metric delta">+50.8</td>
+                <td class="metric">80.7%</td>
+              </tr>
+              <tr>
+                <td>Quadruped</td>
+                <td>left or right</td>
+                <td class="metric">50.0%</td>
+                <td class="metric">84.3%</td>
+                <td class="metric delta">+34.3</td>
+                <td class="metric">84.7%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Values report average deployment success rate (SR) and task completion rate (TCR) over target modes.</p>
       </section>
 
       <section id="supplementary" class="section narrow">
@@ -1702,7 +1430,7 @@
       <div class="footer-links">
         <a href="#top">Top</a>
         <a href="https://github.com/phai-lab/behavior-uncloning">Code</a>
-        <a href="#demo">Interactive demo</a>
+        <a href="#simulation">Interactive demo</a>
         <a href="#citation">Citation</a>
       </div>
       Behavior Uncloning · Mode redirection distilled into policy weights.
@@ -1711,6 +1439,8 @@
       </div>
     </footer>
 
+    <script defer src="assets/js/mode-explorer.js"></script>
+    <script defer src="assets/js/baseline-chart.js"></script>
     <script>
       // Long-form videos show a clean poster; native controls appear once playback starts.
       for (const video of document.querySelectorAll("video.click-to-play")) {
@@ -1729,740 +1459,7 @@
         }
       });
 
-      const demoTasks = {
-        pushwall: {
-          label: "Push-Wall",
-          video: "assets/videos/sim_push_wall.mp4",
-          poster: "assets/images/sim_push_wall_poster.png",
-          trajectory: "assets/images/push_wall_traj.png",
-          originalSr: 37.0,
-          originalTcr: 74.0,
-          moreSr: 80.7,
-          moreTcr: 80.7,
-          modesText: "left or right"
-        },
-        pusht: {
-          label: "Push-T",
-          video: "assets/videos/sim_pusht.mp4",
-          poster: "assets/images/sim_pusht_poster.png",
-          trajectory: "assets/images/pusht_traj.png",
-          originalSr: 50.0,
-          originalTcr: 100.0,
-          moreSr: 98.3,
-          moreTcr: 98.7,
-          modesText: "left or right"
-        },
-        pushpillars: {
-          label: "Push-Pillars",
-          video: "assets/videos/sim_push_pillars.mp4",
-          poster: "assets/images/sim_push_pillars_poster.png",
-          trajectory: "assets/images/push_pillars_traj.png",
-          originalSr: 21.5,
-          originalTcr: 86.0,
-          moreSr: 72.3,
-          moreTcr: 80.7,
-          modesText: "four routes"
-        },
-        quadruped: {
-          label: "Quadruped",
-          video: "assets/videos/sim_quadruped.mp4",
-          poster: "assets/images/sim_quadruped_poster.png",
-          trajectory: "assets/images/quadruped_traj.png",
-          originalSr: 50.0,
-          originalTcr: 100.0,
-          moreSr: 84.3,
-          moreTcr: 84.7,
-          modesText: "left or right"
-        }
-      };
 
-      const demoState = { taskId: "pushwall" };
-
-      const fmt = (value) => `${value.toFixed(1)}%`;
-      const outcomeParts = (sr, tcr) => ({
-        target: Math.max(0, sr),
-        other: Math.max(0, tcr - sr),
-        fail: Math.max(0, 100 - tcr)
-      });
-      const outcomeCard = (title, sr, tcr, detail) => {
-        const parts = outcomeParts(sr, tcr);
-        return `
-          <div class="outcome-card">
-            <div class="outcome-head">
-              <strong>${title}</strong>
-              <span>${fmt(sr)} SR</span>
-            </div>
-            <div class="outcome-stack" aria-hidden="true">
-              <div class="outcome-segment target" style="width: ${parts.target.toFixed(1)}%"></div>
-              <div class="outcome-segment other" style="width: ${parts.other.toFixed(1)}%"></div>
-              <div class="outcome-segment fail" style="width: ${parts.fail.toFixed(1)}%"></div>
-            </div>
-            <div class="outcome-list">
-              <div class="outcome-item target"><span>target-aligned success</span><span>${fmt(parts.target)}</span></div>
-              <div class="outcome-item other"><span>completed wrong mode</span><span>${fmt(parts.other)}</span></div>
-              <div class="outcome-item fail"><span>failed rollout</span><span>${fmt(parts.fail)}</span></div>
-            </div>
-            <p class="demo-note">${detail}</p>
-          </div>
-        `;
-      };
-
-      const renderDemo = () => {
-        const task = demoTasks[demoState.taskId];
-        const gain = task.moreSr - task.originalSr;
-
-        document.getElementById("demo-viz-title").textContent = `${task.label}: MoRE edited rollout`;
-        document.getElementById("demo-viz-caption").textContent = "Representative edited rollout and reported outcome breakdown.";
-        document.getElementById("demo-original-sr").textContent = fmt(task.originalSr);
-        document.getElementById("demo-more-sr").textContent = fmt(task.moreSr);
-        document.getElementById("demo-gain").textContent = `${gain >= 0 ? "+" : ""}${gain.toFixed(1)} pp`;
-        document.getElementById("demo-tcr").textContent = fmt(task.moreTcr);
-
-        const video = document.getElementById("demo-video");
-        if (video.getAttribute("src") !== task.video) {
-          video.pause();
-          video.poster = task.poster;
-          video.src = task.video;
-          video.load();
-          video.play().catch(() => {});
-        }
-        const trajImage = document.getElementById("demo-traj");
-        const quadReplay = document.getElementById("quadruped-replay");
-        trajImage.src = task.trajectory;
-        trajImage.alt = `${task.label} trajectory summary`;
-        trajImage.classList.add("hidden");
-        quadReplay.classList.remove("hidden");
-        document.getElementById("demo-video-caption").textContent = `Representative MoRE rollout for ${task.label}.`;
-        document.getElementById("demo-traj-title").textContent = "Interactive trajectory replay";
-        const replayProvenance = {
-          pusht: "MoRE-edited DP policy rollouts",
-          pushwall: "successful task demonstrations",
-          pushpillars: "successful task demonstrations",
-          quadruped: "recorded Go1 evaluation poses"
-        }[demoState.taskId] || "recorded trajectories";
-        document.getElementById("demo-traj-caption").textContent = `${task.label} · real ${replayProvenance}; modes: ${task.modesText}.`;
-        window.requestAnimationFrame(() => window.simTaskReplay?.showTask(demoState.taskId));
-
-        document.getElementById("demo-bars").innerHTML =
-          outcomeCard("Original mixed policy", task.originalSr, task.originalTcr, "Task-level average over target modes.") +
-          outcomeCard("MoRE edited policy", task.moreSr, task.moreTcr, "Task-level average over target modes.");
-      };
-
-      const renderDemoControls = () => {
-        const taskTabs = document.getElementById("demo-task-tabs");
-        if (!taskTabs) return;
-
-        taskTabs.innerHTML = Object.entries(demoTasks).map(([taskId, task]) => `
-          <button class="demo-choice" type="button" role="tab" aria-pressed="${taskId === demoState.taskId ? "true" : "false"}" data-demo-task="${taskId}">${task.label}</button>
-        `).join("");
-
-        for (const button of taskTabs.querySelectorAll("[data-demo-task]")) {
-          button.addEventListener("click", () => {
-            demoState.taskId = button.dataset.demoTask;
-            renderDemoControls();
-            renderDemo();
-          });
-        }
-      };
-
-      if (document.getElementById("demo-task-tabs")) {
-        renderDemoControls();
-        renderDemo();
-      }
-
-      const initSimTaskReplay = () => {
-        const root = document.getElementById("quadruped-replay");
-        if (!root) return;
-
-        const canvas = document.getElementById("quad-canvas");
-        const ctx = canvas.getContext("2d");
-        const loading = document.getElementById("quad-loading");
-        const status = document.getElementById("quad-status");
-        const modeTabs = document.getElementById("replay-mode-tabs");
-        const legend = document.getElementById("replay-legend");
-        const rolloutSelect = document.getElementById("quad-rollout-select");
-        const speedSelect = document.getElementById("quad-speed-select");
-        const playToggle = document.getElementById("quad-play-toggle");
-        const resetButton = document.getElementById("quad-reset");
-        const stepEl = document.getElementById("quad-step");
-        const poseEl = document.getElementById("quad-pose");
-        const yawEl = document.getElementById("quad-yaw");
-        const goalEl = document.getElementById("quad-goal");
-        const mLabel = [
-          document.getElementById("quad-m1-label"),
-          document.getElementById("quad-m2-label"),
-          document.getElementById("quad-m3-label"),
-          document.getElementById("quad-m4-label")
-        ];
-        const mValue = [stepEl, poseEl, yawEl, goalEl];
-        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-        const state = {
-          tasks: {},
-          taskId: demoState.taskId,
-          modeId: null,
-          rolloutIndex: 0,
-          progress: 0,
-          speed: Number(speedSelect.value),
-          playing: !reducedMotion.matches,
-          lastTs: null,
-          cssWidth: 0,
-          cssHeight: 0
-        };
-
-        const colors = {
-          current: "#2b588a",
-          ink: "#16202e",
-          muted: "#647085",
-          rule: "#d3d7dd",
-          goal: "#4aa86b",
-          pillar: "#6c5846",
-          wall: "#756757",
-          cube: "#2f6f8e",
-          pusher: "#ffd51d",
-          tBlock: "#a9a9a9"
-        };
-
-        const currentTask = () => state.tasks[state.taskId];
-        const currentMode = () => {
-          const task = currentTask();
-          if (!task) return null;
-          return task.modes.find((mode) => mode.id === state.modeId) || task.modes[0] || null;
-        };
-        const currentRollout = () => {
-          const mode = currentMode();
-          if (!mode) return null;
-          return mode.rollouts[state.rolloutIndex] || mode.rollouts[0] || null;
-        };
-
-        const resizeCanvas = () => {
-          const rect = canvas.getBoundingClientRect();
-          const dpr = Math.min(window.devicePixelRatio || 1, 2);
-          const width = Math.max(280, rect.width);
-          const height = Math.max(150, rect.height || width * 9 / 16);
-          state.cssWidth = width;
-          state.cssHeight = height;
-          const pixelWidth = Math.round(width * dpr);
-          const pixelHeight = Math.round(height * dpr);
-          if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
-            canvas.width = pixelWidth;
-            canvas.height = pixelHeight;
-          }
-          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        };
-
-        const layout = () => {
-          const scene = currentTask().scene;
-          const [xMin, xMax] = scene.x_range;
-          const [yMin, yMax] = scene.y_range;
-          const margin = state.cssWidth < 380
-            ? { left: 40, right: 16, top: 24, bottom: 38 }
-            : { left: 58, right: 30, top: 30, bottom: 46 };
-          const innerW = state.cssWidth - margin.left - margin.right;
-          const innerH = state.cssHeight - margin.top - margin.bottom;
-          const scale = Math.min(innerW / (xMax - xMin), innerH / (yMax - yMin));
-          const plotW = (xMax - xMin) * scale;
-          const plotH = (yMax - yMin) * scale;
-          const originX = margin.left + (innerW - plotW) / 2 - xMin * scale;
-          const originY = margin.top + (innerH - plotH) / 2 + yMax * scale;
-          return {
-            xMin, xMax, yMin, yMax, scale,
-            left: originX + xMin * scale,
-            right: originX + xMax * scale,
-            top: originY - yMax * scale,
-            bottom: originY - yMin * scale,
-            toScreen: ([x, y]) => [originX + x * scale, originY - y * scale]
-          };
-        };
-
-        const formatTick = (value) => Math.abs(value) < 1e-6 ? "0" : value.toFixed(Math.abs(value) < 1 ? 2 : 1);
-
-        const drawGrid = () => {
-          const task = currentTask();
-          const view = layout();
-          const tick = task.scene.tick_step || 0.5;
-          ctx.fillStyle = "#eceef1";
-          ctx.fillRect(0, 0, state.cssWidth, state.cssHeight);
-          ctx.strokeStyle = colors.rule;
-          ctx.lineWidth = 1;
-          ctx.font = state.cssWidth < 380 ? "10px Inter, sans-serif" : "12px Inter, sans-serif";
-          ctx.fillStyle = colors.muted;
-          ctx.textAlign = "center";
-          ctx.textBaseline = "top";
-
-          const xStart = Math.ceil(view.xMin / tick) * tick;
-          for (let x = xStart; x <= view.xMax + 1e-9; x += tick) {
-            const [sx] = view.toScreen([x, 0]);
-            ctx.beginPath();
-            ctx.moveTo(sx, view.top);
-            ctx.lineTo(sx, view.bottom);
-            ctx.stroke();
-            ctx.fillText(formatTick(x), sx, view.bottom + 8);
-          }
-
-          ctx.textAlign = "right";
-          ctx.textBaseline = "middle";
-          const yStart = Math.ceil(view.yMin / tick) * tick;
-          for (let y = yStart; y <= view.yMax + 1e-9; y += tick) {
-            const [, sy] = view.toScreen([0, y]);
-            ctx.beginPath();
-            ctx.moveTo(view.left, sy);
-            ctx.lineTo(view.right, sy);
-            ctx.stroke();
-            ctx.fillText(formatTick(y), view.left - 8, sy);
-          }
-
-          ctx.strokeStyle = "#aab1b9";
-          ctx.lineWidth = 1.2;
-          ctx.strokeRect(view.left, view.top, view.right - view.left, view.bottom - view.top);
-        };
-
-        const drawPath = (points, color, lineWidth, alpha, maxIndex = points.length - 1) => {
-          if (!points || points.length < 2) return;
-          const view = layout();
-          const end = Math.max(1, Math.min(points.length - 1, maxIndex));
-          ctx.save();
-          ctx.globalAlpha = alpha;
-          ctx.strokeStyle = color;
-          ctx.lineWidth = lineWidth;
-          ctx.lineJoin = "round";
-          ctx.lineCap = "round";
-          ctx.beginPath();
-          const [sx, sy] = view.toScreen(points[0]);
-          ctx.moveTo(sx, sy);
-          for (let i = 1; i <= end; i += 1) {
-            const [x, y] = view.toScreen(points[i]);
-            ctx.lineTo(x, y);
-          }
-          ctx.stroke();
-          ctx.restore();
-        };
-
-        const screenPolygon = (points) => {
-          const view = layout();
-          ctx.beginPath();
-          points.forEach((point, index) => {
-            const [x, y] = view.toScreen(point);
-            if (index === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-          });
-          ctx.closePath();
-        };
-
-        const rotatePoint = ([x, y], angleDeg, [cx, cy]) => {
-          const angle = angleDeg * Math.PI / 180;
-          const dx = x - cx;
-          const dy = y - cy;
-          return [
-            cx + dx * Math.cos(angle) - dy * Math.sin(angle),
-            cy + dx * Math.sin(angle) + dy * Math.cos(angle)
-          ];
-        };
-
-        const rectPoints = (center, size, angleDeg = 0) => {
-          const [cx, cy] = center;
-          const [w, h] = size;
-          return [
-            [cx - w / 2, cy - h / 2],
-            [cx + w / 2, cy - h / 2],
-            [cx + w / 2, cy + h / 2],
-            [cx - w / 2, cy + h / 2]
-          ].map((point) => rotatePoint(point, angleDeg, center));
-        };
-
-        const drawT = (center, angleDeg, fill, stroke, alpha = 1, lineWidth = 1.4) => {
-          // Real Push-T block geometry: the state position is the bar-bottom-centre
-          // (pymunk body origin). bar = 120x30px -> [0.234, 0.0586] centred 15px from the
-          // origin; stem = 30x90px -> [0.0586, 0.176] centred 75px from the origin. The
-          // image->canvas y-flip makes both offsets negative. (/512 normalisation.)
-          const barCenter = rotatePoint([center[0], center[1] - 0.0293], angleDeg, center);
-          const stemCenter = rotatePoint([center[0], center[1] - 0.1465], angleDeg, center);
-          const parts = [
-            [stemCenter, [0.0586, 0.176]],
-            [barCenter, [0.234, 0.0586]]
-          ];
-          ctx.save();
-          ctx.globalAlpha = alpha;
-          for (const [partCenter, size] of parts) {
-            screenPolygon(rectPoints(partCenter, size, angleDeg));
-            ctx.fillStyle = fill;
-            ctx.strokeStyle = stroke;
-            ctx.lineWidth = lineWidth;
-            ctx.fill();
-            ctx.stroke();
-          }
-          ctx.restore();
-        };
-
-        const drawCircle = (center, radius, fill, label = null, alpha = 1) => {
-          const view = layout();
-          const [x, y] = view.toScreen(center);
-          ctx.save();
-          ctx.globalAlpha = alpha;
-          ctx.fillStyle = fill;
-          ctx.beginPath();
-          ctx.arc(x, y, Math.max(4, radius * view.scale), 0, Math.PI * 2);
-          ctx.fill();
-          if (label && state.cssWidth >= 340) {
-            ctx.globalAlpha = 1;
-            ctx.font = "12px Inter, sans-serif";
-            ctx.fillStyle = colors.ink;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "bottom";
-            ctx.fillText(label, x, y - Math.max(4, radius * view.scale) - 7);
-          }
-          ctx.restore();
-        };
-
-        const drawSceneObjects = (rollout) => {
-          const task = currentTask();
-          const scene = task.scene;
-          const view = layout();
-          if (scene.kind === "pusht") {
-            // goal pose (static outline); the manipulated T-block is animated from rollout.block
-            drawT(scene.goal_t.center, scene.goal_t.angle_deg, "rgba(74,168,107,0.12)", colors.goal, 1, 2.2);
-            return;
-          }
-          if (scene.kind === "pushwall") {
-            const wall = scene.wall;
-            screenPolygon(rectPoints(wall.center, wall.size));
-            ctx.fillStyle = colors.wall;
-            ctx.fill();
-            drawCircle(scene.goal.center, scene.goal.radius, colors.goal, "goal", 0.32);
-            return;
-          }
-          if (scene.kind === "pushpillars") {
-            for (const pillar of scene.pillars) {
-              drawCircle(pillar, scene.pillar_radius, colors.pillar, null, 0.92);
-            }
-            const [, fy] = view.toScreen([0, scene.finish_y]);
-            ctx.save();
-            ctx.strokeStyle = colors.goal;
-            ctx.lineWidth = 3;
-            ctx.globalAlpha = 0.65;
-            ctx.beginPath();
-            ctx.moveTo(view.left, fy);
-            ctx.lineTo(view.right, fy);
-            ctx.stroke();
-            ctx.restore();
-            return;
-          }
-          const pillar = rollout.pillar_xy || [2.5, 0.0];
-          const goal = rollout.goal_xy || [4.5, 0.0];
-          drawCircle(pillar, scene.pillar_radius, colors.pillar, "pillar", 0.9);
-          drawCircle(goal, scene.goal_radius, colors.goal, "goal", 0.55);
-        };
-
-        const interpolatePose = (rollout) => {
-          const points = rollout.points;
-          const i = Math.min(points.length - 2, Math.max(0, Math.floor(state.progress)));
-          const t = Math.min(1, Math.max(0, state.progress - i));
-          const a = points[i];
-          const b = points[i + 1];
-          let dyaw = b[2] - a[2];
-          if (dyaw > Math.PI) dyaw -= Math.PI * 2;
-          if (dyaw < -Math.PI) dyaw += Math.PI * 2;
-          return [
-            a[0] + (b[0] - a[0]) * t,
-            a[1] + (b[1] - a[1]) * t,
-            a[2] + dyaw * t,
-            i
-          ];
-        };
-
-        const interpolateBlock = (rollout) => {
-          const pts = rollout.block;
-          if (!pts || pts.length < 2) return null;
-          const i = Math.min(pts.length - 2, Math.max(0, Math.floor(state.progress)));
-          const t = Math.min(1, Math.max(0, state.progress - i));
-          const a = pts[i];
-          const b = pts[i + 1];
-          let dDeg = b[2] - a[2];
-          if (dDeg > 180) dDeg -= 360;
-          if (dDeg < -180) dDeg += 360;
-          return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + dDeg * t];
-        };
-
-        const drawDog = (pose) => {
-          const view = layout();
-          const [x, y, yaw, step] = pose;
-          const [sx, sy] = view.toScreen([x, y]);
-          const bodyL = 34;
-          const bodyW = 18;
-          const phase = Math.sin(step * 0.34) * 3;
-          ctx.save();
-          ctx.translate(sx, sy);
-          ctx.rotate(-yaw);
-          ctx.strokeStyle = colors.ink;
-          ctx.lineWidth = 3;
-          ctx.lineCap = "round";
-          const legs = [
-            [-bodyL * 0.32, -bodyW * 0.45, -bodyL * 0.46, -bodyW * 0.95 - phase],
-            [bodyL * 0.32, -bodyW * 0.45, bodyL * 0.46, -bodyW * 0.95 + phase],
-            [-bodyL * 0.32, bodyW * 0.45, -bodyL * 0.46, bodyW * 0.95 + phase],
-            [bodyL * 0.32, bodyW * 0.45, bodyL * 0.46, bodyW * 0.95 - phase]
-          ];
-          for (const [x0, y0, x1, y1] of legs) {
-            ctx.beginPath();
-            ctx.moveTo(x0, y0);
-            ctx.lineTo(x1, y1);
-            ctx.stroke();
-          }
-          ctx.fillStyle = "#ffffff";
-          ctx.strokeStyle = colors.ink;
-          ctx.lineWidth = 1.4;
-          ctx.fillRect(-bodyL / 2, -bodyW / 2, bodyL, bodyW);
-          ctx.strokeRect(-bodyL / 2, -bodyW / 2, bodyL, bodyW);
-          ctx.fillStyle = colors.current;
-          ctx.fillRect(bodyL * 0.04, -bodyW / 2, bodyL * 0.46, bodyW);
-          ctx.beginPath();
-          ctx.moveTo(bodyL / 2 + 10, 0);
-          ctx.lineTo(bodyL / 2 - 3, -6);
-          ctx.lineTo(bodyL / 2 - 3, 6);
-          ctx.closePath();
-          ctx.fill();
-          ctx.restore();
-        };
-
-        const drawCube = (pose) => {
-          const task = currentTask();
-          const scene = task.scene;
-          const view = layout();
-          const [x, y, yaw] = pose;
-          const size = scene.cube_size || 0.026;
-          const points = rectPoints([x, y], [size, size], yaw * 180 / Math.PI);
-          ctx.save();
-          screenPolygon(points);
-          ctx.fillStyle = colors.cube;
-          ctx.strokeStyle = colors.ink;
-          ctx.lineWidth = 1.2;
-          ctx.fill();
-          ctx.stroke();
-          ctx.restore();
-        };
-
-        const drawPusher = (pose) => {
-          const scene = currentTask().scene;
-          drawCircle([pose[0], pose[1]], scene.pusher_radius || 0.035, colors.pusher, null, 1);
-        };
-
-        const drawActor = (pose) => {
-          const kind = currentTask().scene.kind;
-          if (kind === "quadruped") drawDog(pose);
-          else if (kind === "pusht") drawPusher(pose);
-          else drawCube(pose);
-        };
-
-        const wrapDeg = (d) => ((d + 180) % 360 + 360) % 360 - 180;
-        const setReadout = (entries) => {
-          for (let i = 0; i < 4; i += 1) {
-            if (mLabel[i]) mLabel[i].textContent = entries[i][0];
-            if (mValue[i]) mValue[i].textContent = entries[i][1];
-          }
-        };
-
-        // Task-appropriate per-step metrics. Yaw is only meaningful for the quadruped;
-        // the manipulation tasks report route + progress toward the goal/finish instead.
-        const updateReadout = (task, mode, rollout, pose, blockPose) => {
-          const [x, y, yaw, step] = pose;
-          const kind = task.scene.kind;
-          const stepStr = `${step + 1} / ${rollout.points.length}`;
-          let entries;
-          if (kind === "quadruped") {
-            const goal = rollout.goal_xy || task.scene.goal?.center || [0, 0];
-            const gd = Math.hypot(goal[0] - x, goal[1] - y);
-            entries = [["Step", stepStr], ["Pose", `${x.toFixed(2)}, ${y.toFixed(2)} m`],
-                       ["Yaw", `${yaw.toFixed(2)} rad`], ["Goal dist", `${gd.toFixed(2)} m`]];
-          } else if (kind === "pushwall") {
-            const goal = task.scene.goal.center;
-            const gd = Math.hypot(goal[0] - x, goal[1] - y);
-            entries = [["Step", stepStr], ["Cube x,y", `${x.toFixed(3)}, ${y.toFixed(3)} m`],
-                       ["Route", mode.label], ["Cube→goal", `${gd.toFixed(3)} m`]];
-          } else if (kind === "pushpillars") {
-            const toFinish = Math.max(0, y - task.scene.finish_y);
-            entries = [["Step", stepStr], ["Cube x,y", `${x.toFixed(3)}, ${y.toFixed(3)} m`],
-                       ["Route", mode.label], ["To finish", `${toFinish.toFixed(3)} m`]];
-          } else { // pusht
-            const goal = task.scene.goal_t.center;
-            const bx = blockPose ? blockPose[0] : x;
-            const by = blockPose ? blockPose[1] : y;
-            const bd = Math.hypot(goal[0] - bx, goal[1] - by);
-            const angErr = blockPose ? Math.abs(wrapDeg(blockPose[2] - task.scene.goal_t.angle_deg)) : 0;
-            entries = [["Step", stepStr], ["Pusher x,y", `${x.toFixed(3)}, ${y.toFixed(3)}`],
-                       ["T angle err", `${angErr.toFixed(1)}°`], ["T → goal", `${bd.toFixed(3)}`]];
-          }
-          setReadout(entries);
-          status.textContent = `${task.label} · ${mode.label} · seed ${rollout.seed} · ${rollout.points.length} steps`;
-        };
-
-        const draw = () => {
-          const task = currentTask();
-          const mode = currentMode();
-          const rollout = currentRollout();
-          if (!task || !mode || !rollout) return;
-          resizeCanvas();
-          drawGrid();
-          for (const candidate of task.modes) {
-            for (const trace of candidate.rollouts) {
-              drawPath(trace.points, candidate.color, 1.2, candidate.id === mode.id ? 0.24 : 0.10);
-            }
-          }
-          drawSceneObjects(rollout);
-          drawPath(rollout.points, colors.current, 2.6, 0.42);
-          drawPath(rollout.points, colors.current, 4.4, 0.95, Math.floor(state.progress));
-          let blockPose = null;
-          if (task.scene.kind === "pusht" && rollout.block) {
-            drawPath(rollout.block, colors.tBlock, 1.6, 0.30);
-            blockPose = interpolateBlock(rollout);
-            if (blockPose) drawT([blockPose[0], blockPose[1]], blockPose[2], colors.tBlock, colors.ink, 0.9, 1.5);
-          }
-          const pose = interpolatePose(rollout);
-          drawActor(pose);
-          updateReadout(task, mode, rollout, pose, blockPose);
-        };
-
-        const syncControls = () => {
-          for (const button of modeTabs.querySelectorAll("[data-replay-mode]")) {
-            button.setAttribute("aria-pressed", button.dataset.replayMode === state.modeId ? "true" : "false");
-          }
-          playToggle.textContent = state.playing ? "Pause" : "Play";
-          playToggle.classList.toggle("primary", state.playing);
-        };
-
-        const populateModeTabs = () => {
-          const task = currentTask();
-          if (!task) return;
-          modeTabs.innerHTML = task.modes.map((mode) =>
-            `<button class="quad-route" type="button" aria-pressed="${mode.id === state.modeId ? "true" : "false"}" data-replay-mode="${mode.id}">${mode.label}</button>`
-          ).join("");
-          for (const button of modeTabs.querySelectorAll("[data-replay-mode]")) {
-            button.addEventListener("click", () => {
-              state.modeId = button.dataset.replayMode;
-              state.rolloutIndex = 0;
-              resetReplay();
-              populateRolloutSelect();
-              syncControls();
-            });
-          }
-        };
-
-        const populateLegend = () => {
-          const task = currentTask();
-          if (!task) return;
-          const sceneItems = {
-            pusht: [["#ffd51d", "pusher"], [colors.tBlock, "T block"], [colors.goal, "target pose"]],
-            pushwall: [[colors.wall, "wall"], [colors.goal, "goal"]],
-            pushpillars: [[colors.pillar, "pillars"], [colors.goal, "finish line"]],
-            quadruped: [[colors.pillar, "pillar"], [colors.goal, "goal"]]
-          }[task.scene.kind] || [];
-          legend.innerHTML = [
-            ...task.modes.map((mode) =>
-              `<span><i class="quad-swatch" style="background:${mode.color}"></i>${mode.label}</span>`
-            ),
-            `<span><i class="quad-swatch current"></i>selected replay</span>`,
-            ...sceneItems.map(([color, label]) =>
-              `<span><i class="quad-swatch" style="width:10px;height:10px;background:${color}"></i>${label}</span>`
-            )
-          ].join("");
-        };
-
-        const populateRolloutSelect = () => {
-          const mode = currentMode();
-          if (!mode) return;
-          state.rolloutIndex = Math.min(state.rolloutIndex, Math.max(0, mode.rollouts.length - 1));
-          rolloutSelect.innerHTML = mode.rollouts.map((rollout, index) =>
-            `<option value="${index}">seed ${rollout.seed} · ${rollout.points.length} poses</option>`
-          ).join("");
-          rolloutSelect.value = String(state.rolloutIndex);
-        };
-
-        const resetReplay = () => {
-          state.progress = 0;
-          state.lastTs = null;
-          draw();
-        };
-
-        const showTask = (taskId) => {
-          if (!state.tasks[taskId]) return;
-          state.taskId = taskId;
-          const task = currentTask();
-          if (!task.modes.some((mode) => mode.id === state.modeId)) {
-            state.modeId = task.modes[0].id;
-          }
-          state.rolloutIndex = 0;
-          populateModeTabs();
-          populateLegend();
-          populateRolloutSelect();
-          syncControls();
-          resetReplay();
-        };
-
-        const animate = (ts) => {
-          const rollout = currentRollout();
-          const task = currentTask();
-          if (rollout && task) {
-            if (state.lastTs === null) state.lastTs = ts;
-            const dt = Math.min(0.05, (ts - state.lastTs) / 1000);
-            state.lastTs = ts;
-            if (state.playing) {
-              state.progress += dt * task.sample_rate_hz * state.speed;
-              if (state.progress >= rollout.points.length - 1) {
-                // auto-advance to the next seed/rollout in this mode, looping back to the first
-                const activeMode = currentMode();
-                if (activeMode && activeMode.rollouts.length > 1) {
-                  state.rolloutIndex = (state.rolloutIndex + 1) % activeMode.rollouts.length;
-                  rolloutSelect.value = String(state.rolloutIndex);
-                }
-                state.progress = 0;
-              }
-            }
-            draw();
-          }
-          window.requestAnimationFrame(animate);
-        };
-
-        rolloutSelect.addEventListener("change", () => {
-          state.rolloutIndex = Number(rolloutSelect.value);
-          resetReplay();
-        });
-        speedSelect.addEventListener("change", () => {
-          state.speed = Number(speedSelect.value);
-        });
-        playToggle.addEventListener("click", () => {
-          state.playing = !state.playing;
-          state.lastTs = null;
-          syncControls();
-        });
-        resetButton.addEventListener("click", resetReplay);
-        canvas.addEventListener("click", () => {
-          state.playing = !state.playing;
-          state.lastTs = null;
-          syncControls();
-        });
-        window.addEventListener("resize", draw);
-
-        window.simTaskReplay = { showTask, draw, reset: resetReplay };
-
-        fetch("assets/data/sim_task_replays.json")
-          .then((response) => {
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            return response.json();
-          })
-          .then((data) => {
-            state.tasks = data.tasks;
-            loading.classList.add("hidden");
-            showTask(demoState.taskId);
-            window.requestAnimationFrame(animate);
-          })
-          .catch(() => {
-            loading.textContent = "Could not load trajectory replay data.";
-            status.textContent = "Trajectory replay data could not be loaded.";
-            document.getElementById("demo-traj").classList.remove("hidden");
-            root.classList.add("hidden");
-          });
-      };
-
-      initSimTaskReplay();
 
       const carouselData = {
         robots: [
@@ -2474,21 +1471,21 @@
           },
           {
             title: "Bottle placement",
-            caption: "SR: 31.7 → 96.7 (+65.0).",
-            src: "assets/videos/bottle_placement.mp4",
-            poster: "assets/images/bottle_placement_poster.jpg"
+            caption: "SR: 31.7 → 96.7 (+65.0). Clip: original rollouts on the left and middle pads vs. a MoRE edit to the right pad.",
+            src: "assets/videos/bottle_placement_compare.mp4",
+            poster: "assets/images/bottle_placement_compare_poster.jpg"
           },
           {
-            title: "Obstacle pick-and-place",
-            caption: "SR: 47.5 → 92.5 (+45.0).",
-            src: "assets/videos/block_obstacle.mp4",
-            poster: "assets/images/block_obstacle_poster.jpg"
+            title: "Block-obstacle",
+            caption: "SR: 47.5 → 92.5 (+45.0). Clip: original left and right modes vs. a MoRE edit to the right mode.",
+            src: "assets/videos/block_obstacle_compare.mp4",
+            poster: "assets/images/block_obstacle_compare_poster.jpg"
           },
           {
             title: "Knife placement",
-            caption: "SR: 40.0 → 80.0 (+40.0).",
-            src: "assets/videos/knife_placement.mp4",
-            poster: "assets/images/knife_placement_poster.jpg"
+            caption: "SR: 40.0 → 80.0 (+40.0). Clip: original hand and box modes vs. a MoRE edit to the box.",
+            src: "assets/videos/knife_placement_compare.mp4",
+            poster: "assets/images/knife_placement_compare_poster.jpg"
           }
         ]
       };
