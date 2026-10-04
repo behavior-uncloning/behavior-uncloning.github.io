@@ -1053,8 +1053,8 @@
           <a href="#video">Video</a>
           <a href="#abstract">Abstract</a>
           <a href="#method">Method</a>
-          <a href="#robots">Real Robots</a>
           <a href="#simulation">Simulation</a>
+          <a href="#robots">Real Robots</a>
           <a href="#supplementary">Supplementary</a>
           <a href="#team">Team</a>
           <a href="#citation">Citation</a>
@@ -1214,79 +1214,6 @@
         </div>
       </section>
 
-      <section id="robots" class="section left">
-        <div class="section-kicker">Real-Robot Deployment Results</div>
-        <h2>Mode edits transfer to physical robot tasks.</h2>
-        <p class="lead">
-          Across four real-robot tasks with a Franka Research 3 arm, MoRE shifts rollouts toward
-          requested behavior modes while preserving task completion.
-        </p>
-        <div class="carousel-shell" data-carousel="robots" aria-label="Real robot rollout carousel">
-          <div class="video-wrap">
-            <video class="carousel-video" autoplay muted playsinline preload="metadata" poster="assets/images/knife_handover_compare_poster.jpg" src="assets/videos/knife_handover_compare.mp4"></video>
-            <button class="fs" type="button" aria-label="Fullscreen real robot video">fullscreen</button>
-          </div>
-          <div class="carousel-controls">
-            <button class="carousel-nav" type="button" data-carousel-prev aria-label="Previous real robot video">‹</button>
-            <div class="carousel-caption">
-              <h3 data-carousel-title>Knife handover</h3>
-              <p data-carousel-caption>SR: 45.0 → 70.0 (+25.0). Clip: original vs. MoRE-edited rollouts handing the knife to a person.</p>
-            </div>
-            <button class="carousel-nav" type="button" data-carousel-next aria-label="Next real robot video">›</button>
-          </div>
-          <div class="carousel-dots" aria-label="Real robot video selector"></div>
-        </div>
-        <div class="table-wrap">
-          <table aria-label="Real-robot task deployment success improvements">
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Mode change</th>
-                <th>Original Avg SR</th>
-                <th>MoRE Avg SR</th>
-                <th>SR Gain (pp)</th>
-                <th>MoRE TCR</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Place-Knife</td>
-                <td>2 → 1</td>
-                <td class="metric">40.0%</td>
-                <td class="metric">80.0%</td>
-                <td class="metric delta">+40.0</td>
-                <td class="metric">80.0%</td>
-              </tr>
-              <tr>
-                <td>Place-Bottle</td>
-                <td>3 → 1</td>
-                <td class="metric">31.7%</td>
-                <td class="metric">96.7%</td>
-                <td class="metric delta">+65.0</td>
-                <td class="metric">96.7%</td>
-              </tr>
-              <tr>
-                <td>Block-Obstacle</td>
-                <td>2 → 1</td>
-                <td class="metric">47.5%</td>
-                <td class="metric">92.5%</td>
-                <td class="metric delta">+45.0</td>
-                <td class="metric">92.5%</td>
-              </tr>
-              <tr>
-                <td>Knife-Handover (VLA)</td>
-                <td>2 → 1</td>
-                <td class="metric">45.0%</td>
-                <td class="metric">70.0%</td>
-                <td class="metric delta">+25.0</td>
-                <td class="metric">85.0%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="table-note">Values report average real-robot SR over target modes. Place-Bottle also supports a 3 → 2 edit, improving SR from 50.0% to 100.0%.</p>
-      </section>
-
       <section id="simulation" class="section left">
         <div class="section-kicker">Simulation</div>
         <h2>Choose a mode. The policy follows.</h2>
@@ -1390,6 +1317,79 @@
           </table>
         </div>
         <p class="table-note">Values report average deployment success rate (SR) and task completion rate (TCR) over target modes.</p>
+      </section>
+
+      <section id="robots" class="section left">
+        <div class="section-kicker">Real-Robot Deployment Results</div>
+        <h2>Mode edits transfer to physical robot tasks.</h2>
+        <p class="lead">
+          Across four real-robot tasks with a Franka Research 3 arm, MoRE shifts rollouts toward
+          requested behavior modes while preserving task completion.
+        </p>
+        <div class="carousel-shell" data-carousel="robots" aria-label="Real robot rollout carousel">
+          <div class="video-wrap">
+            <video class="carousel-video" autoplay muted playsinline preload="metadata" poster="assets/images/knife_handover_compare_poster.jpg" src="assets/videos/knife_handover_compare.mp4"></video>
+            <button class="fs" type="button" aria-label="Fullscreen real robot video">fullscreen</button>
+          </div>
+          <div class="carousel-controls">
+            <button class="carousel-nav" type="button" data-carousel-prev aria-label="Previous real robot video">‹</button>
+            <div class="carousel-caption">
+              <h3 data-carousel-title>Knife handover</h3>
+              <p data-carousel-caption>SR: 45.0 → 70.0 (+25.0). Clip: original vs. MoRE-edited rollouts handing the knife to a person.</p>
+            </div>
+            <button class="carousel-nav" type="button" data-carousel-next aria-label="Next real robot video">›</button>
+          </div>
+          <div class="carousel-dots" aria-label="Real robot video selector"></div>
+        </div>
+        <div class="table-wrap">
+          <table aria-label="Real-robot task deployment success improvements">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Mode change</th>
+                <th>Original Avg SR</th>
+                <th>MoRE Avg SR</th>
+                <th>SR Gain (pp)</th>
+                <th>MoRE TCR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Place-Knife</td>
+                <td>2 → 1</td>
+                <td class="metric">40.0%</td>
+                <td class="metric">80.0%</td>
+                <td class="metric delta">+40.0</td>
+                <td class="metric">80.0%</td>
+              </tr>
+              <tr>
+                <td>Place-Bottle</td>
+                <td>3 → 1</td>
+                <td class="metric">31.7%</td>
+                <td class="metric">96.7%</td>
+                <td class="metric delta">+65.0</td>
+                <td class="metric">96.7%</td>
+              </tr>
+              <tr>
+                <td>Block-Obstacle</td>
+                <td>2 → 1</td>
+                <td class="metric">47.5%</td>
+                <td class="metric">92.5%</td>
+                <td class="metric delta">+45.0</td>
+                <td class="metric">92.5%</td>
+              </tr>
+              <tr>
+                <td>Knife-Handover (VLA)</td>
+                <td>2 → 1</td>
+                <td class="metric">45.0%</td>
+                <td class="metric">70.0%</td>
+                <td class="metric delta">+25.0</td>
+                <td class="metric">85.0%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Values report average real-robot SR over target modes. Place-Bottle also supports a 3 → 2 edit, improving SR from 50.0% to 100.0%.</p>
       </section>
 
       <section id="supplementary" class="section narrow">
