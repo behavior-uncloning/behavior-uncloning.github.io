@@ -687,32 +687,43 @@
       .button.ghost:hover { border-color: rgba(43, 88, 138, 0.4); text-decoration: none; }
 
 
-      /* venue badge */
+      /* venue badge: "Accepted | CoRL 2026", links to the conference site */
       .venue {
+        position: relative;
+        display: inline-flex;
+        align-items: stretch;
+        margin-bottom: 24px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: var(--card);
+        box-shadow: 0 10px 30px rgba(43, 88, 138, 0.18), 0 0 0 1px rgba(43, 88, 138, 0.18);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .venue:hover { text-decoration: none; transform: translateY(-1px); box-shadow: 0 14px 36px rgba(43, 88, 138, 0.24), 0 0 0 1px rgba(43, 88, 138, 0.28); }
+      .venue-tag {
         display: inline-flex;
         align-items: center;
-        gap: 9px;
-        margin-bottom: 20px;
-        padding: 7px 16px 7px 13px;
-        border: 1.5px solid transparent;
-        border-radius: 999px;
-        background:
-          linear-gradient(var(--card), var(--card)) padding-box,
-          linear-gradient(90deg, var(--mode-good), var(--accent)) border-box;
-        box-shadow: 0 4px 16px rgba(43, 88, 138, 0.12);
-        font-family: var(--mono);
-        font-size: 0.84rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        color: var(--accent);
+        gap: 8px;
+        padding: 10px 16px 10px 14px;
+        color: #fff;
+        background: linear-gradient(90deg, var(--mode-good), var(--accent));
+        font: 700 0.82rem var(--mono);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
       }
-      .venue-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 99px;
-        background: var(--mode-good);
-        box-shadow: 0 0 0 4px rgba(63, 143, 90, 0.16);
+      .venue-tag .spark { width: 16px; height: 16px; fill: #fff; }
+      .venue-name { display: inline-flex; align-items: center; padding: 6px 22px 8px 18px; font: 400 1.75rem/1 var(--display); color: var(--ink); letter-spacing: 0.01em; }
+      .venue::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.55) 45%, transparent 60%);
+        transform: translateX(-120%);
+        animation: venue-shine 5s ease-in-out 1s infinite;
+        pointer-events: none;
       }
+      @keyframes venue-shine { 0%, 70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+      @media (prefers-reduced-motion: reduce) { .venue::after { animation: none; } }
 
       /* shared card surface for every media figure */
       .teaser, .film, .method-film, .carousel-shell, .wide-video, .table-wrap, .equation, .citation-block {
@@ -1105,7 +1116,7 @@
 
     <main id="top">
       <section class="hero">
-        <div class="venue"><span class="venue-dot" aria-hidden="true"></span>CoRL 2026</div>
+        <a class="venue" href="https://www.corl.org/" target="_blank" rel="noopener" aria-label="Accepted at CoRL 2026, Conference on Robot Learning (opens the conference website)"><span class="venue-tag"><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>Accepted</span><span class="venue-name">CoRL 2026</span></a>
         <h1>Behavior <em>Un</em>cloning</h1>
         <p class="subtitle">Distilling Mode Redirection into Policy Weights without <span class="nowrap">Inference-Time Steering</span></p>
         <p class="authors">
