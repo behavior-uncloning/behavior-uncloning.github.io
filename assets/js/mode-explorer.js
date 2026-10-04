@@ -44,8 +44,15 @@
   const playBtn = root.querySelector("#ex-play");
   const scrub = root.querySelector("#ex-scrub");
   const modeHeading = root.querySelector("#ex-mode-heading");
+  const stage = root.querySelector(".explorer-stage");
+  const box3d = root.querySelector("#ex-3d");
+  const viewSeg = root.querySelector("#ex-view");
+  const hint3d = root.querySelector("#ex-3d-hint");
+  const HAS_3D = new Set(["pushwall", "pushpillars"]);
 
-  const state = { data: null, task: "pushwall", policy: "original", target: null, t: 0, playing: true, visible: false };
+  const state = { data: null, task: "pushwall", policy: "original", target: null, t: 0, playing: true, visible: false, view: "3d", cycle: 0 };
+  let viewer = null; // Replay3D instance (lazy)
+  let viewerLoading = null;
   let scene = null; // per-task drawing handles
   let last = 0;
   let holdUntil = 0;
@@ -159,6 +166,50 @@
     if (!state.target || !task.modes.some((m) => m.id === state.target)) state.target = task.modes[0].id;
   };
 
+  // ---------- 3D replay (Push-Wall, Push-Pillars) ----------
+  const use3d = () => state.view === "3d" && HAS_3D.has(state.task);
+
+  const ensureViewer = () => {
+    if (viewer || viewerLoading) return viewerLoading;
+    box3d.classList.add("is-loading");
+    viewerLoading = import(new URL("assets/js/replay-3d.js", document.baseURI).href)
+      .then((mod) => mod.createReplay3D(box3d, MODE_COLORS))
+      .then((v) => {
+        viewer = v;
+        box3d.classList.remove("is-loading");
+        sync3d(true);
+      })
+      .catch(() => {
+        // WebGL or network unavailable: fall back to the top-down view.
+        state.view = "2d";
+        box3d.classList.remove("is-loading");
+        applyStage();
+      });
+    return viewerLoading;
+  };
+
+  const sync3d = (taskChanged) => {
+    if (!viewer || !use3d()) return;
+    if (taskChanged || viewer.taskId !== state.task) viewer.setTask(state.task);
+    viewer.setView(state.policy, state.target, state.cycle);
+    viewer.setTime(state.t);
+    viewer.render();
+  };
+
+  const applyStage = () => {
+    const has = HAS_3D.has(state.task);
+    viewSeg.hidden = !has;
+    const on = use3d();
+    stage.classList.toggle("is-3d", on);
+    box3d.hidden = !on;
+    hint3d.hidden = !on;
+    for (const b of viewSeg.querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.view === state.view));
+    if (on) {
+      ensureViewer();
+      sync3d(true);
+    }
+  };
+
   // ---------- per-frame update ----------
   const poseAt = (r, t) => {
     const n = r.points.length;
@@ -190,6 +241,10 @@
       }
     }
     scrub.value = Math.round(state.t * 1000);
+    if (viewer && use3d()) {
+      viewer.setTime(state.t);
+      viewer.render();
+    }
   };
 
   // ---------- view state (policy / target) ----------
@@ -215,7 +270,10 @@
     srBox.querySelector('[data-k="more"] b').textContent = `${res.more.toFixed(1)}%`;
     srBox.querySelector('[data-k="orig"]').classList.toggle("is-on", !more);
     srBox.querySelector('[data-k="more"]').classList.toggle("is-on", more);
-    note.textContent = SOURCE[state.task];
+    note.textContent = use3d()
+      ? "3D: recorded ManiSkill3 demonstrations replayed with the Franka arm (joint angles and cube pose per frame). Original alternates between modes; a MoRE edit replays only the target mode."
+      : SOURCE[state.task];
+    if (viewer && use3d()) viewer.setView(state.policy, state.target, state.cycle);
   };
 
   const renderModeButtons = () => {
@@ -242,11 +300,13 @@
     for (const b of taskSeg.querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.task === id));
     build();
     renderModeButtons();
+    applyStage();
     restart();
   };
 
   const restart = () => {
     state.t = 0;
+    state.cycle = 0;
     holdUntil = 0;
     applyView();
     frame();
@@ -261,12 +321,16 @@
         if (!holdUntil) holdUntil = now + HOLD_MS;
         else if (now >= holdUntil) {
           state.t = 0;
+          state.cycle += 1;
           holdUntil = 0;
+          if (viewer && use3d()) viewer.setView(state.policy, state.target, state.cycle);
         }
       } else {
         state.t = Math.min(1, state.t + dt / CYCLE_MS);
       }
       frame();
+    } else if (viewer && use3d() && state.visible) {
+      viewer.render(); // keep orbit damping smooth while paused
     }
     requestAnimationFrame(tick);
   };
@@ -295,6 +359,13 @@
       });
     }
     playBtn.addEventListener("click", () => setPlaying(!state.playing));
+    for (const b of viewSeg.querySelectorAll("button")) {
+      b.addEventListener("click", () => {
+        state.view = b.dataset.view;
+        applyStage();
+        applyView();
+      });
+    }
     scrub.addEventListener("input", () => {
       setPlaying(false);
       state.t = Number(scrub.value) / 1000;
@@ -307,6 +378,7 @@
     // Deep links, e.g. ?task=pushpillars&policy=more&target=left_gap
     const q = new URLSearchParams(location.search);
     if (ORDER.includes(q.get("task"))) state.task = q.get("task");
+    if (q.get("view") === "2d") state.view = "2d";
     selectTask(state.task);
     if (q.get("policy") === "more") {
       state.policy = "more";

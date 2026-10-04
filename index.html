@@ -28,6 +28,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+                   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" crossorigin="anonymous"></script>
     <style>
@@ -929,6 +933,21 @@
       .ex-scalebar line { stroke: var(--muted); stroke-width: 1.2; }
       .ex-scalebar text { font: 500 12px var(--mono); fill: var(--muted); }
 
+
+      /* 3D replay inside the explorer stage */
+      .ex-3d { position: absolute; inset: 0; }
+      .ex-3d canvas { display: block; width: 100% !important; height: 100% !important; cursor: grab; }
+      .ex-3d canvas:active { cursor: grabbing; }
+      .ex-3d.is-loading::after {
+        content: "Loading 3D scene…";
+        position: absolute; inset: 0; display: grid; place-items: center;
+        font: 500 0.85rem var(--mono); color: var(--muted);
+      }
+      .explorer-stage.is-3d #ex-svg { visibility: hidden; }
+      .seg-view { position: absolute; top: 12px; right: 12px; background: rgba(238, 240, 243, 0.92); backdrop-filter: blur(6px); }
+      .seg-view button { padding: 5px 12px; font-size: 0.8rem; }
+      .ex-3d-hint { position: absolute; left: 14px; bottom: 12px; font: 500 0.7rem var(--mono); letter-spacing: 0.06em; color: var(--muted); pointer-events: none; }
+
       /* ---------- baseline small multiples ---------- */
       .baseline { margin: 34px 0 0; }
       .baseline figcaption h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 1.7rem; }
@@ -985,6 +1004,7 @@
         .baseline-chart { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
       @media (max-width: 660px) {
+        .explorer-stage.is-3d { min-height: 320px; }
         .baseline-chart { grid-template-columns: 1fr; }
         .ex-hint { display: none; }
         .explorer-bar { padding: 10px; }
@@ -1257,6 +1277,12 @@
           <div class="explorer-body">
             <div class="explorer-stage">
               <svg id="ex-svg" viewBox="0 0 960 600" role="img" aria-label="Top-down trajectory replay"></svg>
+              <div class="ex-3d" id="ex-3d" hidden aria-label="3D replay of recorded demonstrations; drag to orbit"></div>
+              <div class="seg seg-view" id="ex-view" role="group" aria-label="View" hidden>
+                <button type="button" data-view="3d" aria-pressed="true">3D</button>
+                <button type="button" data-view="2d" aria-pressed="false">Top-down</button>
+              </div>
+              <span class="ex-3d-hint" id="ex-3d-hint" hidden>drag to orbit</span>
             </div>
             <aside class="explorer-side">
               <h4 id="ex-mode-heading">Behavior modes in the data</h4>
