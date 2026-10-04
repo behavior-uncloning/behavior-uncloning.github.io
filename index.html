@@ -821,6 +821,34 @@
       }
 
 
+
+      /* method: steps (left) + animation (right) */
+      .method-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 28px;
+        align-items: stretch;
+        margin-top: 8px;
+      }
+      .method-grid .method-film { order: 2; margin: 0; }
+      .method-grid .method-flow { grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 14px; margin-top: 0; }
+      .method-grid .method-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 16px;
+        align-content: center;
+        align-items: start;
+        padding: 18px 20px;
+      }
+      .method-grid .method-card .num { grid-row: span 2; margin: 0; }
+      .method-grid .method-card h3 { margin-top: 3px; }
+      .method-grid + .equation { margin-top: 22px; }
+      @media (max-width: 980px) {
+        .method-grid { grid-template-columns: 1fr; }
+        .method-grid .method-flow { grid-auto-rows: auto; }
+        .method-grid .method-film { order: 0; }
+      }
+
       /* ---------- simulation: mode explorer ---------- */
       .explorer {
         margin-top: 8px;
@@ -1158,6 +1186,7 @@
           to train a mode classifier, then distills the desired redirection into the policy weights so
           the final policy can be deployed without an auxiliary steering module.
         </p>
+        <div class="method-grid">
         <figure class="method-film">
           <video autoplay muted loop playsinline preload="metadata" poster="assets/images/method_animation_poster.jpg" src="assets/videos/method_animation.mp4" aria-label="Animation: a temporary mode classifier guides the edit, the blade-first mode is redirected into the handle-first mode, and the classifier is dropped at deployment"></video>
           <figcaption>The policy&rsquo;s distribution over behavior modes during the edit. A temporary classifier supplies the redirection signal, a retain loss keeps the desired mode intact, and the classifier is dropped before deployment.</figcaption>
@@ -1168,18 +1197,17 @@
             <h3>Train a mode classifier</h3>
             <p>Fit a K-way classifier on features cached from the original mixed policy.</p>
           </article>
-          <div class="arrow">→</div>
           <article class="method-card">
             <div class="num">2</div>
             <h3>Redirect undesired samples</h3>
             <p>Use differentiable policy features to move probability mass toward the desired mode set.</p>
           </article>
-          <div class="arrow">→</div>
           <article class="method-card">
             <div class="num">3</div>
             <h3>Preserve task competence</h3>
             <p>Keep the original imitation loss on desired-mode samples and deploy the edited policy by itself.</p>
           </article>
+        </div>
         </div>
         <div class="equation" data-tex="\mathcal{L}_{\text{MoRE}} \;=\; {\color{#3f8f5a}\mathcal{L}_{\text{retain}}\big(\text{desired samples}\big)} \;+\; \gamma\,{\color{#2b588a}\mathcal{L}_{\text{redirect}}\big(\text{gated undesired samples}\big)}">
           L<sub>MoRE</sub> = L<sub>retain</sub>(desired samples) + &gamma; &middot; L<sub>redirect</sub>(gated undesired samples)
