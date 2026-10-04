@@ -25,6 +25,12 @@
     pushpillars: "Trajectories: successful mode-pure demonstrations of the four routes (top-down cube path).",
     quadruped: "Trajectories: recorded Unitree Go1 base poses from the evaluation rollouts."
   };
+  const SOURCE_3D = {
+    pusht: "3D: recorded MoRE-edited Diffusion Policy rollouts replayed on the board (T-block pose and pusher position per frame). Original alternates between wrap directions; a MoRE edit replays only the target mode.",
+    pushwall: "3D: recorded ManiSkill3 demonstrations replayed with the Franka arm (joint angles and cube pose per frame). Original alternates between modes; a MoRE edit replays only the target mode.",
+    pushpillars: "3D: recorded ManiSkill3 demonstrations replayed with the Franka arm (joint angles and cube pose per frame). Original alternates between modes; a MoRE edit replays only the target mode.",
+    quadruped: "3D: recorded Unitree Go1 base trajectories (position and heading per frame). Joint angles were not logged, so the leg motion is an illustrative trot. Original alternates between routes; a MoRE edit replays only the target route."
+  };
   const CYCLE_MS = 6500;
   const HOLD_MS = 1400;
 
@@ -48,7 +54,7 @@
   const box3d = root.querySelector("#ex-3d");
   const viewSeg = root.querySelector("#ex-view");
   const hint3d = root.querySelector("#ex-3d-hint");
-  const HAS_3D = new Set(["pushwall", "pushpillars"]);
+  const HAS_3D = new Set(["pusht", "pushwall", "pushpillars", "quadruped"]);
 
   const state = { data: null, task: "pushwall", policy: "original", target: null, t: 0, playing: true, visible: false, view: "3d", cycle: 0 };
   let viewer = null; // Replay3D instance (lazy)
@@ -166,21 +172,22 @@
     if (!state.target || !task.modes.some((m) => m.id === state.target)) state.target = task.modes[0].id;
   };
 
-  // ---------- 3D replay (Push-Wall, Push-Pillars) ----------
+  // ---------- 3D replay ----------
   const use3d = () => state.view === "3d" && HAS_3D.has(state.task);
 
   const ensureViewer = () => {
     if (viewer || viewerLoading) return viewerLoading;
     box3d.classList.add("is-loading");
     viewerLoading = import(new URL("assets/js/replay-3d.js", document.baseURI).href)
-      .then((mod) => mod.createReplay3D(box3d, MODE_COLORS))
+      .then((mod) => mod.createReplay3D(box3d, MODE_COLORS, state.data))
       .then((v) => {
         viewer = v;
         box3d.classList.remove("is-loading");
         sync3d(true);
       })
-      .catch(() => {
+      .catch((e) => {
         // WebGL or network unavailable: fall back to the top-down view.
+        console.warn("3D replay disabled:", e);
         state.view = "2d";
         box3d.classList.remove("is-loading");
         applyStage();
@@ -270,9 +277,7 @@
     srBox.querySelector('[data-k="more"] b').textContent = `${res.more.toFixed(1)}%`;
     srBox.querySelector('[data-k="orig"]').classList.toggle("is-on", !more);
     srBox.querySelector('[data-k="more"]').classList.toggle("is-on", more);
-    note.textContent = use3d()
-      ? "3D: recorded ManiSkill3 demonstrations replayed with the Franka arm (joint angles and cube pose per frame). Original alternates between modes; a MoRE edit replays only the target mode."
-      : SOURCE[state.task];
+    note.textContent = use3d() ? SOURCE_3D[state.task] : SOURCE[state.task];
     if (viewer && use3d()) viewer.setView(state.policy, state.target, state.cycle);
   };
 
