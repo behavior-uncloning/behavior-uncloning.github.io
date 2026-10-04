@@ -13,30 +13,33 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
     <meta property="og:title" content="Behavior Uncloning">
-    <meta property="og:description" content="Distilling mode redirection into policy weights without inference-time steering.">
+    <meta property="og:description" content="Robot policies trained by imitation copy every behavior in the demos, including unsafe ones. MoRE edits the unwanted mode out of the policy weights, with no inference-time steering.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://behavior-uncloning.github.io/">
     <meta property="og:site_name" content="Behavior Uncloning">
-    <meta property="og:image" content="https://behavior-uncloning.github.io/assets/images/og-card.png">
+    <meta property="og:image" content="https://behavior-uncloning.github.io/assets/images/og-card.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Behavior Uncloning — Distilling Mode Redirection into Policy Weights without Inference-Time Steering">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Behavior Uncloning">
-    <meta name="twitter:description" content="Distilling mode redirection into policy weights without inference-time steering.">
-    <meta name="twitter:image" content="https://behavior-uncloning.github.io/assets/images/og-card.png">
+    <meta name="twitter:description" content="Robot policies trained by imitation copy every behavior in the demos, including unsafe ones. MoRE edits the unwanted mode out of the policy weights, with no inference-time steering.">
+    <meta name="twitter:image" content="https://behavior-uncloning.github.io/assets/images/og-card.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" crossorigin="anonymous"></script>
     <style>
       :root {
-        --ink: #16202e;
-        --ink-soft: #38465b;
-        --muted: #586172;
-        --rule: #e2e4e8;
-        --bg: #f7f8f9;
+        --ink: #161b24;
+        --ink-soft: #3a4252;
+        --muted: #636b79;
+        --rule: #e3e6eb;
+        --bg: #f6f7f9;
         --card: #ffffff;
-        --tint: #eceef1;
+        --surface: #fafbfc;
+        --tint: #eef0f3;
         --accent: #2b588a;         /* PHAI blue */
         --accent-strong: #22496e;  /* deep PHAI blue — hovers / emphasis */
         --accent-soft: #dfe9f7;    /* light blue — pills, badges, soft fills */
@@ -77,7 +80,7 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        background: rgba(247, 248, 249, 0.88);
+        background: rgba(246, 247, 249, 0.86);
         border-bottom: 1px solid var(--rule);
         backdrop-filter: blur(14px) saturate(140%);
       }
@@ -278,13 +281,13 @@
       }
       .video-wrap {
         position: relative;
-        background: #ebedf0;
+        background: var(--tint);
       }
       video {
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: contain;
-        background: #ebedf0;
+        background: var(--tint);
       }
       .carousel-caption h3,
       .stat-card h3,
@@ -455,7 +458,7 @@
       .demo-controls {
         padding: 22px;
         border-right: 1px solid var(--rule);
-        background: #fcfcfd;
+        background: var(--surface);
       }
       .demo-control-group + .demo-control-group { margin-top: 22px; }
       .demo-control-group h3 {
@@ -555,7 +558,7 @@
         margin: 0;
         border: 1px solid var(--rule);
         border-radius: 8px;
-        background: #f8f9fa;
+        background: var(--surface);
         overflow: hidden;
       }
       .demo-media-card video,
@@ -563,10 +566,10 @@
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: contain;
-        background: #ebedf0;
+        background: var(--tint);
       }
       .demo-media-card img {
-        background: #f7f8f9;
+        background: var(--surface);
       }
       .demo-media-caption {
         padding: 11px 12px 12px;
@@ -598,7 +601,7 @@
         border: 1px solid var(--rule);
         border-radius: 8px;
         padding: 14px;
-        background: #fcfcfd;
+        background: var(--surface);
       }
       .outcome-head {
         display: flex;
@@ -669,7 +672,7 @@
         display: grid;
         gap: 12px;
         padding: 12px;
-        background: #f8f9fa;
+        background: var(--surface);
       }
       .quad-inline.hidden,
       #demo-traj.hidden {
@@ -754,7 +757,7 @@
         position: relative;
         overflow: hidden;
         border-radius: 6px;
-        background: #eceef1;
+        background: var(--tint);
       }
       .quad-canvas-frame canvas {
         display: block;
@@ -832,7 +835,7 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--muted);
-        background: #eceef1;
+        background: var(--tint);
       }
       th:first-child,
       td:first-child {
@@ -844,7 +847,7 @@
       }
       th:first-child {
         z-index: 2;
-        background: #eceef1;
+        background: var(--tint);
       }
       tr:last-child td { border-bottom: 0; }
       .ours td {
@@ -1000,52 +1003,198 @@
       .team-name { font-weight: 600; font-size: 1rem; }
       @media (max-width: 660px) { .team-grid { grid-template-columns: repeat(2, 1fr); gap: 26px 16px; } }
 
-      /* hero teaser — Option A: before -> after flow */
-      .hero-teaser { max-width: 1000px; margin: 12px auto 4px; }
-      .teaser-flow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; }
-      .teaser-card {
-        border: 1px solid var(--rule); border-radius: 16px; background: var(--card); padding: 12px;
-        box-shadow: 0 14px 34px rgba(22,32,46,0.10), 0 2px 8px rgba(22,32,46,0.05);
+      /* ================= v2 design layer: one light system ================= */
+      :root {
+        --display: "Instrument Serif", "Source Serif 4", Georgia, serif;
+        --mode-bad: #d1495b;
+        --mode-good: #3f8f5a;
+        --amber: #f2c14e;
+        --radius: 16px;
+        --shadow-sm: 0 1px 2px rgba(22, 27, 36, 0.04), 0 4px 14px rgba(22, 27, 36, 0.04);
+        --shadow-md: 0 1px 2px rgba(22, 27, 36, 0.04), 0 18px 44px rgba(22, 27, 36, 0.08);
       }
-      .teaser-card.is-orig { border-top: 3px solid #c2566b; }
-      /* only one clip, so the card shrinks to its natural height (no filler space) */
-      .teaser-card.is-edit { border-top: 3px solid var(--accent); align-self: center; }
-      .teaser-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-      .teaser-name { font-family: var(--serif); font-size: 1.04rem; font-weight: 600; color: var(--ink); }
-      .teaser-pill {
-        font-family: var(--mono); font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
-        letter-spacing: 0.06em; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+
+      /* type */
+      h1 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(3.6rem, 9vw, 8.4rem);
+        line-height: 0.92;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        margin-bottom: 20px;
       }
-      .pill-bad { background: #fbe9ec; color: #b03a52; }
-      .pill-good { background: var(--accent-soft); color: var(--accent); }
-      .teaser-stack { display: grid; gap: 10px; }
-      .teaser-screen { position: relative; border-radius: 10px; overflow: hidden; background: #ebedf0; }
-      .teaser-screen video { display: block; width: 100%; aspect-ratio: 460 / 294; object-fit: cover; }
-      .teaser-screen.sm .teaser-chip { font-size: 0.66rem; padding: 4px 8px; }
-      .teaser-chip {
-        position: absolute; left: 9px; bottom: 9px; font-family: var(--mono); font-size: 0.72rem;
-        font-weight: 600; padding: 5px 10px; border-radius: 999px; color: #fff; backdrop-filter: blur(6px);
+      h1 em {
+        font-style: italic;
+        background: linear-gradient(90deg, var(--mode-good), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        padding: 0 0.04em 0.12em 0;
       }
-      .chip-bad { background: rgba(176,58,82,0.88); }
-      .chip-good { background: rgba(43,88,138,0.90); }
+      h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+        line-height: 1.04;
+        letter-spacing: -0.005em;
+      }
+      .subtitle { font-size: clamp(1.05rem, 1.9vw, 1.3rem); }
+
+      /* hero */
+      .hero {
+        padding: 72px 18px 64px;
+        background: radial-gradient(1000px 460px at 50% -8%, rgba(43, 88, 138, 0.07), transparent 70%);
+      }
+      .hero-logos { gap: 14px 34px; margin: 22px 0 26px; }
+      .button.ghost { background: var(--card); color: var(--accent); border: 1px solid var(--rule); }
+      .button.ghost:hover { border-color: rgba(43, 88, 138, 0.4); text-decoration: none; }
+
+      /* shared card surface for every media figure */
+      .teaser, .film, .method-film, .carousel-shell, .wide-video, .table-wrap, .equation, .citation-block {
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow-sm);
+      }
+      .teaser, .film, .method-film { box-shadow: var(--shadow-md); }
+
+      /* hero teaser */
+      .teaser { max-width: 1120px; margin: 46px auto 0; padding: 22px 24px 20px; text-align: left; }
+      .teaser-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 16px;
+        margin-bottom: 18px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .teaser-kicker { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+      .teaser-prompt { font-family: var(--mono); font-size: 0.82rem; color: var(--ink); white-space: nowrap; }
+      .teaser-prompt span {
+        margin-right: 8px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: var(--amber);
+        color: #1b1f27;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .teaser-flow { display: grid; grid-template-columns: 1fr auto 1.25fr; align-items: center; gap: 24px; }
+      .teaser-label { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; font-family: var(--display); font-size: 1.55rem; line-height: 1; color: var(--ink); }
+      .teaser-sub { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+      .dot { width: 9px; height: 9px; border-radius: 99px; align-self: center; flex: none; }
+      .dot-amber { background: var(--amber); }
+      .dot-green { background: var(--mode-good); }
+      .teaser-stack { display: grid; gap: 12px; }
+      .teaser-clip { position: relative; border-radius: 12px; overflow: hidden; background: var(--tint); box-shadow: 0 0 0 1px var(--rule); }
+      .teaser-clip video { aspect-ratio: 16 / 9; object-fit: cover; background: var(--tint); }
+      .teaser-clip.is-main { box-shadow: 0 0 0 2px var(--mode-good), 0 14px 34px rgba(63, 143, 90, 0.16); }
+      .chip {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        padding: 5px 11px;
+        border-radius: 999px;
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 0.8rem;
+        color: #fff;
+        box-shadow: 0 6px 16px rgba(22, 27, 36, 0.18);
+      }
+      .chip-bad { background: var(--mode-bad); }
+      .chip-good { background: var(--mode-good); }
       .teaser-arrow { display: flex; flex-direction: column; align-items: center; gap: 8px; }
       .teaser-badge {
-        font-family: var(--mono); font-weight: 700; font-size: 0.86rem; letter-spacing: 0.04em;
-        color: #fff; background: var(--accent); padding: 8px 15px; border-radius: 999px;
-        box-shadow: 0 6px 16px rgba(43,88,138,0.30);
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.86rem;
+        letter-spacing: 0.04em;
+        color: #fff;
+        background: var(--accent);
+        padding: 8px 15px;
+        border-radius: 999px;
+        box-shadow: 0 6px 16px rgba(43, 88, 138, 0.28);
       }
-      .teaser-arrowline { width: 50px; height: 2px; background: var(--accent); position: relative; }
-      .teaser-arrowline::after {
+      .teaser-line { width: 56px; height: 2px; background: linear-gradient(90deg, rgba(43, 88, 138, 0.15), var(--accent)); position: relative; }
+      .teaser-line::after {
         content: ""; position: absolute; right: -1px; top: -4px;
         border-left: 9px solid var(--accent); border-top: 5px solid transparent; border-bottom: 5px solid transparent;
       }
-      .teaser-arrowsub { font-family: var(--mono); font-size: 0.64rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-      .hero-teaser figcaption { margin-top: 16px; text-align: center; color: var(--muted); font-size: 0.92rem; text-wrap: balance; }
+      .teaser-arrowsub { font-family: var(--mono); font-size: 0.64rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+      .teaser figcaption {
+        margin: 18px auto 0;
+        max-width: 780px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-wrap: balance;
+      }
+      .teaser figcaption em { color: var(--ink); }
+
+      /* overview video */
+      .video-section { max-width: 1120px; text-align: center; padding-top: 30px; }
+      .film { margin: 26px auto 0; padding: 10px; }
+      .film video { aspect-ratio: 16 / 9; border-radius: 10px; background: var(--tint); }
+      video.click-to-play:not([controls]) { cursor: pointer; }
+
+      /* stats */
+      .highlights { gap: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 34px; }
+      .highlights .stat-card { border: 0; border-radius: 0; background: transparent; padding: 22px 18px; box-shadow: none; }
+      .highlights .stat-card + .stat-card { border-left: 1px solid var(--rule); }
+      .highlights .stat-card:hover { transform: none; box-shadow: none; }
+      .stat { font-family: var(--display); font-size: 3.4rem; line-height: 0.95; color: var(--accent); }
+      .stat .unit { font-style: italic; font-size: 0.5em; margin-left: 4px; }
+
+      /* method */
+      .method-film { margin: 6px 0 26px; overflow: hidden; }
+      .method-film video { aspect-ratio: 16 / 9; background: #fff; }
+      .method-film figcaption {
+        padding: 14px 22px 18px;
+        border-top: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.93rem;
+        text-wrap: pretty;
+      }
+      .method-card { border-radius: 12px; }
+      .equation { font-family: var(--sans); font-size: 1.15rem; padding: 20px 22px; color: var(--ink); white-space: normal; }
+      .equation .katex-display { margin: 0; }
+      .equation .katex { font-size: 1.2em; }
+
+      /* carousel + supplementary video */
+      .carousel-shell, .wide-video { overflow: hidden; }
+      .carousel-shell .video-wrap, .carousel-shell video { background: #fff; }
+
+      /* citation: light code block that wraps long lines */
+      .citation-block { overflow: hidden; }
+      .citation-block pre { color: var(--ink-soft); background: var(--surface); white-space: pre-wrap; overflow-wrap: anywhere; }
+      .citation-copy { border: 1px solid var(--rule); background: var(--card); color: var(--ink-soft); }
+      .citation-copy:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
       @media (max-width: 860px) {
-        .teaser-flow { grid-template-columns: 1fr; gap: 12px; }
+        .teaser-flow { grid-template-columns: 1fr; gap: 16px; }
         .teaser-arrow { flex-direction: row; gap: 12px; }
-        .teaser-arrowline { width: 2px; height: 26px; }
-        .teaser-arrowline::after { right: -4px; top: auto; bottom: -1px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 9px solid var(--accent); border-bottom: 0; }
+        .teaser-line { width: 2px; height: 24px; background: linear-gradient(180deg, rgba(43, 88, 138, 0.15), var(--accent)); }
+        .teaser-line::after { right: -4px; top: auto; bottom: -1px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 9px solid var(--accent); border-bottom: 0; }
+        .highlights .stat-card + .stat-card { border-left: 0; }
+        .highlights .stat-card:nth-child(even) { border-left: 1px solid var(--rule); }
+        .highlights .stat-card:nth-child(n + 3) { border-top: 1px solid var(--rule); }
+      }
+      @media (max-width: 660px) {
+        .hero { padding-top: 46px; }
+        .hero-logos { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; gap: 16px 28px; }
+        .teaser { padding: 14px 12px 14px; margin-top: 32px; }
+        .teaser-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+        .teaser-label { font-size: 1.3rem; }
+        .chip { font-size: 0.72rem; left: 8px; bottom: 8px; padding: 4px 9px; }
+        .highlights .stat-card:nth-child(even) { border-left: 0; }
+        .highlights .stat-card + .stat-card { border-top: 1px solid var(--rule); }
+        .equation { font-size: 0.95rem; overflow-x: auto; padding: 16px 12px; }
+        .equation .katex { font-size: 0.86em; }
+        .film { padding: 6px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -1059,6 +1208,7 @@
       <div class="nav-inner">
         <a class="brand" href="#top">Behavior Uncloning</a>
         <div class="nav-links">
+          <a href="#video">Video</a>
           <a href="#abstract">Abstract</a>
           <a href="#method">Method</a>
           <a href="#demo">Demo</a>
@@ -1072,14 +1222,8 @@
 
     <main id="top">
       <section class="hero">
-        <div class="hero-logos">
-          <img src="assets/images/logos/tamu.png" alt="Texas A&amp;M University" style="height:34px">
-          <img src="assets/images/logos/wisconsin.svg" alt="University of Wisconsin&ndash;Madison" style="height:52px">
-          <img src="assets/images/logos/northwestern.svg" alt="Northwestern University" style="height:28px">
-          <img src="assets/images/logos/stanford.png" alt="Stanford University" style="height:48px">
-        </div>
         <div class="eyebrow">Preprint · 2026</div>
-        <h1>Behavior Uncloning</h1>
+        <h1>Behavior <em>Un</em>cloning</h1>
         <p class="subtitle">Distilling Mode Redirection into Policy Weights without <span class="nowrap">Inference-Time Steering</span></p>
         <p class="authors">
           <a href="https://haohww.github.io/">Hao Wang</a><sup>1,†</sup>,
@@ -1098,53 +1242,60 @@
           <sup>4</sup>Stanford University &nbsp;
           <span>† Project Lead</span>
         </p>
-        <p class="hero-note">
-          MoRE edits a mixed-mode behavior-cloned policy into a standalone desired-mode policy.
-          A mode classifier supplies the training-time redirection signal; deployment uses the
-          original inference path.
-        </p>
+        <div class="hero-logos">
+          <img src="assets/images/logos/tamu.png" alt="Texas A&amp;M University" style="height:30px">
+          <img src="assets/images/logos/wisconsin.svg" alt="University of Wisconsin&ndash;Madison" style="height:44px">
+          <img src="assets/images/logos/northwestern.svg" alt="Northwestern University" style="height:24px">
+          <img src="assets/images/logos/stanford.png" alt="Stanford University" style="height:40px">
+        </div>
         <div class="cta">
           <a class="button accent" href="https://arxiv.org/abs/2606.29201">Paper</a>
           <a class="button accent" href="https://github.com/phai-lab/behavior-uncloning">Code</a>
-          <a class="button accent" href="#demo">Interactive demo</a>
-          <a class="button accent" href="#supplementary">Supplementary video</a>
+          <a class="button ghost" href="#video"><span aria-hidden="true">&#9654;</span>&nbsp; Watch the video</a>
+          <a class="button ghost" href="#demo">Interactive demo</a>
         </div>
-        <figure class="hero-teaser">
+        <figure class="teaser">
+          <div class="teaser-head">
+            <span class="teaser-kicker">Real robot</span>
+            <span class="teaser-prompt"><span>Instruction</span>&ldquo;pass the knife&rdquo;</span>
+          </div>
           <div class="teaser-flow">
-            <div class="teaser-card is-orig">
-              <div class="teaser-bar">
-                <span class="teaser-name">Original policy</span>
-                <span class="teaser-pill pill-bad">mixed modes</span>
-              </div>
+            <div class="teaser-col">
+              <div class="teaser-label"><span class="dot dot-amber"></span>Original policy<span class="teaser-sub">two modes</span></div>
               <div class="teaser-stack">
-                <div class="teaser-screen sm">
-                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/teaser_safe_poster.jpg" src="assets/videos/teaser_safe.mp4" aria-label="Original policy placing the knife blade-first, the unsafe mode"></video>
-                  <span class="teaser-chip chip-bad">&#10007; blade-first &middot; unsafe</span>
+                <div class="teaser-clip">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero_orig_blade_poster.jpg" src="assets/videos/hero_orig_blade.mp4" aria-label="Original policy handing the knife blade-first, toward the person's arm"></video>
+                  <span class="chip chip-bad">&#10007; blade toward the arm</span>
                 </div>
-                <div class="teaser-screen sm">
-                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/teaser_orig_poster.jpg" src="assets/videos/teaser_orig.mp4" aria-label="Original policy placing the knife handle-first, the safe mode"></video>
-                  <span class="teaser-chip chip-good">&#10003; handle-first &middot; safe</span>
+                <div class="teaser-clip">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero_orig_handle_poster.jpg" src="assets/videos/hero_orig_handle.mp4" aria-label="Original policy handing the knife handle-first"></video>
+                  <span class="chip chip-good">&#10003; handle first</span>
                 </div>
               </div>
             </div>
             <div class="teaser-arrow" aria-hidden="true">
               <span class="teaser-badge">MoRE</span>
-              <span class="teaser-arrowline"></span>
+              <span class="teaser-line"></span>
               <span class="teaser-arrowsub">offline edit</span>
             </div>
-            <div class="teaser-card is-edit">
-              <div class="teaser-bar">
-                <span class="teaser-name">MoRE-edited policy</span>
-                <span class="teaser-pill pill-good">single mode</span>
-              </div>
-              <div class="teaser-screen">
-                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/teaser_orig_poster.jpg" src="assets/videos/teaser_orig.mp4" aria-label="MoRE-edited policy placing the knife handle-first, the desired mode"></video>
-                <span class="teaser-chip chip-good">&#10003; handle-first &middot; desired</span>
+            <div class="teaser-col">
+              <div class="teaser-label"><span class="dot dot-green"></span>MoRE-edited policy<span class="teaser-sub">one mode</span></div>
+              <div class="teaser-clip is-main">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero_more_handle_poster.jpg" src="assets/videos/hero_more_handle.mp4" aria-label="MoRE-edited policy handing the knife handle-first"></video>
+                <span class="chip chip-good">&#10003; handle first</span>
               </div>
             </div>
           </div>
-          <figcaption>The original policy is multimodal &mdash; it may place the knife either way. MoRE removes the undesired mode <em>offline</em>, leaving a single desired-mode policy with the same inference path.</figcaption>
+          <figcaption>Behavior cloning copies every mode in the demonstrations, including the unsafe one. MoRE edits it out of the weights <em>offline</em>; the edited policy keeps the original inference path.</figcaption>
         </figure>
+      </section>
+
+      <section id="video" class="section video-section">
+        <div class="section-kicker">Video</div>
+        <h2>Behavior Uncloning in 80 seconds.</h2>
+        <div class="film">
+          <video class="click-to-play" playsinline preload="none" poster="assets/images/overview_poster.jpg" src="assets/videos/overview.mp4" aria-label="80-second overview video of Behavior Uncloning"></video>
+        </div>
       </section>
 
       <section id="abstract" class="section narrow">
@@ -1167,8 +1318,8 @@
         </div>
         <div class="highlights">
           <article class="stat-card">
-            <div class="stat">44</div>
-            <p>percentage-point average deployment success improvement over the original mixed policy.</p>
+            <div class="stat">+44<span class="unit">pp</span></div>
+            <p>average deployment success over the original mixed policy.</p>
           </article>
           <article class="stat-card">
             <div class="stat">8</div>
@@ -1193,6 +1344,10 @@
           to train a mode classifier, then distills the desired redirection into the policy weights so
           the final policy can be deployed without an auxiliary steering module.
         </p>
+        <figure class="method-film">
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/images/method_animation_poster.jpg" src="assets/videos/method_animation.mp4" aria-label="Animation: a temporary mode classifier guides the edit, the blade-first mode is redirected into the handle-first mode, and the classifier is dropped at deployment"></video>
+          <figcaption>The policy&rsquo;s distribution over behavior modes during the edit. A temporary classifier supplies the redirection signal, a retain loss keeps the desired mode intact, and the classifier is dropped before deployment.</figcaption>
+        </figure>
         <div class="method-flow">
           <article class="method-card">
             <div class="num">1</div>
@@ -1212,8 +1367,8 @@
             <p>Keep the original imitation loss on desired-mode samples and deploy the edited policy by itself.</p>
           </article>
         </div>
-        <div class="equation">
-          L<sub>MoRE</sub> = retain_loss(desired samples) + gamma · redirect_loss(gated undesired samples)
+        <div class="equation" data-tex="\mathcal{L}_{\text{MoRE}} \;=\; {\color{#3f8f5a}\mathcal{L}_{\text{retain}}\big(\text{desired samples}\big)} \;+\; \gamma\,{\color{#2b588a}\mathcal{L}_{\text{redirect}}\big(\text{gated undesired samples}\big)}">
+          L<sub>MoRE</sub> = L<sub>retain</sub>(desired samples) + &gamma; &middot; L<sub>redirect</sub>(gated undesired samples)
         </div>
       </section>
 
@@ -1391,14 +1546,14 @@
         </p>
         <div class="carousel-shell" data-carousel="robots" aria-label="Real robot rollout carousel">
           <div class="video-wrap">
-            <video class="carousel-video" autoplay muted playsinline preload="metadata" poster="assets/images/knife_handover_poster.jpg" src="assets/videos/knife_handover.mp4"></video>
+            <video class="carousel-video" autoplay muted playsinline preload="metadata" poster="assets/images/knife_handover_compare_poster.jpg" src="assets/videos/knife_handover_compare.mp4"></video>
             <button class="fs" type="button" aria-label="Fullscreen real robot video">fullscreen</button>
           </div>
           <div class="carousel-controls">
             <button class="carousel-nav" type="button" data-carousel-prev aria-label="Previous real robot video">‹</button>
             <div class="carousel-caption">
               <h3 data-carousel-title>Knife handover</h3>
-              <p data-carousel-caption>SR: 45.0 → 70.0 (+25.0).</p>
+              <p data-carousel-caption>SR: 45.0 → 70.0 (+25.0). Clip: original vs. MoRE-edited rollouts handing the knife to a person.</p>
             </div>
             <button class="carousel-nav" type="button" data-carousel-next aria-label="Next real robot video">›</button>
           </div>
@@ -1457,13 +1612,13 @@
 
       <section id="supplementary" class="section narrow">
         <div class="section-kicker">Supplementary video</div>
-        <h2>Additional rollouts and task examples.</h2>
+        <h2>Rollout grids across the evaluation suite.</h2>
         <p class="lead">
-          The longer video below shows additional task examples, rollouts, and qualitative results.
+          The supplementary video walks through the evaluation suite: rollout grids for each simulated and real-robot task under the original and MoRE-edited policies, and the compared baselines.
         </p>
         <div class="wide-video">
           <div class="video-wrap">
-            <video controls autoplay muted loop playsinline preload="metadata" poster="assets/images/supp_video_final_poster.jpg" src="assets/videos/supp_video_final.mp4"></video>
+            <video class="click-to-play" muted playsinline preload="none" poster="assets/images/supp_video_poster.jpg" src="assets/videos/supp_video_final.mp4"></video>
           </div>
         </div>
       </section>
@@ -1557,6 +1712,23 @@
     </footer>
 
     <script>
+      // Long-form videos show a clean poster; native controls appear once playback starts.
+      for (const video of document.querySelectorAll("video.click-to-play")) {
+        video.addEventListener("click", () => {
+          if (video.controls) return;
+          video.controls = true;
+          video.play().catch(() => {});
+        });
+      }
+
+      // Render LaTeX equations once KaTeX has loaded (the plain-text fallback stays otherwise).
+      window.addEventListener("DOMContentLoaded", () => {
+        if (!window.katex) return;
+        for (const el of document.querySelectorAll("[data-tex]")) {
+          katex.render(el.dataset.tex, el, {displayMode: true, throwOnError: false});
+        }
+      });
+
       const demoTasks = {
         pushwall: {
           label: "Push-Wall",
@@ -2296,9 +2468,9 @@
         robots: [
           {
             title: "Knife handover",
-            caption: "SR: 45.0 → 70.0 (+25.0).",
-            src: "assets/videos/knife_handover.mp4",
-            poster: "assets/images/knife_handover_poster.jpg"
+            caption: "SR: 45.0 → 70.0 (+25.0). Clip: original vs. MoRE-edited rollouts handing the knife to a person.",
+            src: "assets/videos/knife_handover_compare.mp4",
+            poster: "assets/images/knife_handover_compare_poster.jpg"
           },
           {
             title: "Bottle placement",
