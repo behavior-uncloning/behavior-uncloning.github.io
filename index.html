@@ -310,9 +310,10 @@
         bottom: 8px;
         border: 0;
         border-radius: 999px;
-        padding: 6px 8px;
-        background: rgba(20, 29, 44, 0.72);
-        color: white;
+        padding: 6px 10px;
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--ink-soft);
+        box-shadow: 0 0 0 1px var(--rule), 0 4px 12px rgba(22, 27, 36, 0.08);
         font-family: var(--mono);
         font-size: 0.75rem;
         cursor: pointer;
@@ -549,7 +550,19 @@
       }
       @media (max-width: 660px) {
         .nav-inner { align-items: flex-start; flex-direction: column; gap: 8px; }
-        .nav-links { margin-left: 0; justify-content: flex-start; gap: 11px 16px; }
+        .nav-links {
+          margin-left: 0;
+          width: 100%;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          gap: 18px;
+          overflow-x: auto;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
+          mask-image: linear-gradient(90deg, #000 85%, transparent);
+        }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { white-space: nowrap; }
         .hero { padding-top: 42px; }
         .highlights { grid-template-columns: 1fr; }
         .carousel-controls { grid-template-columns: auto 1fr auto; gap: 10px; }
@@ -885,7 +898,7 @@
       .explorer-stage { position: relative; background: var(--surface); }
       #ex-svg { display: block; width: 100%; height: auto; }
       .explorer-side { padding: 18px 18px 16px; border-left: 1px solid var(--rule); }
-      .explorer-side h4 {
+      .explorer-side h3 {
         margin: 0 0 10px;
         font-family: var(--mono);
         font-size: 0.7rem;
@@ -894,7 +907,7 @@
         text-transform: uppercase;
         color: var(--muted);
       }
-      .explorer-side h4 span { text-transform: none; letter-spacing: 0; font-family: var(--sans); font-weight: 400; }
+      .explorer-side h3 span { text-transform: none; letter-spacing: 0; font-family: var(--sans); font-weight: 400; }
       .ex-modes { display: grid; gap: 6px; margin-bottom: 22px; }
       .ex-modes button {
         display: flex;
@@ -1188,7 +1201,7 @@
         </p>
         <div class="method-grid">
         <figure class="method-film">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/images/method_animation_poster.jpg" src="assets/videos/method_animation.mp4" aria-label="Animation: a temporary mode classifier guides the edit, the blade-first mode is redirected into the handle-first mode, and the classifier is dropped at deployment"></video>
+          <video data-autoplay muted loop playsinline preload="none" poster="assets/images/method_animation_poster.jpg" src="assets/videos/method_animation.mp4" aria-label="Animation: a temporary mode classifier guides the edit, the blade-first mode is redirected into the handle-first mode, and the classifier is dropped at deployment"></video>
           <figcaption>The policy&rsquo;s distribution over behavior modes during the edit. A temporary classifier supplies the redirection signal, a retain loss keeps the desired mode intact, and the classifier is dropped before deployment.</figcaption>
         </figure>
         <div class="method-flow">
@@ -1240,9 +1253,9 @@
               <span class="ex-3d-hint" id="ex-3d-hint" hidden>drag to orbit</span>
             </div>
             <aside class="explorer-side">
-              <h4 id="ex-mode-heading">Behavior modes in the data</h4>
+              <h3 id="ex-mode-heading">Behavior modes in the data</h3>
               <div class="ex-modes" id="ex-modes"></div>
-              <h4>Deployment success <span>(avg over target modes)</span></h4>
+              <h3>Deployment success <span>(avg over target modes)</span></h3>
               <div class="ex-sr" id="ex-sr">
                 <div class="ex-sr-row" data-k="orig"><span>Original policy</span><span class="ex-bar"><i></i></span><b></b></div>
                 <div class="ex-sr-row" data-k="more"><span>MoRE-edited</span><span class="ex-bar"><i></i></span><b></b></div>
@@ -1328,7 +1341,7 @@
         </p>
         <div class="carousel-shell" data-carousel="robots" aria-label="Real robot rollout carousel">
           <div class="video-wrap">
-            <video class="carousel-video" autoplay muted playsinline preload="metadata" poster="assets/images/knife_handover_compare_poster.jpg" src="assets/videos/knife_handover_compare.mp4"></video>
+            <video class="carousel-video" muted playsinline preload="none" poster="assets/images/knife_handover_compare_poster.jpg" src="assets/videos/knife_handover_compare.mp4" aria-label="Knife handover: original vs. MoRE-edited policy rollouts"></video>
             <button class="fs" type="button" aria-label="Fullscreen real robot video">fullscreen</button>
           </div>
           <div class="carousel-controls">
@@ -1400,7 +1413,7 @@
         </p>
         <div class="wide-video">
           <div class="video-wrap">
-            <video class="click-to-play" muted playsinline preload="none" poster="assets/images/supp_video_poster.jpg" src="assets/videos/supp_video_final.mp4"></video>
+            <video class="click-to-play" muted playsinline preload="none" poster="assets/images/supp_video_poster.jpg" src="assets/videos/supp_video_final.mp4" aria-label="Supplementary video: rollout grids for all eight tasks"></video>
           </div>
         </div>
       </section>
@@ -1545,6 +1558,20 @@
       };
 
       const carousels = [];
+      // Play looping videos only while they are on screen (saves bandwidth and CPU).
+      const inView = new WeakMap();
+      const viewWatch = "IntersectionObserver" in window
+        ? new IntersectionObserver((entries) => {
+            for (const e of entries) {
+              inView.set(e.target, e.isIntersecting);
+              const c = carousels.find((x) => x.video === e.target);
+              if (!c) continue;
+              if (e.isIntersecting && !document.hidden) c.play();
+              else e.target.pause();
+            }
+          }, { rootMargin: "200px 0px" })
+        : null;
+      const visible = (video) => !viewWatch || inView.get(video) === true;
 
       for (const shell of document.querySelectorAll("[data-carousel]")) {
         const name = shell.dataset.carousel;
@@ -1555,7 +1582,7 @@
         const dots = shell.querySelector(".carousel-dots");
         let index = 0;
 
-        const play = () => video.play().catch(() => {});
+        const play = () => { if (visible(video)) video.play().catch(() => {}); };
         const show = (nextIndex) => {
           index = (nextIndex + items.length) % items.length;
           const item = items[index];
@@ -1563,6 +1590,7 @@
           video.poster = item.poster;
           video.src = item.src;
           title.textContent = item.title;
+          video.setAttribute("aria-label", `${item.title}: original vs. MoRE-edited policy rollouts`);
           caption.textContent = item.caption;
           for (const [dotIndex, dot] of Array.from(dots.children).entries()) {
             dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
@@ -1588,15 +1616,17 @@
           if (video.requestFullscreen) video.requestFullscreen();
         });
         carousels.push({ video, play });
+        if (viewWatch) viewWatch.observe(video);
         play();
       }
 
-      for (const video of document.querySelectorAll("video[autoplay]:not(.carousel-video)")) {
-        const play = () => video.play().catch(() => {});
+      for (const video of document.querySelectorAll("video[autoplay]:not(.carousel-video), video[data-autoplay]")) {
+        const play = () => { if (visible(video)) video.play().catch(() => {}); };
         video.addEventListener("dblclick", () => {
           if (video.requestFullscreen) video.requestFullscreen();
         });
         carousels.push({ video, play });
+        if (viewWatch) viewWatch.observe(video);
         play();
       }
 

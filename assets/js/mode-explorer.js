@@ -388,10 +388,23 @@
     requestAnimationFrame(tick);
   };
 
-  fetch("assets/data/sim_task_replays.json")
-    .then((r) => r.json())
-    .then(init)
-    .catch(() => {
-      note.textContent = "Trajectory data could not be loaded.";
-    });
+  const load = () =>
+    fetch("assets/data/sim_task_replays.json")
+      .then((r) => r.json())
+      .then(init)
+      .catch(() => {
+        note.textContent = "Trajectory data could not be loaded.";
+      });
+  // Defer the data and the 3D scene until the explorer is about to scroll into view.
+  if ("IntersectionObserver" in window && !location.search.includes("task=")) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        io.disconnect();
+        load();
+      }
+    }, { rootMargin: "800px 0px" });
+    io.observe(root);
+  } else {
+    load();
+  }
 })();
