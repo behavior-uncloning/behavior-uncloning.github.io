@@ -7,10 +7,10 @@
     <meta name="description" content="Behavior Uncloning (MoRE), CoRL 2026: distilling mode redirection into policy weights without inference-time steering.">
     <link rel="canonical" href="https://behavior-uncloning.github.io/">
     <meta name="theme-color" content="#2b588a">
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png?v=2">
     <link rel="manifest" href="site.webmanifest">
     <meta property="og:title" content="Behavior Uncloning">
     <meta property="og:description" content="CoRL 2026. Robot policies trained by imitation copy every behavior in the demos, including unsafe ones. MoRE edits the unwanted mode out of the policy weights, with no inference-time steering.">
@@ -815,6 +815,19 @@
       .film { margin: 26px auto 0; padding: 10px; }
       .film video { aspect-ratio: 16 / 9; border-radius: 10px; background: var(--tint); }
       video.click-to-play:not([controls]) { cursor: pointer; }
+      .film { position: relative; }
+      .sound-pill {
+        position: absolute; top: 24px; right: 24px;
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 16px; border: 0; border-radius: 999px; cursor: pointer;
+        font: 600 0.85rem/1 Inter, system-ui, sans-serif; letter-spacing: 0.01em;
+        color: #fff; background: rgba(22, 27, 36, 0.72);
+        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+        transition: background 0.2s ease, opacity 0.3s ease;
+      }
+      .sound-pill:hover { background: rgba(22, 27, 36, 0.88); }
+      .sound-pill[hidden] { display: none; }
 
       /* stats */
       .highlights { gap: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 34px; }
@@ -870,6 +883,7 @@
         .equation { font-size: 0.95rem; overflow-x: auto; padding: 16px 12px; }
         .equation .katex { font-size: 0.86em; }
         .film { padding: 6px; }
+        .sound-pill { top: 14px; right: 14px; padding: 6px 12px; font-size: 0.78rem; }
       }
 
 
@@ -1188,7 +1202,8 @@
         <div class="section-kicker">Video</div>
         <h2>Behavior Uncloning in 80 seconds.</h2>
         <div class="film">
-          <video class="click-to-play" playsinline preload="none" poster="assets/images/overview_poster.jpg" src="assets/videos/overview.mp4" aria-label="80-second overview video of Behavior Uncloning"></video>
+          <video id="overview-video" class="click-to-play" playsinline preload="none" poster="assets/images/overview_poster.jpg" src="assets/videos/overview.mp4" aria-label="80-second overview video of Behavior Uncloning"></video>
+          <button type="button" class="sound-pill" hidden aria-label="Unmute the overview video"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 9.5a3.5 3.5 0 0 1 0 5M18.5 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Tap for sound</button>
         </div>
       </section>
 
@@ -1554,6 +1569,55 @@
           video.play().catch(() => {});
         });
       }
+
+      // Overview video: starts muted when scrolled into view (browsers block autoplay with sound),
+      // pauses when scrolled away, and never restarts once the viewer pauses it or it ends.
+      (() => {
+        const video = document.getElementById("overview-video");
+        const pill = video && video.parentElement.querySelector(".sound-pill");
+        if (!video || !("IntersectionObserver" in window)) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        let auto = false;   // currently playing because of us
+        let stop = false;   // viewer paused it or it ended
+        let seen = false;   // >= 60% on screen
+        let sound = false;  // viewer turned the sound on
+        const start = () => {
+          if (stop || !video.paused || document.hidden) return;
+          video.controls = true;
+          if (!sound) video.muted = true;
+          auto = true;
+          video.play().then(() => { if (video.muted) pill.hidden = false; }).catch(() => { auto = false; });
+        };
+        const halt = () => { if (!video.paused) { auto = true; video.pause(); } };
+        new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) video.preload = "auto";
+          }
+        }, {rootMargin: "600px 0px"}).observe(video);
+        new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.intersectionRatio >= 0.6) { seen = true; start(); }
+            else if (e.intersectionRatio < 0.3) { seen = false; halt(); }
+          }
+        }, {threshold: [0, 0.3, 0.6]}).observe(video);
+        video.addEventListener("pause", () => {
+          // Pauses not caused by scrolling away or hiding the tab are the viewer's choice.
+          if (!auto && !document.hidden) stop = true;
+          auto = false;
+        });
+        video.addEventListener("play", () => { if (!auto) stop = false; auto = false; });
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) halt();
+          else if (seen) start();
+        });
+        video.addEventListener("ended", () => { stop = true; pill.hidden = true; });
+        video.addEventListener("volumechange", () => { if (!video.muted) { sound = true; pill.hidden = true; } });
+        pill.addEventListener("click", () => {
+          video.muted = false;
+          pill.hidden = true;
+          video.play().catch(() => {});
+        });
+      })();
 
       // Render LaTeX equations once KaTeX has loaded (the plain-text fallback stays otherwise).
       window.addEventListener("DOMContentLoaded", () => {
