@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Behavior Uncloning — Distilling Mode Redirection into Policy Weights</title>
-    <meta name="description" content="Behavior Uncloning (MoRE): distilling mode redirection into policy weights without inference-time steering.">
+    <meta name="description" content="Behavior Uncloning (MoRE), CoRL 2026: distilling mode redirection into policy weights without inference-time steering.">
     <link rel="canonical" href="https://behavior-uncloning.github.io/">
     <meta name="theme-color" content="#2b588a">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
     <meta property="og:title" content="Behavior Uncloning">
-    <meta property="og:description" content="Robot policies trained by imitation copy every behavior in the demos, including unsafe ones. MoRE edits the unwanted mode out of the policy weights, with no inference-time steering.">
+    <meta property="og:description" content="CoRL 2026. Robot policies trained by imitation copy every behavior in the demos, including unsafe ones. MoRE edits the unwanted mode out of the policy weights, with no inference-time steering.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://behavior-uncloning.github.io/">
     <meta property="og:site_name" content="Behavior Uncloning">
@@ -23,7 +23,7 @@
     <meta property="og:image:alt" content="Behavior Uncloning — Distilling Mode Redirection into Policy Weights without Inference-Time Steering">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Behavior Uncloning">
-    <meta name="twitter:description" content="Robot policies trained by imitation copy every behavior in the demos, including unsafe ones. MoRE edits the unwanted mode out of the policy weights, with no inference-time steering.">
+    <meta name="twitter:description" content="CoRL 2026. Robot policies trained by imitation copy every behavior in the demos, including unsafe ones. MoRE edits the unwanted mode out of the policy weights, with no inference-time steering.">
     <meta name="twitter:image" content="https://behavior-uncloning.github.io/assets/images/og-card.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -686,6 +686,34 @@
       .button.ghost { background: var(--card); color: var(--accent); border: 1px solid var(--rule); }
       .button.ghost:hover { border-color: rgba(43, 88, 138, 0.4); text-decoration: none; }
 
+
+      /* venue badge */
+      .venue {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 20px;
+        padding: 7px 16px 7px 13px;
+        border: 1.5px solid transparent;
+        border-radius: 999px;
+        background:
+          linear-gradient(var(--card), var(--card)) padding-box,
+          linear-gradient(90deg, var(--mode-good), var(--accent)) border-box;
+        box-shadow: 0 4px 16px rgba(43, 88, 138, 0.12);
+        font-family: var(--mono);
+        font-size: 0.84rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: var(--accent);
+      }
+      .venue-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 99px;
+        background: var(--mode-good);
+        box-shadow: 0 0 0 4px rgba(63, 143, 90, 0.16);
+      }
+
       /* shared card surface for every media figure */
       .teaser, .film, .method-film, .carousel-shell, .wide-video, .table-wrap, .equation, .citation-block {
         border: 1px solid var(--rule);
@@ -1077,7 +1105,7 @@
 
     <main id="top">
       <section class="hero">
-        <div class="eyebrow">Preprint · 2026</div>
+        <div class="venue"><span class="venue-dot" aria-hidden="true"></span>CoRL 2026</div>
         <h1>Behavior <em>Un</em>cloning</h1>
         <p class="subtitle">Distilling Mode Redirection into Policy Weights without <span class="nowrap">Inference-Time Steering</span></p>
         <p class="authors">
@@ -1479,13 +1507,11 @@
         <p class="lead">If you find Behavior Uncloning useful, please consider citing:</p>
         <div class="citation-block">
           <button class="citation-copy" type="button" id="cite-copy" aria-label="Copy BibTeX to clipboard">Copy</button>
-          <pre id="bibtex">@misc{wang2026behavioruncloning,
+          <pre id="bibtex">@inproceedings{wang2026behavioruncloning,
       title={Behavior Uncloning: Distilling Mode Redirection into Policy Weights without Inference-Time Steering},
       author={Hao Wang and Jiuzhou Lei and Dayou Li and Bangya Liu and Minghui Zheng and Manling Li and Ruohan Zhang and Zhiwen Fan},
+      booktitle={Conference on Robot Learning (CoRL)},
       year={2026},
-      eprint={2606.29201},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
       url={https://arxiv.org/abs/2606.29201},
 }</pre>
         </div>
